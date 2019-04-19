@@ -1,6 +1,8 @@
 export class mats {
 
+    //aaaa
     private zoneA: number[][];
+    private zoneZ: number[][];
     private zoneB: number[][];
     private zoneC: number[][];
 
@@ -10,6 +12,8 @@ export class mats {
 
     private zoneG: number[][];
     private zoneH: number[][];
+
+  
 
     private audioData: any;
 
@@ -22,6 +26,7 @@ export class mats {
         this.zoneF = [];
         this.zoneG = [];
         this.zoneH = [];
+        this.zoneZ = [];
         this.audioData = pAudioData;
     }
 

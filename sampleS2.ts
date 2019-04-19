@@ -51,7 +51,6 @@ export class s2 {
         // console.log(zone[0]);
         // console.log(zone[1]);
         // console.log('*******************');
-        //--------------------------------
         // console.log(zonesStr[0]);
         // console.log(zonesStr[1]);
     }

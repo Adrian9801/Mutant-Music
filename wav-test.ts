@@ -71,6 +71,4 @@ readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\s2.wav").then((buffer) 
 //     fs.writeFileSync("C:\\Users\\USER\\Desktop\\newsulky.wav", new Buffer(buffer));
 //   });
 
-
-
 });

@@ -1,6 +1,7 @@
-export declare class s2 {
-    zonesStr: string[];
+export declare class samples {
+    zonesStr: number[];
     zones: number[];
+    zonesTime: number;
     private BeginZone;
     private FinalZone;
     private BeginPoint;

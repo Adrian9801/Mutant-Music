@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var s2 = /** @class */ (function () {
-    function s2(pAudioData) {
+var samples = /** @class */ (function () {
+    function samples(pAudioData) {
+        this.zonesTime = 0;
         this.zones = [];
         this.zonesStr = [];
         this.BeginPoint = 0;
@@ -10,9 +11,9 @@ var s2 = /** @class */ (function () {
         this.FinalZone = "";
         this.audioData = pAudioData;
     }
-    s2.prototype.mainComponent = function () {
+    samples.prototype.mainComponent = function () {
         var audioLength = this.audioData.channelData[0].length; // largo del audio
-        var nowZone = "";
+        var nowZone;
         var point; //temp para guardar los datos de una zona 
         var zone = []; //temp para guardar los datos de una zona 
         var zonesStr = []; //temp para guardar los datos de una zona 
@@ -20,20 +21,22 @@ var s2 = /** @class */ (function () {
         this.FinalPoint = this.audioData.channelData[0][audioLength - 1];
         this.zones.push(this.BeginPoint);
         this.zones.push(this.FinalPoint);
+        // this.zonesTime[0] = 0;
+        this.zonesTime = audioLength - 1;
         for (var i = 0; i <= this.zones.length - 1; i++) {
             point = this.zones[i];
-            console.log('///////////////////////' + point);
+            // console.log('///////////////////////'+ point);
             if (point >= 0.5) {
-                nowZone = "A";
+                nowZone = 1;
             }
             else if (point >= 0) {
-                nowZone = "B";
+                nowZone = 2;
             }
             else if (point >= -0.5) {
-                nowZone = "C";
+                nowZone = 3;
             }
             else {
-                nowZone = "D";
+                nowZone = 4;
             }
             this.zonesStr.push(nowZone);
         }
@@ -44,7 +47,7 @@ var s2 = /** @class */ (function () {
         // console.log(zonesStr[0]);
         // console.log(zonesStr[1]);
     };
-    return s2;
+    return samples;
 }());
-exports.s2 = s2;
+exports.samples = samples;
 //# sourceMappingURL=sampleS2.js.map

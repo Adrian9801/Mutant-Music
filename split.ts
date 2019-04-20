@@ -152,4 +152,36 @@ export class splits {
             
         }
     }
+
+    public getZone(zone: number) :(number[][]) {
+        switch (zone) {
+            case 1: {
+                return  this.zoneA;
+            }
+            case 2: {
+                return  this.zoneB;
+            }
+            case 3: {
+                return  this.zoneC;
+            }
+            case 4: {
+                return  this.zoneD;
+            }
+        }   
+        return  this.zoneE;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

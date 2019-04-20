@@ -8,11 +8,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs = __importStar(require("fs"));
-// import { complex as fft } from 'fft';
-var WavEncoder = __importStar(require("wav-encoder"));
 // import { default as ft } from 'fourier-transform';
 var WavDecoder = __importStar(require("wav-decoder"));
+var split_1 = require("./split");
 var sampleS2_1 = require("./sampleS2");
+var area_1 = require("./area");
 var readFile = function (filepath) {
     return new Promise(function (resolve, reject) {
         fs.readFile(filepath, function (err, buffer) {
@@ -23,36 +23,42 @@ var readFile = function (filepath) {
         });
     });
 };
-readFile("C:\\Users\\USER\\Documents\\VisualCode\\Wav\\ssi.wav").then(function (buffer) {
+readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\s2.wav").then(function (buffer) {
     return WavDecoder.decode(buffer);
 }).then(function (audioData) {
     console.log("ampliando 30%");
     var size = 20000;
-    var ss = new sampleS2_1.s2(audioData);
+    var ss = new sampleS2_1.samples(audioData);
+    var pp = new area_1.areas();
     ss.mainComponent();
     console.log('*******************');
+    console.log(ss.zonesTime);
     console.log(ss.zones[0]);
     console.log(ss.zones[1]);
-    console.log('*******************');
     console.log(ss.zonesStr[0]);
     console.log(ss.zonesStr[1]);
-    // var s = new mats(audioData);
-    // s.splitSong();
-    console.log("listo");
-    for (var i = 0; i < 5; i++) {
-        console.log(audioData.channelData[0][i]);
-        console.log(audioData.channelData[1][i]);
-        console.log('*******************');
-    }
+    // pp.waveArea(0,ss.zonesTime,ss.zones[0],ss.zones[1]);
+    console.log('El area de la muestra es ' + pp.waveArea(0, ss.zonesTime, ss.zones[0], ss.zones[1]));
+    var s = new split_1.splits(audioData);
+    s.splitSong();
+    var zone1;
+    var zone2;
+    zone1 = s.getZone(ss.zonesStr[0]);
+    console.log("listo" + zone1[0][1]);
+    // for (var i = 0; i < 5; i++) {
+    //   console.log(audioData.channelData[0][i]);//IZQ
+    //   console.log(audioData.channelData[1][i]);//DER
+    //   console.log('*******************');
+    // }
     for (var i = 44100 * 5; i < 44100 * 10; i++) {
         audioData.channelData[0][i - 44100 * 5] = audioData.channelData[0][i];
     }
     for (var i = 44100 * 11; i < 44100 * 16; i++) {
         audioData.channelData[0][i + 44100 * 6] = audioData.channelData[0][i];
     }
-    console.log("writing...");
-    WavEncoder.encode(audioData).then(function (buffer) {
-        fs.writeFileSync("C:\\Users\\USER\\Desktop\\newsulky.wav", new Buffer(buffer));
-    });
+    //   console.log("writing...");
+    //   WavEncoder.encode(audioData).then((buffer: any) => {
+    //     fs.writeFileSync("C:\\Users\\USER\\Desktop\\newsulky.wav", new Buffer(buffer));
+    //   });
 });
 //# sourceMappingURL=wav-test.js.map

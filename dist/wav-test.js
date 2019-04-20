@@ -44,7 +44,11 @@ readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\s2.wav").then(function 
     var zone1;
     var zone2;
     zone1 = s.getZone(ss.zonesStr[0]);
-    console.log("listo" + zone1[0][1]);
+    zone2 = s.getZone(ss.zonesStr[1]);
+    console.log("cantidad de secciones de la zona 1 " + zone1.length);
+    console.log("cantidad de secciones de la zona 2 " + zone2.length);
+    console.log("zona 1 " + zone1[0][2]);
+    console.log("zona 2 " + zone2[0][1]);
     // for (var i = 0; i < 5; i++) {
     //   console.log(audioData.channelData[0][i]);//IZQ
     //   console.log(audioData.channelData[1][i]);//DER

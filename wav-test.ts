@@ -4,7 +4,7 @@ import * as WavEncoder from 'wav-encoder';
 // import { default as ft } from 'fourier-transform';
 import * as WavDecoder from 'wav-decoder';
 
-import { mats } from "./match";
+
 import { s2 } from "./sampleS2";
 
 
@@ -35,14 +35,13 @@ readFile("C:\\Users\\USER\\Documents\\VisualCode\\Wav\\ssi.wav").then((buffer) =
   // console.log(ss.zonesStr[0]);
   // console.log(ss.zonesStr[1]);
 
-  var s = new mats(audioData);
-  s.splitSong();
+
 
   console.log("listo");
 
   for (var i = 0; i < 5; i++) {
-    console.log(audioData.channelData[0][i]);
-    console.log(audioData.channelData[1][i]);
+    console.log(audioData.channelData[0][i]);//IZQ
+    console.log(audioData.channelData[1][i]);//DER
     console.log('*******************');
   }
 

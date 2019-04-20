@@ -2,6 +2,7 @@ export class s2 {
 
     public zonesStr: string[];
     public zones: number[];
+   // public zonesTime: number[];
 
     private BeginZone: string;
     private FinalZone: string;
@@ -12,6 +13,7 @@ export class s2 {
     private audioData: any;
 
     public constructor(pAudioData: any) {
+       // this.zonesTime = [];
         this.zones = [];
         this.zonesStr = [];
         this.BeginPoint = 0;
@@ -34,6 +36,9 @@ export class s2 {
         this.FinalPoint = this.audioData.channelData[0][audioLength-1];
         this.zones.push(this.BeginPoint);
         this.zones.push(this.FinalPoint);
+        // this.zonesTime[0] = 0;
+        // this.zonesTime[0] = audioLength-1;
+
 
        
         for (var i = 0; i <= this.zones.length-1 ; i++) {

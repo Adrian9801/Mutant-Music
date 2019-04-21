@@ -1,10 +1,11 @@
 export declare class samples {
     zonesStr: number[];
+    pointZonesStr: number[];
     zones: number[];
     zonesTime: number;
-    private BeginPoint;
-    private FinalPoint;
+    private audioLength;
     private audioData;
     constructor(pAudioData: any);
-    mainComponent(): void;
+    setPoints(pCantPoint: number): void;
+    mainComponent(pCantCod: number): void;
 }

@@ -5,19 +5,28 @@ var samples = /** @class */ (function () {
         this.zonesTime = 0;
         this.zones = [];
         this.zonesStr = [];
-        this.BeginPoint = 0;
-        this.FinalPoint = 0;
+        this.pointZonesStr = [];
         this.audioData = pAudioData;
+        this.audioLength = this.audioData.channelData[0].length; // largo del audio
     }
-    samples.prototype.mainComponent = function () {
-        var audioLength = this.audioData.channelData[0].length; // largo del audio
+    samples.prototype.setPoints = function (pCantPoint) {
+        var point;
+        var auxPointIterator;
+        point = this.audioData.channelData[0][0];
+        this.pointZonesStr.push(point); // se guarda los puntos para la razon de crecimiento
+        this.zones.push(point);
+        for (var i = pCantPoint - 1; i !== 0; i--) {
+            auxPointIterator = Math.round(((this.audioLength - 1) / i));
+            point = this.audioData.channelData[0][auxPointIterator];
+            this.pointZonesStr.push(point); // se guarda los puntos para la razon de crecimiento
+            this.zones.push(point);
+        }
+    };
+    samples.prototype.mainComponent = function (pCantCod) {
+        this.setPoints(pCantCod);
         var nowZone;
         var point; //temp para guardar los datos de una zona 
-        this.BeginPoint = this.audioData.channelData[0][0];
-        this.FinalPoint = this.audioData.channelData[0][audioLength - 1];
-        this.zones.push(this.BeginPoint);
-        this.zones.push(this.FinalPoint);
-        this.zonesTime = audioLength - 1;
+        this.zonesTime = this.audioLength - 1;
         for (var i = 0; i <= this.zones.length - 1; i++) {
             point = this.zones[i];
             // console.log('///////////////////////'+ point);
@@ -46,6 +55,7 @@ var samples = /** @class */ (function () {
             else {
                 nowZone = 8;
             }
+            console.log(nowZone);
             this.zonesStr.push(nowZone);
         }
     };

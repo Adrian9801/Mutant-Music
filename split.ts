@@ -4,7 +4,7 @@ export class splits {
     public zoneB: number[][];
     public zoneC: number[][];
     public zoneD: number[][];
-    
+
     private zoneE: number[][];
     private zoneF: number[][];
 
@@ -26,10 +26,7 @@ export class splits {
     }
 
     public splitSong() {
-        var pSpliteSize: number = 1;// cantidad de pisos
         var audioLength = this.audioData.channelData[0].length;// largo del audio
-        var accepted: number;//
-
         var firstTime: boolean = true;
         var lastZone: number = 0;
         var nowZone: number = 0;
@@ -37,88 +34,35 @@ export class splits {
         var point: number;//temp para guardar los datos de una zona 
         var zone: number[] = [];//temp para guardar los datos de una zona 
 
-        switch (pSpliteSize) {
 
-            case 1: {
-                for (var i = 0; i < audioLength; i++) {
-                   
-                    accepted = Math.floor(Math.random() * 2);//switch de canales
+        for (var i = 0; i < audioLength; i++) {
 
-                    if (accepted < 2) {
+            point = this.audioData.channelData[0][i];
 
-                        point = this.audioData.channelData[0][i];
+            if (!firstTime) {// sino es la primera vez
 
-                        if (!firstTime) {// sino es la primera vez
+                // asigna nuevo valor a nowZone
+                if (point >= 0.5) { nowZone = 1 }
+                else if (point >= 0) { nowZone = 2 }
+                else if (point >= -0.5) { nowZone = 3 }
+                else { nowZone = 4 }
 
-                            // asigna nuevo valor a nowZone
-                            if (point >= 0.5) { nowZone = 1 }
-                            else if (point >= 0) { nowZone = 2 }
-                            else if (point >= -0.5) { nowZone = 3 }
-                            else { nowZone = 4 }
-
-                            if (lastZone == nowZone) {// si las zonas son iguales sigue anadiendo puntos
-                                zone.push(point);
-                            } 
-                            else {//si las zonas cambian o sea se brinca de una zona a otra 
-                                this.insertZone(lastZone, Object.assign([], zone));// guarda los datos de toda la zona pasada
-                                zone = [];// refresca el temp de lazona
-                                lastZone = nowZone;
-                                zone.push(point);
-                            }
-                        } else {// solo para el primer caso
-                            zone.push(point);
-                            if (point >= 0.5) { lastZone = nowZone = 1 }///ZONE A
-                            else if (point >= 0) { lastZone = nowZone = 2 }//ZONE B
-                            else if (point >= -0.5) { lastZone = nowZone = 3 }// ZONE C
-                            else { lastZone = nowZone = 4 }// ZONE D
-                            firstTime = false;
-                        }
-                    }
+                if (lastZone == nowZone) {// si las zonas son iguales sigue anadiendo puntos
+                    zone.push(point);
                 }
-
-            }
-
-
-            case 2: {
-                for (var i = 0; i < audioLength; i++) {
-                    accepted = Math.floor(Math.random() * 2);//switch de canales
-
-                    if (accepted < 2) {
-
-                        point = this.audioData.channelData[0][i];
-
-                        if (!firstTime) {// sino es la primera vez
-
-                            // asigna nuevo valor a nowZone
-                            if (point >= 0.6) { nowZone = 1}
-                            else if (point >= 0.3) { nowZone = 2 }
-                            else if (point >= 0) { nowZone = 3 }
-                            else if (point >= -0.3) { nowZone = 4 }
-                            else if (point >= -0.6) { nowZone = 5 }
-                            else { nowZone = 6 }
-
-                            if (lastZone == nowZone) {// si las zonas son iguales sigue anadiendo puntos
-                                zone.push(point);
-                            } 
-                            else {//si las zonas cambian o sea se brinca de una zona a otra 
-                                this.insertZone(lastZone, Object.assign([], zone));// guarda los datos de toda la zona pasada
-                                zone = [];// refresca el temp de lazona
-                                lastZone = nowZone;
-                                zone.push(point);
-                            }
-                        } else {// solo para el primer caso
-                            zone.push(point);
-                            if (point >= 0.6) {lastZone = nowZone = 1}
-                            else if (point >= 0.3) { lastZone = nowZone = 2 }
-                            else if (point >= 0) { lastZone = nowZone = 3 }
-                            else if (point >= -0.3) { lastZone = nowZone = 4 }
-                            else if (point >= -0.6) { lastZone = nowZone = 5 }
-                            else {lastZone = nowZone = 6}
-                            firstTime = false;
-                        }
-                    }
+                else {//si las zonas cambian o sea se brinca de una zona a otra 
+                    this.insertZone(lastZone, Object.assign([], zone));// guarda los datos de toda la zona pasada
+                    zone = [];// refresca el temp de lazona
+                    lastZone = nowZone;
+                    zone.push(point);//guarda el punto 
                 }
-
+            } else {// solo para el primer caso
+                zone.push(point);
+                if (point >= 0.5) { lastZone = nowZone = 1 }///ZONE A
+                else if (point >= 0) { lastZone = nowZone = 2 }//ZONE B
+                else if (point >= -0.5) { lastZone = nowZone = 3 }// ZONE C
+                else { lastZone = nowZone = 4 }// ZONE D
+                firstTime = false;
             }
         }
     }
@@ -137,38 +81,38 @@ export class splits {
                 this.zoneC.push(pZone);
                 break;
             }
-            case 4:{
+            case 4: {
                 this.zoneD.push(pZone);
                 break;
             }
-            case 5:{
+            case 5: {
                 this.zoneE.push(pZone);
                 break;
             }
-            case 6:{
+            case 6: {
                 this.zoneF.push(pZone);
                 break;
             }
-            
+
         }
     }
 
-    public getZone(zone: number) :(number[][]) {
+    public getZone(zone: number): (number[][]) {
         switch (zone) {
             case 1: {
-                return  this.zoneA;
+                return this.zoneA;
             }
             case 2: {
-                return  this.zoneB;
+                return this.zoneB;
             }
             case 3: {
-                return  this.zoneC;
+                return this.zoneC;
             }
             case 4: {
-                return  this.zoneD;
+                return this.zoneD;
             }
-        }   
-        return  this.zoneE;
+        }
+        return this.zoneE;
     }
 
 

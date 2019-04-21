@@ -5,12 +5,12 @@ export class splits {
     public zoneC: number[][];
     public zoneD: number[][];
 
-    private zoneE: number[][];
-    private zoneF: number[][];
+    public zoneE: number[][];
+    public zoneF: number[][];
+    public zoneG: number[][];
+    public zoneH: number[][];
 
-    private zoneG: number[][];
-    private zoneH: number[][];
-
+    public  dumppi: number[][];
     private audioData: any;
 
     public constructor(pAudioData: any) {
@@ -22,6 +22,7 @@ export class splits {
         this.zoneF = [];
         this.zoneG = [];
         this.zoneH = [];
+        this.dumppi= [];
         this.audioData = pAudioData;
     }
 
@@ -35,6 +36,37 @@ export class splits {
         var zone: number[] = [];//temp para guardar los datos de una zona 
 
 
+        // for (var i = 0; i < audioLength; i++) {
+
+        //     point = this.audioData.channelData[0][i];
+
+        //     if (!firstTime) {// sino es la primera vez
+
+        //         // asigna nuevo valor a nowZone
+        //         if (point >= 0.5) { nowZone = 1 }
+        //         else if (point >= 0) { nowZone = 2 }
+        //         else if (point >= -0.5) { nowZone = 3 }
+        //         else { nowZone = 4 }
+
+        //         if (lastZone == nowZone) {// si las zonas son iguales sigue anadiendo puntos
+        //             zone.push(point);
+        //         }
+        //         else {//si las zonas cambian o sea se brinca de una zona a otra 
+        //             this.insertZone(lastZone, Object.assign([], zone));// guarda los datos de toda la zona pasada
+        //             zone = [];// refresca el temp de lazona
+        //             lastZone = nowZone;
+        //             zone.push(point);//guarda el punto 
+        //         }
+        //     } else {// solo para el primer caso
+        //         zone.push(point);
+        //         if (point >= 0.5) { lastZone = nowZone = 1 }///ZONE A
+        //         else if (point >= 0) { lastZone = nowZone = 2 }//ZONE B
+        //         else if (point >= -0.5) { lastZone = nowZone = 3 }// ZONE C
+        //         else { lastZone = nowZone = 4 }// ZONE D
+        //         firstTime = false;
+        //     }
+        // }
+
         for (var i = 0; i < audioLength; i++) {
 
             point = this.audioData.channelData[0][i];
@@ -42,26 +74,37 @@ export class splits {
             if (!firstTime) {// sino es la primera vez
 
                 // asigna nuevo valor a nowZone
-                if (point >= 0.5) { nowZone = 1 }
-                else if (point >= 0) { nowZone = 2 }
-                else if (point >= -0.5) { nowZone = 3 }
-                else { nowZone = 4 }
+                if (point >= 0.75) { nowZone = 1 }
+                else if (point >= 0.5) { nowZone = 2 }
+                else if (point >= 0.25) { nowZone = 3 }
+                else if (point >= 0) { nowZone = 4 }
+                //-----------------------------------------------------------------LINEA CATESIANA X
+                else if (point >= -0.25) { nowZone = 5 }
+                else if (point >= -0.5) { nowZone = 6 }
+                else if (point >= -0.75) { nowZone = 7 }
+                else { nowZone = 8 }
 
                 if (lastZone == nowZone) {// si las zonas son iguales sigue anadiendo puntos
                     zone.push(point);
-                }
-                else {//si las zonas cambian o sea se brinca de una zona a otra 
+                } else {//si las zonas cambian o sea se brinca de una zona a otra 
                     this.insertZone(lastZone, Object.assign([], zone));// guarda los datos de toda la zona pasada
                     zone = [];// refresca el temp de lazona
                     lastZone = nowZone;
-                    zone.push(point);//guarda el punto 
+                    zone.push(point);
                 }
+
             } else {// solo para el primer caso
                 zone.push(point);
-                if (point >= 0.5) { lastZone = nowZone = 1 }///ZONE A
-                else if (point >= 0) { lastZone = nowZone = 2 }//ZONE B
-                else if (point >= -0.5) { lastZone = nowZone = 3 }// ZONE C
-                else { lastZone = nowZone = 4 }// ZONE D
+                // asigna nuevo valor a nowZone
+                if (point >= 0.75) { lastZone = nowZone = 1 }
+                else if (point >= 0.5) { lastZone = nowZone = 2 }
+                else if (point >= 0.25) { lastZone = nowZone = 3 }
+                else if (point >= 0) { lastZone = nowZone = 4 }
+                //-----------------------------------------------------------------LINEA CATESIANA X
+                else if (point >= -0.25) { lastZone = nowZone = 5 }
+                else if (point >= -0.5) { lastZone = nowZone = 6 }
+                else if (point >= -0.75) { lastZone = nowZone = 7 }
+                else { lastZone = nowZone = 8 }
                 firstTime = false;
             }
         }
@@ -93,6 +136,14 @@ export class splits {
                 this.zoneF.push(pZone);
                 break;
             }
+            case 7: {
+                this.zoneG.push(pZone);
+                break;
+            }
+            case 8: {
+                this.zoneH.push(pZone);
+                break;
+            }
 
         }
     }
@@ -111,21 +162,19 @@ export class splits {
             case 4: {
                 return this.zoneD;
             }
+            case 5: {
+                return this.zoneE;
+            }
+            case 6: {
+                return this.zoneF;
+            }
+            case 7: {
+                return this.zoneG;
+            }
+            case 8: {
+                return this.zoneH;
+            }
         }
-        return this.zoneE;
+        return this.dumppi;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

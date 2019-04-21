@@ -44,14 +44,29 @@ readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\Dua.wav").then((buffer)
 
   let zone1: number[][];
   let zone2: number[][];
+  let zone3: number[][];
+  let zone4: number[][];
+  let zone5: number[][];
+  let zone6: number[][];
   
-  zone1 = s.getZone(ss.zonesStr[0]);
-  zone2 = s.getZone(ss.zonesStr[1]);
+  zone1 = s.getZone(1);
+  zone2 = s.getZone(2);
+  zone3 = s.getZone(3);
+  zone4 = s.getZone(4);
+  zone5 = s.getZone(5);
+  zone6 = s.getZone(6);
+  //zone2 = s.getZone(ss.zonesStr[1]);
   
-  console.log("cantidad de secciones de la zona 1 " + zone1.length);
-  console.log("cantidad de secciones de la zona 2 " + zone2.length);
+  console.log("cantidad de secciones de la zona A " + zone1.length);
+  console.log("cantidad de secciones de la zona B " + zone2.length);
+  console.log("cantidad de secciones de la zona C " + zone3.length);
+  console.log("cantidad de secciones de la zona D " + zone4.length);
+  console.log("cantidad de secciones de la zona E " + zone5.length);
+  console.log("cantidad de secciones de la zona F " + zone6.length);
+ // console.log("cantidad de secciones de la zona 2 " + zone2.length);
 
   console.log("zona 1 " + zone1.length);
+  //console.log("zona 2 " + zone2.length);
  // console.log("zona 2 " + zone2[1].length);
 
   // for (var i = 0; i < 5; i++) {

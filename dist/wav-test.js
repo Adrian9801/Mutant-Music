@@ -43,11 +43,26 @@ readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\Dua.wav").then(function
     s.splitSong();
     var zone1;
     var zone2;
-    zone1 = s.getZone(ss.zonesStr[0]);
-    zone2 = s.getZone(ss.zonesStr[1]);
+    var zone3;
+    var zone4;
+    var zone5;
+    var zone6;
+    zone1 = s.getZone(1);
+    zone2 = s.getZone(2);
+    zone3 = s.getZone(3);
+    zone4 = s.getZone(4);
+    zone5 = s.getZone(5);
+    zone6 = s.getZone(6);
+    //zone2 = s.getZone(ss.zonesStr[1]);
     console.log("cantidad de secciones de la zona 1 " + zone1.length);
     console.log("cantidad de secciones de la zona 2 " + zone2.length);
+    console.log("cantidad de secciones de la zona 3 " + zone3.length);
+    console.log("cantidad de secciones de la zona 4 " + zone4.length);
+    console.log("cantidad de secciones de la zona 5 " + zone5.length);
+    console.log("cantidad de secciones de la zona 6 " + zone6.length);
+    // console.log("cantidad de secciones de la zona 2 " + zone2.length);
     console.log("zona 1 " + zone1.length);
+    //console.log("zona 2 " + zone2.length);
     // console.log("zona 2 " + zone2[1].length);
     // for (var i = 0; i < 5; i++) {
     //   console.log(audioData.channelData[0][i]);//IZQ

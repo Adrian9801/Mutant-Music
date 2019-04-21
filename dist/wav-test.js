@@ -21,7 +21,7 @@ var readFile = function (filepath) {
         });
     });
 };
-readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\Dua.wav").then(function (buffer) {
+readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\s2.wav").then(function (buffer) {
     return WavDecoder.decode(buffer);
 }).then(function (audioData) {
     console.log("ampliando 30%");

@@ -21,7 +21,7 @@ const readFile = (filepath: string) => {
 };
 
 
-readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\Dua.wav").then((buffer) => {
+readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\s2.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
   console.log("ampliando 30%");

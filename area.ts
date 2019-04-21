@@ -1,5 +1,5 @@
 export class areas {
-
+ // console.log('El area de la muestra es ' + pp.waveArea(0,ss.zonesTime,ss.zones[0],ss.zones[1]));
 
     //   _c1__                                
     //   |   | 

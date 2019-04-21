@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var areas = /** @class */ (function () {
     function areas() {
     }
+    // console.log('El area de la muestra es ' + pp.waveArea(0,ss.zonesTime,ss.zones[0],ss.zones[1]));
     //   _c1__                                
     //   |   | 
     // l1|   |l2   

@@ -3,10 +3,11 @@ export declare class splits {
     zoneB: number[][];
     zoneC: number[][];
     zoneD: number[][];
-    private zoneE;
-    private zoneF;
-    private zoneG;
-    private zoneH;
+    zoneE: number[][];
+    zoneF: number[][];
+    zoneG: number[][];
+    zoneH: number[][];
+    dumppi: number[][];
     private audioData;
     constructor(pAudioData: any);
     splitSong(): void;

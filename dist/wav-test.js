@@ -12,7 +12,6 @@ var fs = __importStar(require("fs"));
 var WavDecoder = __importStar(require("wav-decoder"));
 var split_1 = require("./split");
 var sampleS2_1 = require("./sampleS2");
-var area_1 = require("./area");
 var readFile = function (filepath) {
     return new Promise(function (resolve, reject) {
         fs.readFile(filepath, function (err, buffer) {
@@ -28,56 +27,66 @@ readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\Dua.wav").then(function
 }).then(function (audioData) {
     console.log("ampliando 30%");
     var size = 20000;
-    var ss = new sampleS2_1.samples(audioData);
-    var pp = new area_1.areas();
-    ss.mainComponent();
-    console.log('*******************');
-    console.log(ss.zonesTime);
-    console.log(ss.zones[0]);
-    console.log(ss.zones[1]);
-    console.log(ss.zonesStr[0]);
-    console.log(ss.zonesStr[1]);
-    // pp.waveArea(0,ss.zonesTime,ss.zones[0],ss.zones[1]);
-    console.log('El area de la muestra es ' + pp.waveArea(0, ss.zonesTime, ss.zones[0], ss.zones[1]));
-    var s = new split_1.splits(audioData);
-    s.splitSong();
+    ////////////////////////////////////////////////////////////////////
+    var clasesamples = new sampleS2_1.samples(audioData);
+    clasesamples.mainComponent();
+    console.log('////////////////////////////////////////////////');
+    console.log("cantidad total de datos" + clasesamples.zonesTime);
+    console.log("Primer dato " + clasesamples.zones[0]);
+    console.log("Ultimo dato " + clasesamples.zones[1]);
+    console.log("Primer sector " + clasesamples.zonesStr[0]);
+    console.log("Segundo sector " + clasesamples.zonesStr[1]);
+    console.log('////////////////////////////////////////////////');
+    ////////////////////////////////////////////////////////////////////
+    console.log('');
+    ////////////////////////////////////////////////////////////////////
+    var clasesplit = new split_1.splits(audioData);
+    clasesplit.splitSong();
     var zone1;
     var zone2;
     var zone3;
     var zone4;
     var zone5;
     var zone6;
-    zone1 = s.getZone(1);
-    zone2 = s.getZone(2);
-    zone3 = s.getZone(3);
-    zone4 = s.getZone(4);
-    zone5 = s.getZone(5);
-    zone6 = s.getZone(6);
-    //zone2 = s.getZone(ss.zonesStr[1]);
-    console.log("cantidad de secciones de la zona 1 " + zone1.length);
-    console.log("cantidad de secciones de la zona 2 " + zone2.length);
-    console.log("cantidad de secciones de la zona 3 " + zone3.length);
-    console.log("cantidad de secciones de la zona 4 " + zone4.length);
-    console.log("cantidad de secciones de la zona 5 " + zone5.length);
-    console.log("cantidad de secciones de la zona 6 " + zone6.length);
-    // console.log("cantidad de secciones de la zona 2 " + zone2.length);
-    console.log("zona 1 " + zone1.length);
-    //console.log("zona 2 " + zone2.length);
-    // console.log("zona 2 " + zone2[1].length);
-    // for (var i = 0; i < 5; i++) {
-    //   console.log(audioData.channelData[0][i]);//IZQ
-    //   console.log(audioData.channelData[1][i]);//DER
-    //   console.log('*******************');
-    // }
-    for (var i = 44100 * 5; i < 44100 * 10; i++) {
-        audioData.channelData[0][i - 44100 * 5] = audioData.channelData[0][i];
-    }
-    for (var i = 44100 * 11; i < 44100 * 16; i++) {
-        audioData.channelData[0][i + 44100 * 6] = audioData.channelData[0][i];
-    }
-    //   console.log("writing...");
-    //   WavEncoder.encode(audioData).then((buffer: any) => {
-    //     fs.writeFileSync("C:\\Users\\USER\\Desktop\\newsulky.wav", new Buffer(buffer));
-    //   });
+    var zone7;
+    var zone8;
+    zone1 = clasesplit.getZone(1);
+    zone2 = clasesplit.getZone(2);
+    zone3 = clasesplit.getZone(3);
+    zone4 = clasesplit.getZone(4);
+    zone5 = clasesplit.getZone(5);
+    zone6 = clasesplit.getZone(6);
+    zone7 = clasesplit.getZone(7);
+    zone8 = clasesplit.getZone(8);
+    console.log("///////////////////////////////////////////////////");
+    console.log("cantidad de secciones de la zona A " + zone1.length);
+    console.log("cantidad de secciones de la zona B " + zone2.length);
+    console.log("cantidad de secciones de la zona C " + zone3.length);
+    console.log("cantidad de secciones de la zona D " + zone4.length);
+    console.log("EJE X-----------------------------------------------");
+    console.log("cantidad de secciones de la zona E " + zone5.length);
+    console.log("cantidad de secciones de la zona F " + zone6.length);
+    console.log("cantidad de secciones de la zona G " + zone7.length);
+    console.log("cantidad de secciones de la zona H " + zone8.length);
+    console.log("///////////////////////////////////////////////////");
+    ////////////////////////////////////////////////////////////////////
 });
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//-----------------------------------------------------RODRI------------------------------------------------//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// for (var i = 0; i < 5; i++) {
+//   console.log(audioData.channelData[0][i]);//IZQ
+//   console.log(audioData.channelData[1][i]);//DER
+//   console.log('*******************');
+// }
+// for (var i = 44100 * 5; i < 44100 * 10; i++) {
+//   audioData.channelData[0][i - 44100 * 5] = audioData.channelData[0][i];
+// }
+// for (var i = 44100 * 11; i < 44100 * 16; i++) {
+//   audioData.channelData[0][i + 44100 * 6] = audioData.channelData[0][i];
+// }
+//   console.log("writing...");
+//   WavEncoder.encode(audioData).then((buffer: any) => {
+//     fs.writeFileSync("C:\\Users\\USER\\Desktop\\newsulky.wav", new Buffer(buffer));
+//   });
 //# sourceMappingURL=wav-test.js.map

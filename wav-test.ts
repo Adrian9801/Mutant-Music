@@ -21,7 +21,7 @@ const readFile = (filepath: string) => {
 };
 
 
-readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\s2.wav").then((buffer) => {
+readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\Dua.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
   console.log("ampliando 30%");
@@ -31,7 +31,7 @@ readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\s2.wav").then((buffer) 
 
   ////////////////////////////////////////////////////////////////////
   var clasesamples = new samples(audioData);
-  clasesamples .mainComponent(8);
+  clasesamples .mainComponent(7);
   // console.log('////////////////////////////////////////////////');
   // console.log("cantidad total de datos "+clasesamples.zonesTime);
   // console.log("Primer dato "+clasesamples.zones[0]);
@@ -45,39 +45,39 @@ readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\s2.wav").then((buffer) 
   console.log('');
 
 
-  // ////////////////////////////////////////////////////////////////////
-  // var clasesplit = new splits(audioData);
-  // clasesplit.splitSong();
-  // let zone1: number[][];
-  // let zone2: number[][];
-  // let zone3: number[][];
-  // let zone4: number[][];
-  // let zone5: number[][];
-  // let zone6: number[][];
-  // let zone7: number[][];
-  // let zone8: number[][];
+  ////////////////////////////////////////////////////////////////////
+  var clasesplit = new splits(audioData);
+  clasesplit.splitSong();
+  let zone1: number[][];
+  let zone2: number[][];
+  let zone3: number[][];
+  let zone4: number[][];
+  let zone5: number[][];
+  let zone6: number[][];
+  let zone7: number[][];
+  let zone8: number[][];
 
-  // zone1 =  clasesplit.getZone(1);
-  // zone2 =  clasesplit.getZone(2);
-  // zone3 =  clasesplit.getZone(3);
-  // zone4 =  clasesplit.getZone(4);
-  // zone5 =  clasesplit.getZone(5);
-  // zone6 =  clasesplit.getZone(6);
-  // zone7 =  clasesplit.getZone(7);
-  // zone8 =  clasesplit.getZone(8);
+  zone1 =  clasesplit.getZone(1);
+  zone2 =  clasesplit.getZone(2);
+  zone3 =  clasesplit.getZone(3);
+  zone4 =  clasesplit.getZone(4);
+  zone5 =  clasesplit.getZone(5);
+  zone6 =  clasesplit.getZone(6);
+  zone7 =  clasesplit.getZone(7);
+  zone8 =  clasesplit.getZone(8);
  
-  // console.log("///////////////////////////////////////////////////")
-  // console.log("cantidad de secciones de la zona A 1" + zone1.length);
-  // console.log("cantidad de secciones de la zona B 2" + zone2.length);
-  // console.log("cantidad de secciones de la zona C 3" + zone3.length);
-  // console.log("cantidad de secciones de la zona D 4" + zone4.length);
-  // console.log("EJE X-----------------------------------------------")
-  // console.log("cantidad de secciones de la zona E 5" + zone5.length);
-  // console.log("cantidad de secciones de la zona F 6" + zone6.length);
-  // console.log("cantidad de secciones de la zona G 7" + zone7.length);
-  // console.log("cantidad de secciones de la zona H 8" + zone8.length);
-  // console.log("///////////////////////////////////////////////////")
-  // ////////////////////////////////////////////////////////////////////
+  console.log("///////////////////////////////////////////////////")
+  console.log("cantidad de secciones de la zona A 1" + zone1.length);
+  console.log("cantidad de secciones de la zona B 2" + zone2.length);
+  console.log("cantidad de secciones de la zona C 3" + zone3.length);
+  console.log("cantidad de secciones de la zona D 4" + zone4.length);
+  console.log("EJE X-----------------------------------------------")
+  console.log("cantidad de secciones de la zona E 5" + zone5.length);
+  console.log("cantidad de secciones de la zona F 6" + zone6.length);
+  console.log("cantidad de secciones de la zona G 7" + zone7.length);
+  console.log("cantidad de secciones de la zona H 8" + zone8.length);
+  console.log("///////////////////////////////////////////////////")
+  ////////////////////////////////////////////////////////////////////
 
 });
 

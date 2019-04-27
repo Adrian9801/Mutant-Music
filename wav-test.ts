@@ -26,12 +26,12 @@ readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\Dua.wav").then((buffer)
 }).then(function (audioData) {
   console.log("ampliando 30%");
   const size = 20000;
-
+  
   console.log('');
 
   ////////////////////////////////////////////////////////////////////
-  var clasesamples = new samples(audioData);
-  clasesamples .mainComponent(7);
+  // var clasesamples = new samples(audioData);
+  // clasesamples .mainComponent(7);
   // console.log('////////////////////////////////////////////////');
   // console.log("cantidad total de datos "+clasesamples.zonesTime);
   // console.log("Primer dato "+clasesamples.zones[0]);
@@ -48,6 +48,7 @@ readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\Dua.wav").then((buffer)
   ////////////////////////////////////////////////////////////////////
   var clasesplit = new splits(audioData);
   clasesplit.splitSong();
+
   let zone1: number[][];
   let zone2: number[][];
   let zone3: number[][];
@@ -78,6 +79,8 @@ readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\Dua.wav").then((buffer)
   console.log("cantidad de secciones de la zona H 8" + zone8.length);
   console.log("///////////////////////////////////////////////////")
   ////////////////////////////////////////////////////////////////////
+  console.log(zone1[0][0]);
+  console.log(zone1[0][1])
 
 });
 

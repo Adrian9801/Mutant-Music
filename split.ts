@@ -35,6 +35,9 @@ export class splits {
         var point: number;//temp para guardar los datos de una zona 
         var zone: number[] = [];//temp para guardar los datos de una zona 
 
+        var btime:number = 0;
+        var bn:number = 1;
+
         for (var i = 0; i < audioLength; i++) {
 
             point = this.audioData.channelData[0][i];
@@ -53,16 +56,36 @@ export class splits {
                 else { nowZone = 8 }
 
                 if (lastZone == nowZone) {// si las zonas son iguales sigue anadiendo puntos
-                    zone.push(point);
+                    if(i == 44100*(bn)){
+                        bn++;
+                        btime++;
+                        zone.push(point);
+                        zone.push(btime);
+                    }else{
+                        zone.push(point);
+                        zone.push(btime);
+                    }
+        
                 } else {//si las zonas cambian o sea se brinca de una zona a otra 
                     this.insertZone(lastZone, Object.assign([], zone));// guarda los datos de toda la zona pasada
                     zone = [];// refresca el temp de lazona
                     lastZone = nowZone;
-                    zone.push(point);
+                    if(i == 44100*(bn)){
+                        bn++;
+                        btime++;
+                        zone.push(point);//punto
+                        zone.push(btime);//tiempo
+                        // console.log(point);
+                        // console.log(btime);
+                    }else{
+                        zone.push(point);//punto
+                        zone.push(btime);//tiempo
+                    }
                 }
 
             } else {// solo para el primer caso
-                zone.push(point);
+                zone.push(point);//punto
+                zone.push(btime);//tiempo
                 // asigna nuevo valor a nowZone
                 if (point >= 0.75) { lastZone = nowZone = 1 }
                 else if (point >= 0.5) { lastZone = nowZone = 2 }

@@ -22,7 +22,7 @@ export class samples {
         var point:number;
         var auxPointIterator:number
 
-        point = this.audioData.channelData[0][0];
+        point = this.audioData.channelData[0][0];// primer punto guardado
         this.pointZonesStr.push(0);// se guarda los puntos para la razon de crecimiento
         this.zones.push(point);
        
@@ -30,20 +30,22 @@ export class samples {
             auxPointIterator =Math.round(((this.audioLength-1) / i));
             point = this.audioData.channelData[0][auxPointIterator];
             this.pointZonesStr.push(auxPointIterator);// se guarda los puntos para la razon de crecimiento
-            console.log(auxPointIterator);
+            console.log(auxPointIterator+ "//");
             this.zones.push(point);
         }
     }
 
+    // codifica la muestra en "pCantCod" fragmentos 
     public mainComponent(pCantCod:number) {
 
         this.setPoints(pCantCod);
         var nowZone: number;
-        var point: number;//temp para guardar los datos de una zona 
+        var point: number;//temp para guardar los datos de una zona  
         this.zonesTime = this.audioLength-1;
 
         for (var i = 0; i <= this.zones.length-1 ; i++) {
             point = this.zones[i];
+            
            // console.log('///////////////////////'+ point);
             if (point >= 0.75) { nowZone = 1 }
             else if (point >= 0.5) { nowZone = 2 }

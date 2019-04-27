@@ -12,21 +12,22 @@ var samples = /** @class */ (function () {
     samples.prototype.setPoints = function (pCantPoint) {
         var point;
         var auxPointIterator;
-        point = this.audioData.channelData[0][0];
+        point = this.audioData.channelData[0][0]; // primer punto guardado
         this.pointZonesStr.push(0); // se guarda los puntos para la razon de crecimiento
         this.zones.push(point);
         for (var i = pCantPoint - 1; i !== 0; i--) {
             auxPointIterator = Math.round(((this.audioLength - 1) / i));
             point = this.audioData.channelData[0][auxPointIterator];
             this.pointZonesStr.push(auxPointIterator); // se guarda los puntos para la razon de crecimiento
-            console.log(auxPointIterator);
+            console.log(auxPointIterator + "//");
             this.zones.push(point);
         }
     };
+    // codifica la muestra en "pCantCod" fragmentos 
     samples.prototype.mainComponent = function (pCantCod) {
         this.setPoints(pCantCod);
         var nowZone;
-        var point; //temp para guardar los datos de una zona 
+        var point; //temp para guardar los datos de una zona  
         this.zonesTime = this.audioLength - 1;
         for (var i = 0; i <= this.zones.length - 1; i++) {
             point = this.zones[i];

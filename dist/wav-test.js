@@ -11,7 +11,6 @@ var fs = __importStar(require("fs"));
 // import { default as ft } from 'fourier-transform';
 var WavDecoder = __importStar(require("wav-decoder"));
 var split_1 = require("./split");
-var sampleS2_1 = require("./sampleS2");
 var readFile = function (filepath) {
     return new Promise(function (resolve, reject) {
         fs.readFile(filepath, function (err, buffer) {
@@ -29,8 +28,8 @@ readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\Dua.wav").then(function
     var size = 20000;
     console.log('');
     ////////////////////////////////////////////////////////////////////
-    var clasesamples = new sampleS2_1.samples(audioData);
-    clasesamples.mainComponent(7);
+    // var clasesamples = new samples(audioData);
+    // clasesamples .mainComponent(7);
     // console.log('////////////////////////////////////////////////');
     // console.log("cantidad total de datos "+clasesamples.zonesTime);
     // console.log("Primer dato "+clasesamples.zones[0]);
@@ -71,6 +70,8 @@ readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\Dua.wav").then(function
     console.log("cantidad de secciones de la zona H 8" + zone8.length);
     console.log("///////////////////////////////////////////////////");
     ////////////////////////////////////////////////////////////////////
+    console.log(zone1[0][0]);
+    console.log(zone1[0][1]);
 });
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //-----------------------------------------------------RODRI------------------------------------------------//

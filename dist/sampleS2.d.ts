@@ -5,7 +5,7 @@ export declare class samples {
     zonesTime: number;
     private audioLength;
     private audioData;
+    S2: number[];
     constructor(pAudioData: any);
-    setPoints(pCantPoint: number): void;
-    mainComponent(pCantCod: number): void;
+    dataS2(): void;
 }

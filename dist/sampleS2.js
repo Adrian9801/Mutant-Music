@@ -4,62 +4,21 @@ var samples = /** @class */ (function () {
     function samples(pAudioData) {
         this.zonesTime = 0;
         this.zones = [];
+        this.S2 = [];
         this.zonesStr = [];
         this.pointZonesStr = [];
         this.audioData = pAudioData;
         this.audioLength = this.audioData.channelData[0].length; // largo del audio
     }
-    samples.prototype.setPoints = function (pCantPoint) {
-        var point;
-        var auxPointIterator;
-        point = this.audioData.channelData[0][0]; // primer punto guardado
-        this.pointZonesStr.push(0); // se guarda los puntos para la razon de crecimiento
-        this.zones.push(point);
-        for (var i = pCantPoint - 1; i !== 0; i--) {
-            auxPointIterator = Math.round(((this.audioLength - 1) / i));
-            point = this.audioData.channelData[0][auxPointIterator];
-            this.pointZonesStr.push(auxPointIterator); // se guarda los puntos para la razon de crecimiento
-            console.log(auxPointIterator + "//");
-            this.zones.push(point);
-        }
-    };
-    // codifica la muestra en "pCantCod" fragmentos 
-    samples.prototype.mainComponent = function (pCantCod) {
-        this.setPoints(pCantCod);
-        var nowZone;
-        var point; //temp para guardar los datos de una zona  
-        this.zonesTime = this.audioLength - 1;
-        for (var i = 0; i <= this.zones.length - 1; i++) {
-            point = this.zones[i];
-            // console.log('///////////////////////'+ point);
-            if (point >= 0.75) {
-                nowZone = 1;
-            }
-            else if (point >= 0.5) {
-                nowZone = 2;
-            }
-            else if (point >= 0.25) {
-                nowZone = 3;
-            }
-            else if (point >= 0) {
-                nowZone = 4;
-            }
-            //-----------------------------------------------------------------LINEA CATESIANA X
-            else if (point >= -0.25) {
-                nowZone = 5;
-            }
-            else if (point >= -0.5) {
-                nowZone = 6;
-            }
-            else if (point >= -0.75) {
-                nowZone = 7;
-            }
-            else {
-                nowZone = 8;
-            }
-            console.log(nowZone);
-            this.zonesStr.push(nowZone);
-        }
+    samples.prototype.dataS2 = function () {
+        var audioLength = this.audioData.channelData[0].length - 1; // largo del audio
+        var s2Temp = []; //temp para guardar los datos de una zona 
+        s2Temp.push(this.audioData.channelData[0][0]); //punto
+        s2Temp.push(0); //tiempo
+        s2Temp.push(this.audioData.channelData[0][audioLength]); //punto
+        s2Temp.push(Math.round(audioLength / 44100)); //punto
+        console.log((Math.round(audioLength / 44100)));
+        this.S2 = s2Temp;
     };
     return samples;
 }());

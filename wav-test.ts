@@ -21,7 +21,7 @@ const readFile = (filepath: string) => {
 };
 
 
-readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\Dua.wav").then((buffer) => {
+readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\s3.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
   console.log("ampliando 30%");
@@ -79,8 +79,8 @@ readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\Dua.wav").then((buffer)
   console.log("cantidad de secciones de la zona H 8" + zone8.length);
   console.log("///////////////////////////////////////////////////")
   ////////////////////////////////////////////////////////////////////
-  console.log(zone1[0][0]);
-  console.log(zone1[0][1])
+  // console.log(zone1[0][0]);
+  // console.log(zone1[0][1]);
 
 });
 

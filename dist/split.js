@@ -57,6 +57,8 @@ var splits = /** @class */ (function () {
                         btime++;
                         zone.push(point);
                         zone.push(btime);
+                        console.log(point);
+                        console.log(btime);
                     }
                     else {
                         zone.push(point);
@@ -70,20 +72,20 @@ var splits = /** @class */ (function () {
                     if (i == 44100 * (bn)) {
                         bn++;
                         btime++;
-                        zone.push(point); //punto
-                        zone.push(btime); //tiempo
-                        // console.log(point);
-                        // console.log(btime);
+                        zone.push(point);
+                        zone.push(btime);
                     }
                     else {
-                        zone.push(point); //punto
-                        zone.push(btime); //tiempo
+                        zone.push(point);
+                        zone.push(btime);
                     }
                 }
             }
             else { // solo para el primer caso
-                zone.push(point); //punto
-                zone.push(btime); //tiempo
+                zone.push(point);
+                zone.push(btime);
+                console.log(point);
+                console.log(btime);
                 // asigna nuevo valor a nowZone
                 if (point >= 0.75) {
                     lastZone = nowZone = 1;

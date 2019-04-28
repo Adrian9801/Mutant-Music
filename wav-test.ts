@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as WavEncoder from 'wav-encoder';
 // import { default as ft } from 'fourier-transform';
 import * as WavDecoder from 'wav-decoder';
-
+let area:number;
 import { splits } from "./split";
 import { samples } from "./sampleS2";
 import { areas } from "./area";
@@ -38,7 +38,7 @@ readFile("./Sound/s2.wav").then((buffer) => {
   console.log(clasesamples.S2[4]);
   console.log(clasesamples.S2[5]);
   console.log( clasesarea.waveArea(clasesamples.S2[1],clasesamples.S2[3],clasesamples.S2[0],clasesamples.S2[1])*100+" area");
-
+  area =  clasesarea.waveArea(clasesamples.S2[1],clasesamples.S2[3],clasesamples.S2[0],clasesamples.S2[1])*100;
   // console.log('////////////////////////////////////////////////');
   // console.log("cantidad total de datos "+clasesamples.zonesTime);
   // console.log("Primer dato "+clasesamples.zones[0]);
@@ -93,7 +93,7 @@ readFile("./Sound/s2.wav").then((buffer) => {
   // console.log(zone1[0][1]);
 
   var claseMTC = new MTC();
-  claseMTC.setMC(zone4,zone3,2);
+  claseMTC.setMC(zone4,zone3,area);
 
 });
 

@@ -10,6 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var fs = __importStar(require("fs"));
 // import { default as ft } from 'fourier-transform';
 var WavDecoder = __importStar(require("wav-decoder"));
+var area;
 var split_1 = require("./split");
 var sampleS2_1 = require("./sampleS2");
 var area_1 = require("./area");
@@ -38,6 +39,7 @@ readFile("./Sound/s2.wav").then(function (buffer) {
     console.log(clasesamples.S2[4]);
     console.log(clasesamples.S2[5]);
     console.log(clasesarea.waveArea(clasesamples.S2[1], clasesamples.S2[3], clasesamples.S2[0], clasesamples.S2[1]) * 100 + " area");
+    area = clasesarea.waveArea(clasesamples.S2[1], clasesamples.S2[3], clasesamples.S2[0], clasesamples.S2[1]) * 100;
     // console.log('////////////////////////////////////////////////');
     // console.log("cantidad total de datos "+clasesamples.zonesTime);
     // console.log("Primer dato "+clasesamples.zones[0]);
@@ -85,7 +87,7 @@ readFile("./Sound/Dua.wav").then(function (buffer) {
     // console.log(zone1[0][0]);
     // console.log(zone1[0][1]);
     var claseMTC = new monteCarlo_1.MTC();
-    claseMTC.setMC(zone4, zone3, 2);
+    claseMTC.setMC(zone4, zone3, area);
 });
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //-----------------------------------------------------RODRI------------------------------------------------//

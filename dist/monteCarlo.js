@@ -3,14 +3,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //int valorEntero = Math.floor(Math.random()*(N-M+1)+M);// Valor entre M y N, ambos incluidos.
 //Math.floor(Math.random() * 6) + 1  
 // Math.floor(Math.random() * (max - min + 1)) + min;
+var area_1 = require("./area");
 var MTC = /** @class */ (function () {
     function MTC() {
         this.zoneA = [];
         this.zoneB = [];
+        this.areaS2 = 0;
     }
     MTC.prototype.setMC = function (zone1, zone2, areaS2) {
         this.zoneA = zone1;
         this.zoneB = zone2;
+        this.areaS2 = areaS2;
         this.MC();
     };
     MTC.prototype.MC = function () {
@@ -42,11 +45,13 @@ var MTC = /** @class */ (function () {
         console.log(this.zoneB[randomB][subRandomB]);
         console.log(this.zoneB[randomB][subRandomB + 1]);
         console.log("//////////////////////////////");
-        this.segMonteCarlo(this.zoneA[randomA][subRandomA + 1], this.zoneB[randomB][subRandomB + 1]);
+        this.segMonteCarlo(this.zoneA[randomA][subRandomA + 1], this.zoneB[randomB][subRandomB + 1], this.zoneA[randomA][subRandomA], this.zoneB[randomB][subRandomB]);
     };
-    MTC.prototype.segMonteCarlo = function (segOne, segTwo) {
+    MTC.prototype.segMonteCarlo = function (segOne, segTwo, posOne, posTwo) {
+        var clasesarea = new area_1.areas(); //area de S2 segun datos
         if (segTwo - segOne == 7) {
-            console.log("yes");
+            console.log(this.areaS2);
+            console.log(clasesarea.waveArea(segOne, segTwo, posOne, posTwo) * 100 + " area");
         }
         else {
             console.log("no");

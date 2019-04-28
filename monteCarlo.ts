@@ -6,15 +6,18 @@ export class MTC {
 
     public zoneA: number[][];
     public zoneB: number[][];
+    public areaS2: number;
 
     public constructor() {
         this.zoneA = [];
         this.zoneB = [];
+        this.areaS2=0;
     }
 
     public setMC(zone1: number[][], zone2: number[][], areaS2: number) {
         this.zoneA = zone1;
         this.zoneB = zone2;
+        this.areaS2=areaS2;
         this.MC();
     }
 
@@ -64,7 +67,8 @@ export class MTC {
 
 
 
-        this.segMonteCarlo(this.zoneA[randomA][subRandomA + 1], this.zoneB[randomB][subRandomB + 1]);
+        this.segMonteCarlo(this.zoneA[randomA][subRandomA + 1], this.zoneB[randomB][subRandomB + 1]
+            ,this.zoneA[randomA][subRandomA] , this.zoneB[randomB][subRandomB] );
 
 
 
@@ -76,9 +80,12 @@ export class MTC {
 
     }
 
-    public segMonteCarlo(segOne: number, segTwo: number) {
+    public segMonteCarlo(segOne: number, segTwo: number,posOne:number,posTwo:number) {
+        var clasesarea = new areas();//area de S2 segun datos
         if (segTwo - segOne == 7) {
-            console.log("yes");
+            console.log(this.areaS2 );
+            console.log( clasesarea.waveArea(segOne,segTwo,posOne,posTwo)*100+" area");
+
         } else {
             console.log("no");
             this.MC();

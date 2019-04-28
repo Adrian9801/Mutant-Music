@@ -13,6 +13,7 @@ var WavDecoder = __importStar(require("wav-decoder"));
 var split_1 = require("./split");
 var sampleS2_1 = require("./sampleS2");
 var area_1 = require("./area");
+var monteCarlo_1 = require("./monteCarlo");
 var readFile = function (filepath) {
     return new Promise(function (resolve, reject) {
         fs.readFile(filepath, function (err, buffer) {
@@ -34,6 +35,8 @@ readFile("./Sound/s2.wav").then(function (buffer) {
     var clasesamples = new sampleS2_1.samples(audioData);
     clasesamples.dataS2(); //lee los datos de S2
     var clasesarea = new area_1.areas(); //area de S2 segun datos
+    console.log(clasesamples.S2[4]);
+    console.log(clasesamples.S2[5]);
     console.log(clasesarea.waveArea(clasesamples.S2[1], clasesamples.S2[3], clasesamples.S2[0], clasesamples.S2[1]) * 100 + " area");
     // console.log('////////////////////////////////////////////////');
     // console.log("cantidad total de datos "+clasesamples.zonesTime);
@@ -81,6 +84,8 @@ readFile("./Sound/Dua.wav").then(function (buffer) {
     ////////////////////////////////////////////////////////////////////
     // console.log(zone1[0][0]);
     // console.log(zone1[0][1]);
+    var claseMTC = new monteCarlo_1.MTC();
+    claseMTC.setMC(zone4, zone3, 2);
 });
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //-----------------------------------------------------RODRI------------------------------------------------//

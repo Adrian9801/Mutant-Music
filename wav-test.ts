@@ -7,6 +7,7 @@ import * as WavDecoder from 'wav-decoder';
 import { splits } from "./split";
 import { samples } from "./sampleS2";
 import { areas } from "./area";
+import { MTC } from "./monteCarlo";
 
 
 const readFile = (filepath: string) => {
@@ -34,6 +35,8 @@ readFile("./Sound/s2.wav").then((buffer) => {
   clasesamples.dataS2();//lee los datos de S2
 
   var clasesarea = new areas();//area de S2 segun datos
+  console.log(clasesamples.S2[4]);
+  console.log(clasesamples.S2[5]);
   console.log( clasesarea.waveArea(clasesamples.S2[1],clasesamples.S2[3],clasesamples.S2[0],clasesamples.S2[1])*100+" area");
 
   // console.log('////////////////////////////////////////////////');
@@ -88,6 +91,9 @@ readFile("./Sound/s2.wav").then((buffer) => {
   ////////////////////////////////////////////////////////////////////
   // console.log(zone1[0][0]);
   // console.log(zone1[0][1]);
+
+  var claseMTC = new MTC();
+  claseMTC.setMC(zone4,zone3,2);
 
 });
 

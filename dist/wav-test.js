@@ -10,6 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var fs = __importStar(require("fs"));
 // import { default as ft } from 'fourier-transform';
 var WavDecoder = __importStar(require("wav-decoder"));
+var split_1 = require("./split");
 var sampleS2_1 = require("./sampleS2");
 var area_1 = require("./area");
 var readFile = function (filepath) {
@@ -22,7 +23,8 @@ var readFile = function (filepath) {
         });
     });
 };
-readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\s3.wav").then(function (buffer) {
+//C:\Users\USER\Documents\VisualCode\Mutant-Music\Sound readFile("C:\\Users\\USER\\Documents\\VisualCode\\Mutant-Music\\Sound\\s2.wav").then((buffer) => {
+readFile("./Sound/s2.wav").then(function (buffer) {
     return WavDecoder.decode(buffer);
 }).then(function (audioData) {
     console.log("ampliando 30%");
@@ -30,9 +32,9 @@ readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\s3.wav").then(function 
     console.log('');
     ////////////////////////////////////////////////////////////////////
     var clasesamples = new sampleS2_1.samples(audioData);
-    clasesamples.dataS2();
-    var clasesarea = new area_1.areas();
-    console.log(clasesarea.waveArea(clasesamples.S2[1], clasesamples.S2[3], clasesamples.S2[0], clasesamples.S2[1]) + " area");
+    clasesamples.dataS2(); //lee los datos de S2
+    var clasesarea = new area_1.areas(); //area de S2 segun datos
+    console.log(clasesarea.waveArea(clasesamples.S2[1], clasesamples.S2[3], clasesamples.S2[0], clasesamples.S2[1]) * 100 + " area");
     // console.log('////////////////////////////////////////////////');
     // console.log("cantidad total de datos "+clasesamples.zonesTime);
     // console.log("Primer dato "+clasesamples.zones[0]);
@@ -41,40 +43,44 @@ readFile("C:\\Users\\USER\\Documents\\VisualCode\\Sound\\s3.wav").then(function 
     // console.log("Segundo sector "+clasesamples.zonesStr[1]);
     // console.log('////////////////////////////////////////////////');
     ////////////////////////////////////////////////////////////////////
-    console.log('');
+});
+console.log('');
+readFile("./Sound/Dua.wav").then(function (buffer) {
+    return WavDecoder.decode(buffer);
+}).then(function (audioData) {
     ////////////////////////////////////////////////////////////////////
-    //   var clasesplit = new splits(audioData);
-    //   clasesplit.splitSong();
-    //   let zone1: number[][];
-    //   let zone2: number[][];
-    //   let zone3: number[][];
-    //   let zone4: number[][];
-    //   let zone5: number[][];
-    //   let zone6: number[][];
-    //   let zone7: number[][];
-    //   let zone8: number[][];
-    //   zone1 =  clasesplit.getZone(1);
-    //   zone2 =  clasesplit.getZone(2);
-    //   zone3 =  clasesplit.getZone(3);
-    //   zone4 =  clasesplit.getZone(4);
-    //   zone5 =  clasesplit.getZone(5);
-    //   zone6 =  clasesplit.getZone(6);
-    //   zone7 =  clasesplit.getZone(7);
-    //   zone8 =  clasesplit.getZone(8);
-    //   console.log("///////////////////////////////////////////////////")
-    //   console.log("cantidad de secciones de la zona A 1" + zone1.length);
-    //   console.log("cantidad de secciones de la zona B 2" + zone2.length);
-    //   console.log("cantidad de secciones de la zona C 3" + zone3.length);
-    //   console.log("cantidad de secciones de la zona D 4" + zone4.length);
-    //   console.log("EJE X-----------------------------------------------")
-    //   console.log("cantidad de secciones de la zona E 5" + zone5.length);
-    //   console.log("cantidad de secciones de la zona F 6" + zone6.length);
-    //   console.log("cantidad de secciones de la zona G 7" + zone7.length);
-    //   console.log("cantidad de secciones de la zona H 8" + zone8.length);
-    //   console.log("///////////////////////////////////////////////////")
-    //   ////////////////////////////////////////////////////////////////////
-    //   // console.log(zone1[0][0]);
-    //   // console.log(zone1[0][1]);
+    var clasesplit = new split_1.splits(audioData);
+    clasesplit.splitSong();
+    var zone1;
+    var zone2;
+    var zone3;
+    var zone4;
+    var zone5;
+    var zone6;
+    var zone7;
+    var zone8;
+    zone1 = clasesplit.getZone(1);
+    zone2 = clasesplit.getZone(2);
+    zone3 = clasesplit.getZone(3);
+    zone4 = clasesplit.getZone(4);
+    zone5 = clasesplit.getZone(5);
+    zone6 = clasesplit.getZone(6);
+    zone7 = clasesplit.getZone(7);
+    zone8 = clasesplit.getZone(8);
+    console.log("///////////////////////////////////////////////////");
+    console.log("cantidad de secciones de la zona A 1" + zone1.length);
+    console.log("cantidad de secciones de la zona B 2" + zone2.length);
+    console.log("cantidad de secciones de la zona C 3" + zone3.length);
+    console.log("cantidad de secciones de la zona D 4" + zone4.length);
+    console.log("EJE X-----------------------------------------------");
+    console.log("cantidad de secciones de la zona E 5" + zone5.length);
+    console.log("cantidad de secciones de la zona F 6" + zone6.length);
+    console.log("cantidad de secciones de la zona G 7" + zone7.length);
+    console.log("cantidad de secciones de la zona H 8" + zone8.length);
+    console.log("///////////////////////////////////////////////////");
+    ////////////////////////////////////////////////////////////////////
+    // console.log(zone1[0][0]);
+    // console.log(zone1[0][1]);
 });
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //-----------------------------------------------------RODRI------------------------------------------------//

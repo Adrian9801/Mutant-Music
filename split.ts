@@ -61,8 +61,8 @@ export class splits {
                         btime++;
                         zone.push(point);
                         zone.push(btime);
-                        console.log(point);
-                        console.log(btime);
+                        // console.log(point);
+                        // console.log(btime);
                     }else{
                         zone.push(point);
                         zone.push(btime);
@@ -87,8 +87,8 @@ export class splits {
                 zone.push(point);
                 zone.push(btime);
 
-                console.log(point);
-                console.log(btime);
+                // console.log(point);
+                // console.log(btime);
 
                 // asigna nuevo valor a nowZone
                 if (point >= 0.75) { lastZone = nowZone = 1 }

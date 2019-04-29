@@ -12,6 +12,7 @@ export class MTC {
     public zoneB: number[][];
     public respMT: number[];
     public areaS2: number;
+    public time: number;
 
     public constructor() {
         this.zoneA = [];
@@ -19,12 +20,14 @@ export class MTC {
         this.Respuesta = [];
         this.respMT = [];
         this.areaS2 = 0;
+        this.time =0;
     }
 
-    public setMC(zone1: number[][], zone2: number[][], areaS2: number) {
-        this.zoneA = zone1;
-        this.zoneB = zone2;
-        this.areaS2 = areaS2;
+    public setMC(pZone1: number[][], pZone2: number[][], pAreaS2: number,ptime:number) {
+        this.zoneA = pZone1;
+        this.zoneB = pZone2;
+        this.areaS2 = pAreaS2;
+        this.time = ptime;
         this.MC();
     }
 
@@ -87,12 +90,11 @@ export class MTC {
     public segMonteCarlo(segOne: number, segTwo: number, posOne: number, posTwo: number): boolean {
         var clasesarea = new areas();//area de S2 segun datos
        
-        if (segTwo - segOne == 7 ) {
-            var area = clasesarea.waveArea(segOne, segTwo, posOne, posTwo) * 100
-            console.log(area);
-            if((5390< area && area <=this.areaS2*100 )){
+        if (segTwo - segOne ==  this.time ) {
+            var area = clasesarea.waveArea(segOne, segTwo, posOne, posTwo)
+            if( (443 <= area) && (area <= this.areaS2) ){
                 console.log(this.areaS2);
-                console.log(clasesarea.waveArea(segOne, segTwo, posOne, posTwo) * 100 + " area");
+                console.log(clasesarea.waveArea(segOne, segTwo, posOne, posTwo)  + " area");
                 // console.log(posOne + "   " + posTwo);
                 // console.log(segOne + "   " + segTwo);
                 console.log("//////////////////////////////" );

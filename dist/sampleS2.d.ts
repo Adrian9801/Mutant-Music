@@ -3,9 +3,13 @@ export declare class samples {
     pointZonesStr: number[];
     zones: number[];
     zonesTime: number;
-    private audioLength;
+    timeLen: number;
+    beginZone: number;
+    finalZone: number;
+    areaWave: number;
     private audioData;
     S2: number[];
     constructor(pAudioData: any);
     dataS2(): void;
+    areaS2(): void;
 }

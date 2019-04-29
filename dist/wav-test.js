@@ -11,9 +11,10 @@ var fs = __importStar(require("fs"));
 // import { default as ft } from 'fourier-transform';
 var WavDecoder = __importStar(require("wav-decoder"));
 var area;
+var bZone;
+var fZone;
 var split_1 = require("./split");
 var sampleS2_1 = require("./sampleS2");
-var area_1 = require("./area");
 var monteCarlo_1 = require("./monteCarlo");
 var readFile = function (filepath) {
     return new Promise(function (resolve, reject) {
@@ -32,22 +33,12 @@ readFile("./Sound/s2.wav").then(function (buffer) {
     console.log("ampliando 30%");
     var size = 20000;
     console.log('');
-    ////////////////////////////////////////////////////////////////////
     var clasesamples = new sampleS2_1.samples(audioData);
     clasesamples.dataS2(); //lee los datos de S2
-    var clasesarea = new area_1.areas(); //area de S2 segun datos
-    console.log(clasesamples.S2[4]);
-    console.log(clasesamples.S2[5]);
-    area = clasesarea.waveArea(clasesamples.S2[1], clasesamples.S2[3], clasesamples.S2[0], clasesamples.S2[1]);
-    console.log(area);
-    // console.log('////////////////////////////////////////////////');
-    // console.log("cantidad total de datos "+clasesamples.zonesTime);
-    // console.log("Primer dato "+clasesamples.zones[0]);
-    // console.log("Ultimo dato "+clasesamples.zones[1]);
-    // console.log("Primer sector "+clasesamples.zonesStr[0]);
-    // console.log("Segundo sector "+clasesamples.zonesStr[1]);
-    // console.log('////////////////////////////////////////////////');
-    ////////////////////////////////////////////////////////////////////
+    clasesamples.areaS2(); //calcula el area y el tiempo de s2
+    bZone = clasesamples.beginZone;
+    fZone = clasesamples.finalZone;
+    area = clasesamples.areaWave;
 });
 console.log('');
 readFile("./Sound/Dua.wav").then(function (buffer) {
@@ -58,36 +49,11 @@ readFile("./Sound/Dua.wav").then(function (buffer) {
     clasesplit.splitSong();
     var zone1;
     var zone2;
-    var zone3;
-    var zone4;
-    var zone5;
-    var zone6;
-    var zone7;
-    var zone8;
-    zone1 = clasesplit.getZone(1);
-    zone2 = clasesplit.getZone(2);
-    zone3 = clasesplit.getZone(3);
-    zone4 = clasesplit.getZone(4);
-    zone5 = clasesplit.getZone(5);
-    zone6 = clasesplit.getZone(6);
-    zone7 = clasesplit.getZone(7);
-    zone8 = clasesplit.getZone(8);
-    console.log("///////////////////////////////////////////////////");
-    console.log("cantidad de secciones de la zona A 1" + zone1.length);
-    console.log("cantidad de secciones de la zona B 2" + zone2.length);
-    console.log("cantidad de secciones de la zona C 3" + zone3.length);
-    console.log("cantidad de secciones de la zona D 4" + zone4.length);
-    console.log("EJE X-----------------------------------------------");
-    console.log("cantidad de secciones de la zona E 5" + zone5.length);
-    console.log("cantidad de secciones de la zona F 6" + zone6.length);
-    console.log("cantidad de secciones de la zona G 7" + zone7.length);
-    console.log("cantidad de secciones de la zona H 8" + zone8.length);
-    console.log("///////////////////////////////////////////////////");
+    zone1 = clasesplit.getZone(bZone);
+    zone2 = clasesplit.getZone(fZone);
     ////////////////////////////////////////////////////////////////////
-    // console.log(zone1[0][0]);
-    // console.log(zone1[0][1]);
     var claseMTC = new monteCarlo_1.MTC();
-    claseMTC.setMC(zone4, zone3, area);
+    claseMTC.setMC(zone1, zone2, area);
 });
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //-----------------------------------------------------RODRI------------------------------------------------//

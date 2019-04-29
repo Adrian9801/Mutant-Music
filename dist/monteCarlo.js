@@ -57,11 +57,10 @@ var MTC = /** @class */ (function () {
     MTC.prototype.segMonteCarlo = function (segOne, segTwo, posOne, posTwo) {
         var clasesarea = new area_1.areas(); //area de S2 segun datos
         if (segTwo - segOne == 7) {
-            var area = clasesarea.waveArea(segOne, segTwo, posOne, posTwo) * 100;
-            console.log(area);
-            if ((5390 < area && area <= this.areaS2 * 100)) {
+            var area = clasesarea.waveArea(segOne, segTwo, posOne, posTwo);
+            if ((443 <= area) && (area <= this.areaS2)) {
                 console.log(this.areaS2);
-                console.log(clasesarea.waveArea(segOne, segTwo, posOne, posTwo) * 100 + " area");
+                console.log(clasesarea.waveArea(segOne, segTwo, posOne, posTwo) + " area");
                 // console.log(posOne + "   " + posTwo);
                 // console.log(segOne + "   " + segTwo);
                 console.log("//////////////////////////////");

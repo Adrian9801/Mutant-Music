@@ -50,7 +50,9 @@ export class samples {
         else if (point >= -0.75) { nowZone = 7 }
         else { nowZone = 8 }
         s2Temp.push(nowZone);//punto
+        console.log(point);
         point=this.audioData.channelData[0][audioLength];
+       
         points++;
         }
        

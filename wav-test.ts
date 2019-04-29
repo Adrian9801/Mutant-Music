@@ -37,8 +37,8 @@ readFile("./Sound/s2.wav").then((buffer) => {
   var clasesarea = new areas();//area de S2 segun datos
   console.log(clasesamples.S2[4]);
   console.log(clasesamples.S2[5]);
-  console.log( clasesarea.waveArea(clasesamples.S2[1],clasesamples.S2[3],clasesamples.S2[0],clasesamples.S2[1])*100+" area");
-  area =  clasesarea.waveArea(clasesamples.S2[1],clasesamples.S2[3],clasesamples.S2[0],clasesamples.S2[1])*100;
+  area =  clasesarea.waveArea(clasesamples.S2[1],clasesamples.S2[3],clasesamples.S2[0],clasesamples.S2[1]);
+  console.log(area);
   // console.log('////////////////////////////////////////////////');
   // console.log("cantidad total de datos "+clasesamples.zonesTime);
   // console.log("Primer dato "+clasesamples.zones[0]);
@@ -54,7 +54,6 @@ readFile("./Sound/s2.wav").then((buffer) => {
     return WavDecoder.decode(buffer);
   }).then(function (audioData) {
 
-  
   ////////////////////////////////////////////////////////////////////
   var clasesplit = new splits(audioData);
   clasesplit.splitSong();
@@ -94,6 +93,7 @@ readFile("./Sound/s2.wav").then((buffer) => {
 
   var claseMTC = new MTC();
   claseMTC.setMC(zone4,zone3,area);
+  
 
 });
 

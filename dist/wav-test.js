@@ -38,8 +38,8 @@ readFile("./Sound/s2.wav").then(function (buffer) {
     var clasesarea = new area_1.areas(); //area de S2 segun datos
     console.log(clasesamples.S2[4]);
     console.log(clasesamples.S2[5]);
-    console.log(clasesarea.waveArea(clasesamples.S2[1], clasesamples.S2[3], clasesamples.S2[0], clasesamples.S2[1]) * 100 + " area");
-    area = clasesarea.waveArea(clasesamples.S2[1], clasesamples.S2[3], clasesamples.S2[0], clasesamples.S2[1]) * 100;
+    area = clasesarea.waveArea(clasesamples.S2[1], clasesamples.S2[3], clasesamples.S2[0], clasesamples.S2[1]);
+    console.log(area);
     // console.log('////////////////////////////////////////////////');
     // console.log("cantidad total de datos "+clasesamples.zonesTime);
     // console.log("Primer dato "+clasesamples.zones[0]);

@@ -50,6 +50,7 @@ var samples = /** @class */ (function () {
                 nowZone = 8;
             }
             s2Temp.push(nowZone); //punto
+            console.log(point);
             point = this.audioData.channelData[0][audioLength];
             points++;
         }

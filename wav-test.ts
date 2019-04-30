@@ -9,11 +9,14 @@ let area1: number;
 let area2: number;
 let area3: number;
 let area4: number;
+let areasS2:number[];
 
 
 let time: number;
 let bZone: number;
 let fZone: number;
+let zonesS2:number[];
+let timesS2:number[];
 
 import { splits } from "./split";
 import { samples } from "./sampleS2";
@@ -46,35 +49,50 @@ readFile("./Sound/s2.wav").then((buffer) => {
   
   bZone = clasesamples.beginZone;
   fZone = clasesamples.finalZone;
+
   bigArea = clasesamples.areaWave;
   time = clasesamples.timeLen;
+  zonesS2 = clasesamples.zonesStr;//zonas 
+  areasS2 = clasesamples.areas;//areas
+  timesS2 =clasesamples.timesS2;
 
   clasesamples.mainComponent(5);
 
 });
 
-// console.log('');
-// readFile("./Sound/Dua.wav").then((buffer) => {
-//   return WavDecoder.decode(buffer);
-// }).then(function (audioData) {
+console.log('');
+readFile("./Sound/Dua.wav").then((buffer) => {
+  return WavDecoder.decode(buffer);
+}).then(function (audioData) {
 
-//   ////////////////////////////////////////////////////////////////////
-//   var clasesplit = new splits(audioData);
-//   clasesplit.splitSong();
+  ////////////////////////////////////////////////////////////////////
+  var clasesplit = new splits(audioData);
+  clasesplit.splitSong();
 
 
-//   let zone1: number[][];
-//   let zone2: number[][];
+  let zone1: number[][];
+  let zone2: number[][];
 
-//   zone1 = clasesplit.getZone(bZone);
-//   zone2 = clasesplit.getZone(fZone);
+  let zone3: number[][];
+  let zone4: number[][];
+  let zone5: number[][];
+  
 
-//   ////////////////////////////////////////////////////////////////////
+  zone1 = clasesplit.getZone(bZone);
+  zone2 = clasesplit.getZone(fZone);
+  zone3 = clasesplit.getZone(zonesS2[1]);
+  zone4 = clasesplit.getZone(zonesS2[2]);
+  zone3 = clasesplit.getZone(zonesS2[3]);
 
-//   // var claseMTC = new MTC();
-//   // var index :number =0;
-//   // claseMTC.setMC(zone1,zone2,bigArea,time);
-//   // claseMTC.Respuesta;
+  ////////////////////////////////////////////////////////////////////
+
+  var claseMTC = new MTC();
+  var index :number =0;
+ // claseMTC.setMC(zone1,zone2,bigArea,time);
+  claseMTC.setMC(zone3,zone4,areasS2[0],timesS2[0]);
+  // claseMTC.setMC(zone3,zone4,areasS2[1],timesS2[1]);
+  // claseMTC.setMC(zone3,zone4,areasS2[2],timesS2[2]);
+  claseMTC.Respuesta;
 
 //   ////////////////////////////////////////////////////////////////////
 
@@ -90,7 +108,7 @@ readFile("./Sound/s2.wav").then((buffer) => {
 //   //   fs.writeFileSync("C:\\Users\\USER\\Desktop\\newsulky.wav", new Buffer(buffer));
 //   // });
 
-// });
+ });
 
 
 

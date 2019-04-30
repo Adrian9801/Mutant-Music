@@ -10,11 +10,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var fs = __importStar(require("fs"));
 // import { default as ft } from 'fourier-transform';
 var WavDecoder = __importStar(require("wav-decoder"));
-var area;
+var bigArea;
+var area1;
+var area2;
+var area3;
+var area4;
+var areasS2;
 var time;
 var bZone;
 var fZone;
+var zonesS2;
+var timesS2;
+var split_1 = require("./split");
 var sampleS2_1 = require("./sampleS2");
+var monteCarlo_1 = require("./monteCarlo");
 var readFile = function (filepath) {
     return new Promise(function (resolve, reject) {
         fs.readFile(filepath, function (err, buffer) {
@@ -34,38 +43,50 @@ readFile("./Sound/s2.wav").then(function (buffer) {
     var clasesamples = new sampleS2_1.samples(audioData);
     clasesamples.dataS2(); //lee los datos de S2
     clasesamples.areaS2(); //calcula el area y el tiempo de s2
-    clasesamples.mainComponent(5);
     bZone = clasesamples.beginZone;
     fZone = clasesamples.finalZone;
-    area = clasesamples.areaWave;
+    bigArea = clasesamples.areaWave;
     time = clasesamples.timeLen;
+    zonesS2 = clasesamples.zonesStr; //zonas 
+    areasS2 = clasesamples.areas; //areas
+    timesS2 = clasesamples.timesS2;
+    clasesamples.mainComponent(5);
 });
-// console.log('');
-// readFile("./Sound/Dua.wav").then((buffer) => {
-//   return WavDecoder.decode(buffer);
-// }).then(function (audioData) {
-//   ////////////////////////////////////////////////////////////////////
-//   var clasesplit = new splits(audioData);
-//   clasesplit.splitSong();
-//   let zone1: number[][];
-//   let zone2: number[][];
-//   zone1 = clasesplit.getZone(bZone);
-//   zone2 = clasesplit.getZone(fZone);
-//   ////////////////////////////////////////////////////////////////////
-//   // var claseMTC = new MTC();
-//   // var index :number =0;
-//   // claseMTC.setMC(zone1,zone2,area,time);
-//   // claseMTC.Respuesta;
-//   ////////////////////////////////////////////////////////////////////
-//   // while(index <  claseMTC.Respuesta.length-1 ){}
-//   //  for (var i = claseMTC.Respuesta[0][0]; i < claseMTC.Respuesta[0][1]; i++) {
-//   //   audioData = audioData.channelData[0][i] ;
-//   // }
-//   // console.log("writing...");
-//   // WavEncoder.encode(audioData).then((buffer: any) => {
-//   //   fs.writeFileSync("C:\\Users\\USER\\Desktop\\newsulky.wav", new Buffer(buffer));
-//   // });
-// });
+console.log('');
+readFile("./Sound/Dua.wav").then(function (buffer) {
+    return WavDecoder.decode(buffer);
+}).then(function (audioData) {
+    ////////////////////////////////////////////////////////////////////
+    var clasesplit = new split_1.splits(audioData);
+    clasesplit.splitSong();
+    var zone1;
+    var zone2;
+    var zone3;
+    var zone4;
+    var zone5;
+    zone1 = clasesplit.getZone(bZone);
+    zone2 = clasesplit.getZone(fZone);
+    zone3 = clasesplit.getZone(zonesS2[1]);
+    zone4 = clasesplit.getZone(zonesS2[2]);
+    zone3 = clasesplit.getZone(zonesS2[3]);
+    ////////////////////////////////////////////////////////////////////
+    var claseMTC = new monteCarlo_1.MTC();
+    var index = 0;
+    // claseMTC.setMC(zone1,zone2,bigArea,time);
+    claseMTC.setMC(zone3, zone4, areasS2[0], timesS2[0]);
+    // claseMTC.setMC(zone3,zone4,areasS2[1],timesS2[1]);
+    // claseMTC.setMC(zone3,zone4,areasS2[2],timesS2[2]);
+    claseMTC.Respuesta;
+    //   ////////////////////////////////////////////////////////////////////
+    //   // while(index <  claseMTC.Respuesta.length-1 ){}
+    //   //  for (var i = claseMTC.Respuesta[0][0]; i < claseMTC.Respuesta[0][1]; i++) {
+    //   //   audioData = audioData.channelData[0][i] ;
+    //   // }
+    //   // console.log("writing...");
+    //   // WavEncoder.encode(audioData).then((buffer: any) => {
+    //   //   fs.writeFileSync("C:\\Users\\USER\\Desktop\\newsulky.wav", new Buffer(buffer));
+    //   // });
+});
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //-----------------------------------------------------RODRI------------------------------------------------//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////

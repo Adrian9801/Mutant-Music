@@ -1,6 +1,7 @@
 import { areas } from "./area";
 export class samples {
 
+    public timesS2: number[];// zonas ordenadas de codificacio
     public zonesStr: number[];// zonas ordenadas de codificacio
     public pointZonesStr: number[];// puntos ordenadas de codificacio
     public zones: number[];//largo de la codificacion 
@@ -12,12 +13,13 @@ export class samples {
     public audioLength: number;
 
     public areaWave: number;
-    public areas:number[];
+    public areas: number[];
     private audioData: any;
     public S2: number[];
 
 
     public constructor(pAudioData: any) {
+        this.timesS2 = [];
         this.areas = [];
         this.audioLength = 0;
         this.zonesTime = 0;
@@ -83,13 +85,24 @@ export class samples {
     public allAreaS2() {
 
         var clasesarea = new areas();//area de S2 segun datos
-        
+
 
         for (var i = 0; i <= this.zones.length - 3; i++) {
-            this.areas.push(clasesarea.waveArea(this.zones[i+1], this.zones[i+3], this.zones[i], this.zones[i+2]));
-            i++;
+
+            if (this.zones[i + 1] == this.zones[i + 3]) {
+                this.timesS2.push(1);
+                this.areas.push(clasesarea.waveArea(this.zones[i + 1], this.zones[i + 3], this.zones[i], this.zones[i + 2]));
+                i++;
+            }else{
+                var aux = this.zones[i + 3] - this.zones[i + 1]; 
+                this.timesS2.push(  aux );
+                this.areas.push(clasesarea.waveArea(this.zones[i + 1], this.zones[i + 3], this.zones[i], this.zones[i + 2]));
+                i++;
+
+            }
+           
         }
-       
+        console.log(this.timesS2 + " esteeeee");
 
     }
 
@@ -100,40 +113,41 @@ export class samples {
         this.audioLength = this.audioData.channelData[0].length - 1;
 
         point = this.audioData.channelData[0][0];// primer punto guardado
-       // this.pointZonesStr.push(0);// posicion y tiempo
+        // this.pointZonesStr.push(0);// posicion y tiempo
         this.zones.push(point);//puntos
-        this.zones.push(0); 
+        this.zones.push(0);
 
         for (var i = pCantPoint - 1; i !== 0; i--) {
             auxPointIterator = Math.round(((this.audioLength - 1) / i));
             point = this.audioData.channelData[0][auxPointIterator];
-           
+
 
             // this.pointZonesStr.push(auxPointIterator);// se guarda los puntos para la razon de crecimiento
             // this.pointZonesStr.push( Math.round((auxPointIterator/44100)) );// se guarda los puntos para la razon de crecimiento
-            
 
-            this.zones.push(point); 
-            this.zones.push(Math.round((auxPointIterator/44100))); 
-           
+
+            this.zones.push(point);
+            this.zones.push(Math.round((auxPointIterator / 44100)));
+
         }
     }
 
     // codifica la muestra en "pCantCod" fragmentos 
+    //determina los valores de pertenacia en elplano cat
     public mainComponent(pCantCod: number) {
 
-        this.setPoints(pCantCod);
-        this.allAreaS2();
+        this.setPoints(pCantCod);// corta en semi-areas la muestra
+        this.allAreaS2();// calcula el area de cada semi-area 
         var nowZone: number;
         var point: number;//temp para guardar los datos de una zona  
         this.zonesTime = this.audioLength - 1;
 
         for (var i = 0; i <= this.zones.length - 1; i++) {
             point = this.zones[i];
-            var ptime = this.zones[i+1];
+            var ptime = this.zones[i + 1];
 
-            console.log('punto '+ point);
-            console.log('tiempo '+ ptime );
+            console.log('punto ' + point);
+            console.log('tiempo ' + ptime);
             if (point >= 0.75) { nowZone = 1 }
             else if (point >= 0.5) { nowZone = 2 }
             else if (point >= 0.25) { nowZone = 3 }
@@ -148,6 +162,7 @@ export class samples {
             this.zonesStr.push(nowZone);
             i++;
         }
+        console.log(this.zonesStr);
     }
 
 }

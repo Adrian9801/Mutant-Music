@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var area_1 = require("./area");
 var samples = /** @class */ (function () {
     function samples(pAudioData) {
+        this.timesS2 = [];
         this.areas = [];
         this.audioLength = 0;
         this.zonesTime = 0;
@@ -72,10 +73,19 @@ var samples = /** @class */ (function () {
     samples.prototype.allAreaS2 = function () {
         var clasesarea = new area_1.areas(); //area de S2 segun datos
         for (var i = 0; i <= this.zones.length - 3; i++) {
-            this.areas.push(clasesarea.waveArea(this.zones[i + 1], this.zones[i + 3], this.zones[i], this.zones[i + 2]));
-            i++;
+            if (this.zones[i + 1] == this.zones[i + 3]) {
+                this.timesS2.push(1);
+                this.areas.push(clasesarea.waveArea(this.zones[i + 1], this.zones[i + 3], this.zones[i], this.zones[i + 2]));
+                i++;
+            }
+            else {
+                var aux = this.zones[i + 3] - this.zones[i + 1];
+                this.timesS2.push(aux);
+                this.areas.push(clasesarea.waveArea(this.zones[i + 1], this.zones[i + 3], this.zones[i], this.zones[i + 2]));
+                i++;
+            }
         }
-        console.log(this.areas + "  areas totales");
+        console.log(this.timesS2 + " esteeeee");
     };
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     samples.prototype.setPoints = function (pCantPoint) {
@@ -96,9 +106,10 @@ var samples = /** @class */ (function () {
         }
     };
     // codifica la muestra en "pCantCod" fragmentos 
+    //determina los valores de pertenacia en elplano cat
     samples.prototype.mainComponent = function (pCantCod) {
-        this.setPoints(pCantCod);
-        this.allAreaS2();
+        this.setPoints(pCantCod); // corta en semi-areas la muestra
+        this.allAreaS2(); // calcula el area de cada semi-area 
         var nowZone;
         var point; //temp para guardar los datos de una zona  
         this.zonesTime = this.audioLength - 1;
@@ -137,6 +148,7 @@ var samples = /** @class */ (function () {
             this.zonesStr.push(nowZone);
             i++;
         }
+        console.log(this.zonesStr);
     };
     return samples;
 }());

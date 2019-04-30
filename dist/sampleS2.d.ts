@@ -1,4 +1,5 @@
 export declare class samples {
+    timesS2: number[];
     zonesStr: number[];
     pointZonesStr: number[];
     zones: number[];

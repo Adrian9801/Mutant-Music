@@ -6,10 +6,13 @@ export declare class samples {
     timeLen: number;
     beginZone: number;
     finalZone: number;
+    audioLength: number;
     areaWave: number;
     private audioData;
     S2: number[];
     constructor(pAudioData: any);
     dataS2(): void;
     areaS2(): void;
+    setPoints(pCantPoint: number): void;
+    mainComponent(pCantCod: number): void;
 }

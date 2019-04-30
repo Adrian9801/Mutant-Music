@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var area_1 = require("./area");
 var samples = /** @class */ (function () {
     function samples(pAudioData) {
+        this.audioLength = 0;
         this.zonesTime = 0;
         this.beginZone = 0;
         this.finalZone = 0;
@@ -66,6 +67,67 @@ var samples = /** @class */ (function () {
         this.finalZone = this.S2[5]; //final
         this.timeLen = this.S2[3]; //tiempo
         this.areaWave = clasesarea.waveArea(this.S2[1], this.S2[3], this.S2[0], this.S2[2]);
+    };
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    samples.prototype.setPoints = function (pCantPoint) {
+        var point;
+        var auxPointIterator;
+        this.audioLength = this.audioData.channelData[0].length - 1;
+        point = this.audioData.channelData[0][0]; // primer punto guardado
+        // this.pointZonesStr.push(0);// posicion y tiempo
+        this.zones.push(point); //puntos
+        this.zones.push(0);
+        for (var i = pCantPoint - 1; i !== 0; i--) {
+            auxPointIterator = Math.round(((this.audioLength - 1) / i));
+            point = this.audioData.channelData[0][auxPointIterator];
+            // this.pointZonesStr.push(auxPointIterator);// se guarda los puntos para la razon de crecimiento
+            // this.pointZonesStr.push( Math.round((auxPointIterator/44100)) );// se guarda los puntos para la razon de crecimiento
+            this.zones.push(point);
+            this.zones.push(Math.round((auxPointIterator / 44100)));
+        }
+    };
+    // codifica la muestra en "pCantCod" fragmentos 
+    samples.prototype.mainComponent = function (pCantCod) {
+        this.setPoints(pCantCod);
+        var nowZone;
+        var point; //temp para guardar los datos de una zona  
+        this.zonesTime = this.audioLength - 1;
+        for (var i = 0; i <= this.zones.length - 1; i++) {
+            point = this.zones[i];
+            var ptime = this.zones[i + 1];
+            console.log('punto ' + point);
+            console.log('tiempo ' + ptime);
+            if (point >= 0.75) {
+                nowZone = 1;
+            }
+            else if (point >= 0.5) {
+                nowZone = 2;
+            }
+            else if (point >= 0.25) {
+                nowZone = 3;
+            }
+            else if (point >= 0) {
+                nowZone = 4;
+            }
+            //-----------------------------------------------------------------LINEA CATESIANA X
+            else if (point >= -0.25) {
+                nowZone = 5;
+            }
+            else if (point >= -0.5) {
+                nowZone = 6;
+            }
+            else if (point >= -0.75) {
+                nowZone = 7;
+            }
+            else {
+                nowZone = 8;
+            }
+            console.log('zona' + nowZone);
+            console.log('/////////////////');
+            this.zonesStr.push(nowZone);
+            i++;
+        }
+        console.log(this.zonesStr.length - 1);
     };
     return samples;
 }());

@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import * as WavEncoder from 'wav-encoder';
 // import { default as ft } from 'fourier-transform';
 import * as WavDecoder from 'wav-decoder';
+
 let area:number;
 let time:number;
 let bZone:number;
@@ -10,8 +11,8 @@ let fZone:number;
 
 import { splits } from "./split";
 import { samples } from "./sampleS2";
-
 import { MTC } from "./monteCarlo";
+
 
 
 const readFile = (filepath: string) => {
@@ -25,7 +26,7 @@ const readFile = (filepath: string) => {
   });
 };
 
-//C:\Users\USER\Documents\VisualCode\Mutant-Music\Sound readFile("C:\\Users\\USER\\Documents\\VisualCode\\Mutant-Music\\Sound\\s2.wav").then((buffer) => {
+
 readFile("./Sound/s22.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
@@ -51,6 +52,7 @@ readFile("./Sound/s22.wav").then((buffer) => {
   ////////////////////////////////////////////////////////////////////
   var clasesplit = new splits(audioData);
   clasesplit.splitSong();
+  
 
   let zone1: number[][];
   let zone2: number[][];
@@ -106,3 +108,32 @@ readFile("./Sound/s22.wav").then((buffer) => {
 //   });
 
 
+// let zone1: number[][];
+//   let zone2: number[][];
+//   let zone3: number[][];
+//   let zone4: number[][];
+//   let zone5: number[][];
+//   let zone6: number[][];
+//   let zone7: number[][];
+//   let zone8: number[][];
+
+//   zone1 =  clasesplit.getZone(1);
+//   zone2 =  clasesplit.getZone(2);
+//   zone3 =  clasesplit.getZone(3);
+//   zone4 =  clasesplit.getZone(4);
+//   zone5 =  clasesplit.getZone(5);
+//   zone6 =  clasesplit.getZone(6);
+//   zone7 =  clasesplit.getZone(7);
+//   zone8 =  clasesplit.getZone(8);
+
+//   console.log("///////////////////////////////////////////////////")
+//   console.log("cantidad de secciones de la zona A 1" + zone1.length);
+//   console.log("cantidad de secciones de la zona B 2" + zone2.length);
+//   console.log("cantidad de secciones de la zona C 3" + zone3.length);
+//   console.log("cantidad de secciones de la zona D 4" + zone4.length);
+//   console.log("EJE X-----------------------------------------------")
+//   console.log("cantidad de secciones de la zona E 5" + zone5.length);
+//   console.log("cantidad de secciones de la zona F 6" + zone6.length);
+//   console.log("cantidad de secciones de la zona G 7" + zone7.length);
+//   console.log("cantidad de secciones de la zona H 8" + zone8.length);
+//   console.log("///////////////////////////////////////////////////")

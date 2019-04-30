@@ -11,11 +11,13 @@ var MTC = /** @class */ (function () {
         this.Respuesta = [];
         this.respMT = [];
         this.areaS2 = 0;
+        this.time = 0;
     }
-    MTC.prototype.setMC = function (zone1, zone2, areaS2) {
-        this.zoneA = zone1;
-        this.zoneB = zone2;
-        this.areaS2 = areaS2;
+    MTC.prototype.setMC = function (pZone1, pZone2, pAreaS2, ptime) {
+        this.zoneA = pZone1;
+        this.zoneB = pZone2;
+        this.areaS2 = pAreaS2;
+        this.time = ptime;
         this.MC();
     };
     MTC.prototype.MC = function () {
@@ -29,7 +31,7 @@ var MTC = /** @class */ (function () {
         var subRandomB;
         lenZoneOne = this.zoneA.length - 1;
         lenZoneTwo = this.zoneB.length - 1;
-        for (var i = 0; i < 70000; i++) {
+        for (var i = 0; i < 80000; i++) {
             // random de entre los conjuntos de la zona 1 y 2//
             randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0);
             randomB = (Math.floor(Math.random() * (lenZoneTwo - 0 + 1)) + 0);
@@ -40,7 +42,7 @@ var MTC = /** @class */ (function () {
             subRandomA = (Math.floor(Math.random() * (lenSubZoneOne - 0 + 1)) + 0) * 2; //aseguramos num par
             subRandomB = (Math.floor(Math.random() * (lenSubZoneTwo - 0 + 1)) + 0) * 2; //aseguramos num par
             //-------------------------------------------------//
-            if (((this.zoneB[randomB].length > 0) && (this.zoneA[randomA].length > 0)) // que no sea un par ya seleccionado
+            if (((this.zoneB[randomB].length > 1) && (this.zoneA[randomA].length > 1)) // que no sea un par ya seleccionado
                 &&
                     this.segMonteCarlo(this.zoneA[randomA][subRandomA + 1], this.zoneB[randomB][subRandomB + 1] //que cumpla los n segundos requeridos
                     , this.zoneA[randomA][subRandomA], this.zoneB[randomB][subRandomB])) {
@@ -53,17 +55,17 @@ var MTC = /** @class */ (function () {
             }
         }
         console.log(this.Respuesta.length);
+        console.log(this.Respuesta[0]);
     };
     MTC.prototype.segMonteCarlo = function (segOne, segTwo, posOne, posTwo) {
         var clasesarea = new area_1.areas(); //area de S2 segun datos
-        if (segTwo - segOne == 7) {
-            var area = clasesarea.waveArea(segOne, segTwo, posOne, posTwo);
-            if ((443 <= area) && (area <= this.areaS2)) {
-                console.log(this.areaS2);
-                console.log(clasesarea.waveArea(segOne, segTwo, posOne, posTwo) + " area");
-                // console.log(posOne + "   " + posTwo);
-                // console.log(segOne + "   " + segTwo);
-                console.log("//////////////////////////////");
+        var area;
+        if (segTwo - segOne == this.time) {
+            area = clasesarea.waveArea(segOne, segTwo, posOne, posTwo);
+            if (((this.areaS2 / 100) * 70 <= area) && (area <= this.areaS2)) {
+                // console.log(this.areaS2  + " area original");
+                // console.log(clasesarea.waveArea(segOne, segTwo, posOne, posTwo)  + " area de muestra");
+                // console.log("//////////////////////////////" );
                 return true;
             }
             else {

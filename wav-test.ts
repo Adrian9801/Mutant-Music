@@ -26,7 +26,7 @@ const readFile = (filepath: string) => {
 };
 
 //C:\Users\USER\Documents\VisualCode\Mutant-Music\Sound readFile("C:\\Users\\USER\\Documents\\VisualCode\\Mutant-Music\\Sound\\s2.wav").then((buffer) => {
-readFile("./Sound/s2.wav").then((buffer) => {
+readFile("./Sound/s22.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
   console.log("ampliando 30%");
@@ -40,7 +40,7 @@ readFile("./Sound/s2.wav").then((buffer) => {
   fZone = clasesamples.finalZone;
   area =  clasesamples.areaWave;
   time = clasesamples.timeLen;
-
+  
 });
 
   console.log('');
@@ -61,17 +61,23 @@ readFile("./Sound/s2.wav").then((buffer) => {
   ////////////////////////////////////////////////////////////////////
   
   var claseMTC = new MTC();
+  var index :number =0;
   claseMTC.setMC(zone1,zone2,area,time);
-  
+  claseMTC.Respuesta;
+
+ // while(index <  claseMTC.Respuesta.length-1 ){}
+
+  //  for (var i = claseMTC.Respuesta[0][0]; i < claseMTC.Respuesta[0][1]; i++) {
+  //   audioData = audioData.channelData[0][i] ;
+  // }
+
+
+  // console.log("writing...");
+  // WavEncoder.encode(audioData).then((buffer: any) => {
+  //   fs.writeFileSync("C:\\Users\\USER\\Desktop\\newsulky.wav", new Buffer(buffer));
+  // });
 
 });
-
-
-
-
-
-
-
 
 
 

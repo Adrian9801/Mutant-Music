@@ -11,6 +11,7 @@ var fs = __importStar(require("fs"));
 // import { default as ft } from 'fourier-transform';
 var WavDecoder = __importStar(require("wav-decoder"));
 var area;
+var time;
 var bZone;
 var fZone;
 var split_1 = require("./split");
@@ -27,7 +28,7 @@ var readFile = function (filepath) {
     });
 };
 //C:\Users\USER\Documents\VisualCode\Mutant-Music\Sound readFile("C:\\Users\\USER\\Documents\\VisualCode\\Mutant-Music\\Sound\\s2.wav").then((buffer) => {
-readFile("./Sound/s2.wav").then(function (buffer) {
+readFile("./Sound/s22.wav").then(function (buffer) {
     return WavDecoder.decode(buffer);
 }).then(function (audioData) {
     console.log("ampliando 30%");
@@ -39,6 +40,7 @@ readFile("./Sound/s2.wav").then(function (buffer) {
     bZone = clasesamples.beginZone;
     fZone = clasesamples.finalZone;
     area = clasesamples.areaWave;
+    time = clasesamples.timeLen;
 });
 console.log('');
 readFile("./Sound/Dua.wav").then(function (buffer) {
@@ -53,7 +55,17 @@ readFile("./Sound/Dua.wav").then(function (buffer) {
     zone2 = clasesplit.getZone(fZone);
     ////////////////////////////////////////////////////////////////////
     var claseMTC = new monteCarlo_1.MTC();
-    claseMTC.setMC(zone1, zone2, area);
+    var index = 0;
+    claseMTC.setMC(zone1, zone2, area, time);
+    claseMTC.Respuesta;
+    // while(index <  claseMTC.Respuesta.length-1 ){}
+    //  for (var i = claseMTC.Respuesta[0][0]; i < claseMTC.Respuesta[0][1]; i++) {
+    //   audioData = audioData.channelData[0][i] ;
+    // }
+    // console.log("writing...");
+    // WavEncoder.encode(audioData).then((buffer: any) => {
+    //   fs.writeFileSync("C:\\Users\\USER\\Desktop\\newsulky.wav", new Buffer(buffer));
+    // });
 });
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //-----------------------------------------------------RODRI------------------------------------------------//

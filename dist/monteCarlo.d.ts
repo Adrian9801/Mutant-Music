@@ -4,8 +4,9 @@ export declare class MTC {
     zoneB: number[][];
     respMT: number[];
     areaS2: number;
+    time: number;
     constructor();
-    setMC(zone1: number[][], zone2: number[][], areaS2: number): void;
+    setMC(pZone1: number[][], pZone2: number[][], pAreaS2: number, ptime: number): void;
     MC(): void;
     segMonteCarlo(segOne: number, segTwo: number, posOne: number, posTwo: number): boolean;
 }

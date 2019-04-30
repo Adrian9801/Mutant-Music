@@ -51,7 +51,7 @@ export class MTC {
         lenZoneTwo = this.zoneB.length - 1;
 
 
-        for (var i = 0; i < 70000; i++) {
+        for (var i = 0; i < 80000; i++) {
              // random de entre los conjuntos de la zona 1 y 2//
             randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0);
             randomB = (Math.floor(Math.random() * (lenZoneTwo - 0 + 1)) + 0);
@@ -69,7 +69,7 @@ export class MTC {
             //-------------------------------------------------//
 
 
-            if (((this.zoneB[randomB].length >0 ) && (this.zoneA[randomA].length > 0))// que no sea un par ya seleccionado
+            if (((this.zoneB[randomB].length > 1 ) && (this.zoneA[randomA].length > 1))// que no sea un par ya seleccionado
                 &&
                 this.segMonteCarlo(this.zoneA[randomA][subRandomA + 1], this.zoneB[randomB][subRandomB + 1]//que cumpla los n segundos requeridos
                     , this.zoneA[randomA][subRandomA], this.zoneB[randomB][subRandomB])
@@ -85,19 +85,18 @@ export class MTC {
 
         }
         console.log(this.Respuesta.length);
+        console.log(this.Respuesta[0]);
     }
 
     public segMonteCarlo(segOne: number, segTwo: number, posOne: number, posTwo: number): boolean {
         var clasesarea = new areas();//area de S2 segun datos
-       
+        var area:number;
         if (segTwo - segOne ==  this.time ) {
-            var area = clasesarea.waveArea(segOne, segTwo, posOne, posTwo)
-            if( (443 <= area) && (area <= this.areaS2) ){
-                console.log(this.areaS2);
-                console.log(clasesarea.waveArea(segOne, segTwo, posOne, posTwo)  + " area");
-                // console.log(posOne + "   " + posTwo);
-                // console.log(segOne + "   " + segTwo);
-                console.log("//////////////////////////////" );
+           area = clasesarea.waveArea(segOne, segTwo, posOne, posTwo)
+            if( ((this.areaS2/100) * 70 <= area) && (area <= this.areaS2) ){
+                // console.log(this.areaS2  + " area original");
+                // console.log(clasesarea.waveArea(segOne, segTwo, posOne, posTwo)  + " area de muestra");
+                // console.log("//////////////////////////////" );
                 return true;
             }else{
                 return false;

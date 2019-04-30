@@ -4,7 +4,13 @@ import * as WavEncoder from 'wav-encoder';
 // import { default as ft } from 'fourier-transform';
 import * as WavDecoder from 'wav-decoder';
 
-let area: number;
+let bigArea: number;
+let area1: number;
+let area2: number;
+let area3: number;
+let area4: number;
+
+
 let time: number;
 let bZone: number;
 let fZone: number;
@@ -37,11 +43,13 @@ readFile("./Sound/s2.wav").then((buffer) => {
   var clasesamples = new samples(audioData);
   clasesamples.dataS2();//lee los datos de S2
   clasesamples.areaS2();//calcula el area y el tiempo de s2
-  clasesamples.mainComponent(5);
+  
   bZone = clasesamples.beginZone;
   fZone = clasesamples.finalZone;
-  area = clasesamples.areaWave;
+  bigArea = clasesamples.areaWave;
   time = clasesamples.timeLen;
+
+  clasesamples.mainComponent(5);
 
 });
 
@@ -65,7 +73,7 @@ readFile("./Sound/s2.wav").then((buffer) => {
 
 //   // var claseMTC = new MTC();
 //   // var index :number =0;
-//   // claseMTC.setMC(zone1,zone2,area,time);
+//   // claseMTC.setMC(zone1,zone2,bigArea,time);
 //   // claseMTC.Respuesta;
 
 //   ////////////////////////////////////////////////////////////////////

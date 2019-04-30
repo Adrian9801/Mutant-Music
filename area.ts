@@ -27,7 +27,11 @@ export class areas {
         var AreaTriangulo;
         var AreaTotal;
 
+        if(finalPositionX !== startPositionX){
         cateto1 = finalPositionX - startPositionX;
+        }else{
+            cateto1 =1;
+        }
         lado1 = (1 - startPositionY);//lado izq
 
         //si la altura es diferente

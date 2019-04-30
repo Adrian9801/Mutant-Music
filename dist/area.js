@@ -21,7 +21,12 @@ var areas = /** @class */ (function () {
         var AreaRectangulo;
         var AreaTriangulo;
         var AreaTotal;
-        cateto1 = finalPositionX - startPositionX;
+        if (finalPositionX !== startPositionX) {
+            cateto1 = finalPositionX - startPositionX;
+        }
+        else {
+            cateto1 = 1;
+        }
         lado1 = (1 - startPositionY); //lado izq
         //si la altura es diferente
         if (finalPositionY !== startPositionY) {

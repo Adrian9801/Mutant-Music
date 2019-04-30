@@ -34,7 +34,7 @@ readFile("./Sound/s2.wav").then(function (buffer) {
     var clasesamples = new sampleS2_1.samples(audioData);
     clasesamples.dataS2(); //lee los datos de S2
     clasesamples.areaS2(); //calcula el area y el tiempo de s2
-    clasesamples.mainComponent(7);
+    clasesamples.mainComponent(5);
     bZone = clasesamples.beginZone;
     fZone = clasesamples.finalZone;
     area = clasesamples.areaWave;

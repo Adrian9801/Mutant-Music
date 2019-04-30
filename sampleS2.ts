@@ -12,11 +12,13 @@ export class samples {
     public audioLength: number;
 
     public areaWave: number;
+    public areas:number[];
     private audioData: any;
     public S2: number[];
 
 
     public constructor(pAudioData: any) {
+        this.areas = [];
         this.audioLength = 0;
         this.zonesTime = 0;
         this.beginZone = 0;
@@ -78,6 +80,18 @@ export class samples {
 
 
     }
+    public allAreaS2() {
+
+        var clasesarea = new areas();//area de S2 segun datos
+        
+
+        for (var i = 0; i <= this.zones.length - 3; i++) {
+            this.areas.push(clasesarea.waveArea(this.zones[i+1], this.zones[i+3], this.zones[i], this.zones[i+2]));
+            i++;
+        }
+       
+
+    }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     public setPoints(pCantPoint: number) {
@@ -109,6 +123,7 @@ export class samples {
     public mainComponent(pCantCod: number) {
 
         this.setPoints(pCantCod);
+        this.allAreaS2();
         var nowZone: number;
         var point: number;//temp para guardar los datos de una zona  
         this.zonesTime = this.audioLength - 1;

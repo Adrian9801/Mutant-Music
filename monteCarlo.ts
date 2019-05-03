@@ -51,17 +51,26 @@ export class MTC {
 
         for (var i = 0; i < 200; i++) {
             if (psameZone) {
-                console.log("//////////////"+  lenZoneOne);
+               
                 randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0);// random de las secciones 
                 lenSubZoneOne = ((Math.round((pZoneA[randomA].length - 2) / 2)));// len intercalado
                 subRandomA = (Math.floor(Math.random() * (lenSubZoneOne - 0 + 1)) + 0) * 2;//aseguramos num par
-                //subRandomB = (Math.floor(Math.random() * (lenSubZoneOne - subRandomA  + 1)) + subRandomA ) * 2;//aseguramos num par
-                zoneA = pZoneA[randomA][subRandomA + 1];
-                zoneB = zoneA + 1;
-                if(zoneA+1 == (zoneB)){
-                    console.log("//////////////");
+                //subRandomB =  subRandomA+1;//metod de prediccion de segundo 
+                for (var i = subRandomA +2; i <pZoneA[randomA].length - 1; i++) {
+                    subRandomB = pZoneA[randomA][i];
+                    if(subRandomA == subRandomB-1 ){
+                        console.log("segundo encontrado");
+                    }
+                    i++;
 
                 }
+
+            //     zoneA = pZoneA[randomA][subRandomA + 1];
+            //    // zoneB = pZoneA[randomA][subRandomB + 1];;
+            //     if(zoneA+1 == (zoneB)){
+            //         console.log("//////////////");
+
+            //     }
                
 
 

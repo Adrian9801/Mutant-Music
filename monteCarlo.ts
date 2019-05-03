@@ -49,33 +49,33 @@ export class MTC {
         var subRandomB: number;
 
 
-        for (var i = 0; i < 200; i++) {
+        for (var i = 0; i <4 ; i++) {
+
             if (psameZone) {
 
                 randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0);// random de las secciones 
-                lenSubZoneOne = ((Math.round((pZoneA[randomA].length - 2) / 2)));// len intercalado
-                subRandomA = (Math.floor(Math.random() * (lenSubZoneOne - 0 + 1)) + 0) * 2;//aseguramos num par
-                //subRandomB = subRandomA + 1;//metod de prediccion de segundo 
-
-                for (var i = subRandomA ; i < pZoneA[randomA].length - 1; i++) {
-                    subRandomB = pZoneA[randomA][i+1];
+                lenSubZoneOne = ((Math.round((pZoneA[randomA].length) / 2)));// len intercalado
+                subRandomA = ((Math.floor(Math.random() * (lenSubZoneOne - 1 + 1)) + 1)*2)-1 ;//aseguramos num par
+               
+                console.log("xxxxxxxxxxxxxxxxxxxX");
+                // console.log( pZoneA[randomA][subRandomA]);
+                // console.log( pZoneA[randomA][subRandomA+2]);
+                // console.log("///////////");
+                var auxJ = 0;
+                for (var j = subRandomA ; j < pZoneA[randomA].length - 1; j++) {
+                    //subRandomB = pZoneA[randomA][j+2];
+                    
+                    auxJ = j + 2 ;
+                    console.log("///////////" + auxJ);
+                    console.log(pZoneA[randomA][j]); 
+                    console.log(pZoneA[randomA][auxJ]);
                     console.log("///////////");
-                    console.log(subRandomA);
-                    console.log(subRandomB);
-                    console.log("///////////");
-
-
-                    if (subRandomA == subRandomB - 1) {
-                        console.log("segundo encontrado");
-                    }
-                    i++;
-
+                    console.log("///////////  "+j);
+                    j++;
                 }
 
-        
-            } else {
 
-            }
+            } 
         }
     }
 

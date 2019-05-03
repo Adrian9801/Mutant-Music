@@ -85,6 +85,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   var clasesplit = new splits(audioData);
   clasesplit.splitSong(false);
     zoneA = clasesplit.getZone(5);
+  
     zoneB = clasesplit.getZone(5);
   claseMTC.monteCarlo(zoneA,zoneB,true); 
 

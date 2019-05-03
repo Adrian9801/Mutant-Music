@@ -54,6 +54,7 @@ readFile("./Sound/s2.wav").then((buffer) => {
   zonesSS2 = clasesplit.areaWaveS2;
   console.log(clasesplit.totalAreaWaveS2);// area total de las zoanas
   console.log("///////////////////////////////////////////////////");
+  //var bArea:number = clasesplit.areaS2[0];
   // var clasesamples = new samples(audioData);
   // clasesamples.dataS2();//lee los datos de S2
   // clasesamples.areaS2();//calcula el area y el tiempo de s2
@@ -80,6 +81,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   var zoneA: number[][];
   var zoneB: number[][];
   var sameZone: boolean;
+ 
   var clasesplit = new splits(audioData);
   clasesplit.splitSong(false);
     zoneA = clasesplit.getZone(5);

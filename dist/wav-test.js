@@ -50,6 +50,7 @@ readFile("./Sound/s2.wav").then(function (buffer) {
     zonesSS2 = clasesplit.areaWaveS2;
     console.log(clasesplit.totalAreaWaveS2); // area total de las zoanas
     console.log("///////////////////////////////////////////////////");
+    //var bArea:number = clasesplit.areaS2[0];
     // var clasesamples = new samples(audioData);
     // clasesamples.dataS2();//lee los datos de S2
     // clasesamples.areaS2();//calcula el area y el tiempo de s2

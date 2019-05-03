@@ -37,18 +37,16 @@ var MTC = /** @class */ (function () {
                 lenSubZoneOne = ((Math.round((pZoneA[randomA].length - 2) / 2))); // len intercalado
                 subRandomA = (Math.floor(Math.random() * (lenSubZoneOne - 0 + 1)) + 0) * 2; //aseguramos num par
                 subRandomB = subRandomA + 1; //metod de prediccion de segundo 
-                for (var i = subRandomA + 2; i < pZoneA[randomA].length - 1; i++) {
-                    subRandomB = pZoneA[randomA][i];
-                    if (subRandomA = subRandomB - 1) {
+                for (var i = subRandomA; i < pZoneA[randomA].length - 1; i++) {
+                    subRandomB = pZoneA[randomA][i + 1];
+                    console.log("///////////");
+                    console.log(subRandomA);
+                    console.log(subRandomB);
+                    console.log("///////////");
+                    if (subRandomA == subRandomB - 1) {
                         console.log("segundo encontrado");
                     }
                     i++;
-                }
-                zoneA = pZoneA[randomA][subRandomA + 1];
-                zoneB = pZoneA[randomA][subRandomB + 1];
-                ;
-                if (zoneA + 1 == (zoneB)) {
-                    console.log("//////////////");
                 }
             }
             else {

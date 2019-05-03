@@ -1,3 +1,4 @@
+import { areas } from "./area";
 export class splits {
 
     public zoneA: number[][];
@@ -10,7 +11,16 @@ export class splits {
     public zoneG: number[][];
     public zoneH: number[][];
 
-    public  dumppi: number[][];
+
+    // para S2
+    public pointAndTimeS2: number[];// pounto y tiempo de S2 se parados por segundo
+    public positionIS2: number[];//pisiciones de esos datos 
+    public zoneS2: number[];//pisiciones de esos datos 
+    public areaWaveS2: number[];
+    public totalAreaWaveS2: number;
+
+
+    public dumppi: number[][];
     private audioData: any;
 
     public constructor(pAudioData: any) {
@@ -22,25 +32,31 @@ export class splits {
         this.zoneF = [];
         this.zoneG = [];
         this.zoneH = [];
-        this.dumppi= [];
+        this.dumppi = [];
+        this.pointAndTimeS2 = [];
+        this.positionIS2 = [];
+        this.zoneS2 = [];
+        this.areaWaveS2 = [];
         this.audioData = pAudioData;
+        this.totalAreaWaveS2 = 0;
     }
 
-    public splitSong() {
-        var audioLength = this.audioData.channelData[0].length-1;// largo del audio
+    // true para estudiar S2
+    public splitSong(dataSong: boolean) {
+        var audioLength = this.audioData.channelData[0].length - 1;// largo del audio
         var firstTime: boolean = true;
-        var lastZone: number = 0;
-        var nowZone: number = 0;
+        var lastZone: number = 0;//ultima zona
+        var nowZone: number = 0;//zona actual
 
         var point: number;//temp para guardar los datos de una zona 
         var zone: number[] = [];//temp para guardar los datos de una zona 
 
-        var btime:number = 0;
-        var bn:number = 1;
+        var btime: number = 0;//tiempo
+        var bn: number = 1;//n para calculo de tiempo
 
         for (var i = 0; i < audioLength; i++) {
 
-            point = this.audioData.channelData[0][i];
+            point = this.audioData.channelData[0][i];//punto 
 
             if (!firstTime) {// sino es la primera vez
 
@@ -56,28 +72,38 @@ export class splits {
                 else { nowZone = 8 }
 
                 if (lastZone == nowZone) {// si las zonas son iguales sigue anadiendo puntos
-                    if(i == 44100*(bn)){
-                        bn++;
-                        btime++;
+                    if (i == 44100 * (bn)) {//si pasa del segundo actual
+                        bn++;//aunmenta el calculo del segundo
+                        btime++;//aumenta los segundos
                         zone.push(point);
                         zone.push(btime);
-                        // console.log(point);
+                        if (dataSong) { // de estar estudiando el S2
+                            this.pointAndTimeS2.push(point);
+                            this.pointAndTimeS2.push(btime);
+                            this.positionIS2.push(i);
+                        }
+                        // console.log(point); por segundo 
                         // console.log(btime);
-                    }else{
+                    } else {
                         zone.push(point);
                         zone.push(btime);
                     }
-        
+
                 } else {//si las zonas cambian o sea se brinca de una zona a otra 
                     this.insertZone(lastZone, Object.assign([], zone));// guarda los datos de toda la zona pasada
                     zone = [];// refresca el temp de lazona
                     lastZone = nowZone;
-                    if(i == 44100*(bn)){
-                        bn++;
-                        btime++;
+                    if (i == 44100 * (bn)) {
+                        bn++;//aunmenta el calculo del segundo
+                        btime++;//aumenta los segundos
                         zone.push(point);
                         zone.push(btime);
-                    }else{
+                        if (dataSong) { // de estar estudiando el S2
+                            this.pointAndTimeS2.push(point);
+                            this.pointAndTimeS2.push(btime);
+                            this.positionIS2.push(i);
+                        }
+                    } else {
                         zone.push(point);
                         zone.push(btime);
                     }
@@ -89,6 +115,11 @@ export class splits {
 
                 console.log(point);
                 console.log(btime);
+
+                // para S2
+                this.pointAndTimeS2.push(point);
+                this.pointAndTimeS2.push(btime);
+                this.positionIS2.push(i);
 
                 // asigna nuevo valor a nowZone
                 if (point >= 0.75) { lastZone = nowZone = 1 }
@@ -102,6 +133,12 @@ export class splits {
                 else { lastZone = nowZone = 8 }
                 firstTime = false;
             }
+        }
+        if (dataSong) { // de estar estudiando el S2
+            this.pointAndTimeS2.push(this.audioData.channelData[0][audioLength]);
+            this.pointAndTimeS2.push(Math.round(audioLength / 44100));
+            this.positionIS2.push(audioLength);
+            this.loadZoneS2();
         }
     }
 
@@ -172,4 +209,48 @@ export class splits {
         }
         return this.dumppi;
     }
+
+    public loadZoneS2() {
+        var nowZone: number = 0;//zona actual
+        var point: number;//punto 
+
+        for (var i = 0; i < this.pointAndTimeS2.length - 1; i++) {
+            point = this.audioData.channelData[0][i];//punto 
+
+            if (point >= 0.75) { nowZone = 1 }
+            else if (point >= 0.5) { nowZone = 2 }
+            else if (point >= 0.25) { nowZone = 3 }
+            else if (point >= 0) { nowZone = 4 }
+            //-----------------------------------------------------------------LINEA CATESIANA X
+            else if (point >= -0.25) { nowZone = 5 }
+            else if (point >= -0.5) { nowZone = 6 }
+            else if (point >= -0.75) { nowZone = 7 }
+            else { nowZone = 8 }
+            i++;
+            this.zoneS2.push(nowZone);
+
+        }
+        this.areaS2();
+    }
+    public areaS2() {
+
+        var clasesarea = new areas();//area de S2 segun datos
+        var auxArea: number = 0;
+        var auxTotalArea: number = 0;
+        for (var i = 0; i <= this.pointAndTimeS2.length - 3; i++) {
+            //tiempo de inicio , tiempo final , punto de inicio punto final
+            auxArea = clasesarea.waveArea(this.pointAndTimeS2[i + 1], this.pointAndTimeS2[i + 3],
+                this.pointAndTimeS2[i], this.pointAndTimeS2[i + 2]);
+            this.areaWaveS2.push(auxArea);
+            auxTotalArea = auxTotalArea + auxArea;
+            i++;
+        }
+        this.totalAreaWaveS2 = auxTotalArea;
+
+    }
+
+
+
+
+
 }

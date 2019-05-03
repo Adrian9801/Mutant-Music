@@ -22,8 +22,6 @@ var fZone;
 var zonesS2;
 var timesS2;
 var split_1 = require("./split");
-var sampleS2_1 = require("./sampleS2");
-var monteCarlo_1 = require("./monteCarlo");
 var readFile = function (filepath) {
     return new Promise(function (resolve, reject) {
         fs.readFile(filepath, function (err, buffer) {
@@ -39,66 +37,81 @@ readFile("./Sound/s2.wav").then(function (buffer) {
 }).then(function (audioData) {
     console.log("ampliando 30%");
     var size = 20000;
-    console.log('');
-    var clasesamples = new sampleS2_1.samples(audioData);
-    clasesamples.dataS2(); //lee los datos de S2
-    clasesamples.areaS2(); //calcula el area y el tiempo de s2
-    bZone = clasesamples.beginZone;
-    fZone = clasesamples.finalZone;
-    bigArea = clasesamples.areaWave;
-    time = clasesamples.timeLen;
-    zonesS2 = clasesamples.zonesStr; //zonas 
-    areasS2 = clasesamples.areas; //areas
-    timesS2 = clasesamples.timesS2;
-    clasesamples.mainComponent(5);
+    console.log("///////////////////////S2///////////////////////////");
+    var clasesplit = new split_1.splits(audioData);
+    clasesplit.splitSong(true);
+    console.log("///////////////////////////////////////////////////");
+    console.log(clasesplit.pointAndTimeS2); //puntos y tiempos
+    console.log(clasesplit.positionIS2); // posicion de puntos
+    console.log(clasesplit.zoneS2); // zonas de los puntos
+    console.log(clasesplit.areaWaveS2); // area de las zonas
+    console.log(clasesplit.totalAreaWaveS2); // area total de las zoanas
+    console.log("///////////////////////////////////////////////////");
+    // var clasesamples = new samples(audioData);
+    // clasesamples.dataS2();//lee los datos de S2
+    // clasesamples.areaS2();//calcula el area y el tiempo de s2
+    // bZone = clasesamples.beginZone;
+    // fZone = clasesamples.finalZone;
+    // bigArea = clasesamples.areaWave;
+    // time = clasesamples.timeLen;
+    // zonesS2 = clasesamples.zonesStr;//zonas 
+    // areasS2 = clasesamples.areas;//areas
+    // timesS2 = clasesamples.timesS2;
+    // clasesamples.mainComponent(5);
 });
 console.log('');
-readFile("./Sound/s7.wav").then(function (buffer) {
+readFile("./Sound/s10.wav").then(function (buffer) {
     return WavDecoder.decode(buffer);
 }).then(function (audioData) {
     ////////////////////////////////////////////////////////////////////
-    var clasesplit = new split_1.splits(audioData);
-    clasesplit.splitSong();
-    var zone1;
-    var zone2;
-    var zone3;
-    var zone4;
-    var zone5;
-    var zone6;
-    var zone7;
-    var zone8;
-    // zone1 = clasesplit.getZone(bZone);
-    // zone2 = clasesplit.getZone(fZone);
-    // zone3 = clasesplit.getZone(zonesS2[1]);
-    // zone4 = clasesplit.getZone(zonesS2[2]);
-    // zone3 = clasesplit.getZone(zonesS2[3]);
-    zone1 = clasesplit.getZone(1);
-    zone2 = clasesplit.getZone(2);
-    zone3 = clasesplit.getZone(3);
-    zone4 = clasesplit.getZone(4);
-    zone5 = clasesplit.getZone(5);
-    zone6 = clasesplit.getZone(6);
-    zone7 = clasesplit.getZone(7);
-    zone8 = clasesplit.getZone(8);
-    console.log("///////////////////////////////////////////////////");
-    console.log("cantidad de secciones de la zona A 1" + zone1.length);
-    console.log("cantidad de secciones de la zona B 2" + zone2.length);
-    console.log("cantidad de secciones de la zona C 3" + zone3.length);
-    console.log("cantidad de secciones de la zona D 4" + zone4.length);
-    console.log("EJE X-----------------------------------------------");
-    console.log("cantidad de secciones de la zona E 5" + zone5.length);
-    console.log("cantidad de secciones de la zona F 6" + zone6.length);
-    console.log("cantidad de secciones de la zona G 7" + zone7.length);
-    console.log("cantidad de secciones de la zona H 8" + zone8.length);
-    console.log("///////////////////////////////////////////////////");
+    // var clasesplit = new splits(audioData);
+    // clasesplit.splitSong(true);
+    // let zone1: number[][];
+    // let zone2: number[][];
+    // let zone3: number[][];
+    // let zone4: number[][];
+    // let zone5: number[][];
+    // let zone6: number[][];
+    // let zone7: number[][];
+    // let zone8: number[][];
+    // // zone1 = clasesplit.getZone(bZone);
+    // // zone2 = clasesplit.getZone(fZone);
+    // // zone3 = clasesplit.getZone(zonesS2[1]);
+    // // zone4 = clasesplit.getZone(zonesS2[2]);
+    // // zone3 = clasesplit.getZone(zonesS2[3]);
+    // zone1 = clasesplit.getZone(1);
+    // zone2 = clasesplit.getZone(2);
+    // zone3 = clasesplit.getZone(3);
+    // zone4 = clasesplit.getZone(4);
+    // zone5 = clasesplit.getZone(5);
+    // zone6 = clasesplit.getZone(6);
+    // zone7 = clasesplit.getZone(7);
+    // zone8 = clasesplit.getZone(8);
+    // console.log("///////////////////////////////////////////////////")
+    // console.log("cantidad de secciones de la zona A 1" + zone1.length);
+    // console.log("cantidad de secciones de la zona B 2" + zone2.length);
+    // console.log("cantidad de secciones de la zona C 3" + zone3.length);
+    // console.log("cantidad de secciones de la zona D 4" + zone4.length);
+    // console.log("EJE X-----------------------------------------------")
+    // console.log("cantidad de secciones de la zona E 5" + zone5.length);
+    // console.log("cantidad de secciones de la zona F 6" + zone6.length);
+    // console.log("cantidad de secciones de la zona G 7" + zone7.length);
+    // console.log("cantidad de secciones de la zona H 8" + zone8.length);
+    // console.log("///////////////////////////////////////////////////");
+    // console.log(clasesplit.pointAndTimeS2);
+    // console.log("///////////////////////////////////////////////////");
+    // console.log(clasesplit.positionIS2);
+    // console.log(clasesplit.zoneS2);
+    // console.log(clasesplit.areaWaveS2);
+    // console.log(clasesplit.totalAreaWaveS2);
     ////////////////////////////////////////////////////////////////////
-    var claseMTC = new monteCarlo_1.MTC();
-    var index = 0;
+    //var claseMTC = new MTC();
+    //var index: number = 0;
     // claseMTC.setMC(zone1,zone2,bigArea,time);
-    claseMTC.setMC(zone3, zone4, areasS2[0], timesS2[0]);
+    ///claseMTC.setMC(zone3, zone4, areasS2[0], timesS2[0]);
     // claseMTC.setMC(zone3,zone4,areasS2[1],timesS2[1]);
     // claseMTC.setMC(zone3,zone4,areasS2[2],timesS2[2]);
-    claseMTC.Respuesta;
+    //claseMTC.Respuesta;
     //   ////////////////////////////////////////////////////////////////////
     //   // while(index <  claseMTC.Respuesta.length-1 ){}
     //   //  for (var i = claseMTC.Respuesta[0][0]; i < claseMTC.Respuesta[0][1]; i++) {

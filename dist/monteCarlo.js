@@ -20,6 +20,34 @@ var MTC = /** @class */ (function () {
         this.time = ptime;
         this.MC();
     };
+    MTC.prototype.monteCarlo = function (pZoneA, pZoneB, psameZone) {
+        var zoneA;
+        var zoneB;
+        var randomA;
+        var randomB;
+        var lenZoneOne = pZoneA.length - 1;
+        var lenZoneTwo = pZoneB.length - 1;
+        var lenSubZoneOne;
+        var lenSubZoneTwo;
+        var subRandomA;
+        var subRandomB;
+        for (var i = 0; i < 200; i++) {
+            if (psameZone) {
+                console.log("//////////////" + lenZoneOne);
+                randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0); // random de las secciones 
+                lenSubZoneOne = ((Math.round((pZoneA[randomA].length - 2) / 2))); // len intercalado
+                subRandomA = (Math.floor(Math.random() * (lenSubZoneOne - 0 + 1)) + 0) * 2; //aseguramos num par
+                //subRandomB = (Math.floor(Math.random() * (lenSubZoneOne - subRandomA  + 1)) + subRandomA ) * 2;//aseguramos num par
+                zoneA = pZoneA[randomA][subRandomA + 1];
+                zoneB = zoneA + 2;
+                if (zoneA + 1 == (zoneB)) {
+                    console.log("//////////////");
+                }
+            }
+            else {
+            }
+        }
+    };
     MTC.prototype.MC = function () {
         var lenZoneOne;
         var lenZoneTwo;

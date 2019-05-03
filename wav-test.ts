@@ -11,7 +11,7 @@ let area3: number;
 let area4: number;
 let areasS2: number[];
 
-
+let zonesSS2: number[];
 let time: number;
 let bZone: number;
 let fZone: number;
@@ -51,6 +51,7 @@ readFile("./Sound/s2.wav").then((buffer) => {
   console.log(clasesplit.positionIS2);// posicion de puntos
   console.log(clasesplit.zoneS2);// zonas de los puntos
   console.log(clasesplit.areaWaveS2);// area de las zonas
+  zonesSS2 = clasesplit.areaWaveS2;
   console.log(clasesplit.totalAreaWaveS2);// area total de las zoanas
   console.log("///////////////////////////////////////////////////");
   // var clasesamples = new samples(audioData);
@@ -71,31 +72,46 @@ readFile("./Sound/s2.wav").then((buffer) => {
 });
 
 console.log('');
-readFile("./Sound/s10.wav").then((buffer) => {
+readFile("./Sound/Dua.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
-
+  var claseMTC = new MTC();
   ////////////////////////////////////////////////////////////////////
-  // var clasesplit = new splits(audioData);
-  // clasesplit.splitSong(true);
+  var zoneA: number[][];
+  var zoneB: number[][];
+  var sameZone: boolean;
+  var clasesplit = new splits(audioData);
+  clasesplit.splitSong(false);
+    zoneA = clasesplit.getZone(5);
+    zoneB = clasesplit.getZone(5);
+  claseMTC.monteCarlo(zoneA,zoneB,true); 
+
+  // for (var i = 0; i < zonesSS2.length - 1; i++) {
+  //   zoneA = clasesplit.getZone(zonesSS2[i]);
+  //   zoneB = clasesplit.getZone(zonesSS2[i + 1]);
+  //   if (i == i + 1) {
+  //     sameZone = true;
+  //   } else {
+  //     sameZone = false;
+  //   }
+   
+  //   claseMTC.monteCarlo(zoneA,zoneB,sameZone); 
+    
+    
+    
+  //   i++;
+
+  // }
 
 
   // let zone1: number[][];
   // let zone2: number[][];
-
   // let zone3: number[][];
   // let zone4: number[][];
   // let zone5: number[][];
   // let zone6: number[][];
   // let zone7: number[][];
   // let zone8: number[][];
-
-
-  // // zone1 = clasesplit.getZone(bZone);
-  // // zone2 = clasesplit.getZone(fZone);
-  // // zone3 = clasesplit.getZone(zonesS2[1]);
-  // // zone4 = clasesplit.getZone(zonesS2[2]);
-  // // zone3 = clasesplit.getZone(zonesS2[3]);
 
   // zone1 = clasesplit.getZone(1);
   // zone2 = clasesplit.getZone(2);
@@ -118,12 +134,7 @@ readFile("./Sound/s10.wav").then((buffer) => {
   // console.log("cantidad de secciones de la zona G 7" + zone7.length);
   // console.log("cantidad de secciones de la zona H 8" + zone8.length);
   // console.log("///////////////////////////////////////////////////");
-  // console.log(clasesplit.pointAndTimeS2);
-  // console.log("///////////////////////////////////////////////////");
-  // console.log(clasesplit.positionIS2);
-  // console.log(clasesplit.zoneS2);
-  // console.log(clasesplit.areaWaveS2);
-  // console.log(clasesplit.totalAreaWaveS2);
+
 
   ////////////////////////////////////////////////////////////////////
 

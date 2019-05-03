@@ -14,7 +14,7 @@ var splits = /** @class */ (function () {
         this.audioData = pAudioData;
     }
     splits.prototype.splitSong = function () {
-        var audioLength = this.audioData.channelData[0].length; // largo del audio
+        var audioLength = this.audioData.channelData[0].length - 1; // largo del audio
         var firstTime = true;
         var lastZone = 0;
         var nowZone = 0;
@@ -84,8 +84,8 @@ var splits = /** @class */ (function () {
             else { // solo para el primer caso
                 zone.push(point);
                 zone.push(btime);
-                // console.log(point);
-                // console.log(btime);
+                console.log(point);
+                console.log(btime);
                 // asigna nuevo valor a nowZone
                 if (point >= 0.75) {
                     lastZone = nowZone = 1;

@@ -53,7 +53,7 @@ readFile("./Sound/s2.wav").then(function (buffer) {
     clasesamples.mainComponent(5);
 });
 console.log('');
-readFile("./Sound/Dua.wav").then(function (buffer) {
+readFile("./Sound/s7.wav").then(function (buffer) {
     return WavDecoder.decode(buffer);
 }).then(function (audioData) {
     ////////////////////////////////////////////////////////////////////
@@ -64,11 +64,33 @@ readFile("./Sound/Dua.wav").then(function (buffer) {
     var zone3;
     var zone4;
     var zone5;
-    zone1 = clasesplit.getZone(bZone);
-    zone2 = clasesplit.getZone(fZone);
-    zone3 = clasesplit.getZone(zonesS2[1]);
-    zone4 = clasesplit.getZone(zonesS2[2]);
-    zone3 = clasesplit.getZone(zonesS2[3]);
+    var zone6;
+    var zone7;
+    var zone8;
+    // zone1 = clasesplit.getZone(bZone);
+    // zone2 = clasesplit.getZone(fZone);
+    // zone3 = clasesplit.getZone(zonesS2[1]);
+    // zone4 = clasesplit.getZone(zonesS2[2]);
+    // zone3 = clasesplit.getZone(zonesS2[3]);
+    zone1 = clasesplit.getZone(1);
+    zone2 = clasesplit.getZone(2);
+    zone3 = clasesplit.getZone(3);
+    zone4 = clasesplit.getZone(4);
+    zone5 = clasesplit.getZone(5);
+    zone6 = clasesplit.getZone(6);
+    zone7 = clasesplit.getZone(7);
+    zone8 = clasesplit.getZone(8);
+    console.log("///////////////////////////////////////////////////");
+    console.log("cantidad de secciones de la zona A 1" + zone1.length);
+    console.log("cantidad de secciones de la zona B 2" + zone2.length);
+    console.log("cantidad de secciones de la zona C 3" + zone3.length);
+    console.log("cantidad de secciones de la zona D 4" + zone4.length);
+    console.log("EJE X-----------------------------------------------");
+    console.log("cantidad de secciones de la zona E 5" + zone5.length);
+    console.log("cantidad de secciones de la zona F 6" + zone6.length);
+    console.log("cantidad de secciones de la zona G 7" + zone7.length);
+    console.log("cantidad de secciones de la zona H 8" + zone8.length);
+    console.log("///////////////////////////////////////////////////");
     ////////////////////////////////////////////////////////////////////
     var claseMTC = new monteCarlo_1.MTC();
     var index = 0;

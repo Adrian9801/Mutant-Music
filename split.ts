@@ -27,7 +27,7 @@ export class splits {
     }
 
     public splitSong() {
-        var audioLength = this.audioData.channelData[0].length;// largo del audio
+        var audioLength = this.audioData.channelData[0].length-1;// largo del audio
         var firstTime: boolean = true;
         var lastZone: number = 0;
         var nowZone: number = 0;
@@ -87,8 +87,8 @@ export class splits {
                 zone.push(point);
                 zone.push(btime);
 
-                // console.log(point);
-                // console.log(btime);
+                console.log(point);
+                console.log(btime);
 
                 // asigna nuevo valor a nowZone
                 if (point >= 0.75) { lastZone = nowZone = 1 }

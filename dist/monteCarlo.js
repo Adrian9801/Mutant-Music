@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var area_1 = require("./area");
 var MTC = /** @class */ (function () {
     function MTC() {
+        this.zonesS2 = [];
         this.zoneA = [];
         this.zoneB = [];
         this.Respuesta = [];
@@ -20,7 +21,10 @@ var MTC = /** @class */ (function () {
         this.time = ptime;
         this.MC();
     };
-    MTC.prototype.monteCarlo = function (pZoneA, pZoneB, psameZone) {
+    MTC.prototype.setZonesS2 = function (pZonesS2) {
+        this.zonesS2 = pZonesS2;
+    };
+    MTC.prototype.monteCarlo = function (pZoneA, pZoneB, psameZone, pAterior) {
         var zoneA;
         var zoneB;
         var randomA;
@@ -31,6 +35,8 @@ var MTC = /** @class */ (function () {
         var lenSubZoneTwo;
         var subRandomA;
         var subRandomB;
+        if (pAterior.length == 0) {
+        }
         for (var i = 0; i < 7000; i++) {
             if (psameZone) {
                 randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0); // random de las secciones 
@@ -50,7 +56,7 @@ var MTC = /** @class */ (function () {
                     // console.log("///////////");
                     // console.log("///////////  " + j);
                     if (pZoneA[randomA][j] < pZoneA[randomA][auxJ]) {
-                        console.log("///////SIIIIII////");
+                        console.log("///////SIIIIII////  ");
                         console.log(pZoneA[randomA][j]);
                         console.log(pZoneA[randomA][auxJ]);
                         console.log("//////////////////");

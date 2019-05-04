@@ -1,11 +1,11 @@
 import { areas } from "./area";
 export class splits {
 
+    // para la cancion
     public zoneA: number[][];
     public zoneB: number[][];
     public zoneC: number[][];
     public zoneD: number[][];
-
     public zoneE: number[][];
     public zoneF: number[][];
     public zoneG: number[][];
@@ -16,13 +16,14 @@ export class splits {
     public pointAndTimeS2: number[];// pounto y tiempo de S2 se parados por segundo
     public positionIS2: number[];//pisiciones de esos datos 
     public zoneS2: number[];//pisiciones de esos datos 
-    public areaWaveS2: number[];
-    public totalAreaWaveS2: number;
+    public areaWaveS2: number[];//aea de cada una de las sub-areas
+    public totalAreaWaveS2: number;//area total
 
 
     public dumppi: number[][];
     private audioData: any;
 
+   
     public constructor(pAudioData: any) {
         this.zoneA = [];
         this.zoneB = [];
@@ -41,7 +42,7 @@ export class splits {
         this.totalAreaWaveS2 = 0;
     }
 
-    // true para estudiar S2
+    // true para estudiar S2 false para la cancion 
     public splitSong(dataSong: boolean) {
         var audioLength = this.audioData.channelData[0].length - 1;// largo del audio
         var firstTime: boolean = true;
@@ -113,8 +114,8 @@ export class splits {
                 zone.push(point);
                 zone.push(btime);
 
-                console.log(point);
-                console.log(btime);
+                // console.log(point);
+                // console.log(btime);
 
                 // para S2
                 this.pointAndTimeS2.push(point);
@@ -138,7 +139,7 @@ export class splits {
             this.pointAndTimeS2.push(this.audioData.channelData[0][audioLength]);
             this.pointAndTimeS2.push(Math.round(audioLength / 44100));
             this.positionIS2.push(audioLength);
-            this.loadZoneS2();
+            this.loadZoneS2();// en caso de estudiar s2 termina con la carga de las areas 
         }
     }
 
@@ -227,11 +228,16 @@ export class splits {
             else if (point >= -0.75) { nowZone = 7 }
             else { nowZone = 8 }
             i++;
-            this.zoneS2.push(nowZone);
+            this.zoneS2.push(nowZone);//pisiciones de esos datos 
 
         }
         this.areaS2();
     }
+
+
+
+
+
     public areaS2() {
 
         var clasesarea = new areas();//area de S2 segun datos

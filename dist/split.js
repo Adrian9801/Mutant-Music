@@ -101,8 +101,8 @@ var splits = /** @class */ (function () {
             else { // solo para el primer caso
                 zone.push(point);
                 zone.push(btime);
-                console.log(point);
-                console.log(btime);
+                // console.log(point);
+                // console.log(btime);
                 // para S2
                 this.pointAndTimeS2.push(point);
                 this.pointAndTimeS2.push(btime);

@@ -10,11 +10,13 @@ export class MTC {
     public Respuesta: number[][];
     public zoneA: number[][];
     public zoneB: number[][];
+    public zonesS2: number[];
     public respMT: number[];
     public areaS2: number;
     public time: number;
 
     public constructor() {
+        this.zonesS2=[];
         this.zoneA = [];
         this.zoneB = [];
         this.Respuesta = [];
@@ -30,8 +32,17 @@ export class MTC {
         this.time = ptime;
         this.MC();
     }
+    
 
-    public monteCarlo(pZoneA: number[][], pZoneB: number[][], psameZone: boolean) {
+    public setZonesS2(pZonesS2: number[]){
+       this.zonesS2= pZonesS2;
+    //    .monteCarlo(zoneA, zoneB, true, 0);
+    }
+
+
+
+
+    public monteCarlo(pZoneA: number[][], pZoneB: number[][], psameZone: boolean, pAterior: number ) {
 
         var zoneA: number;
         var zoneB: number;
@@ -48,7 +59,7 @@ export class MTC {
         var subRandomA: number;
         var subRandomB: number;
 
-        
+            
         for (var i = 0; i < 7000; i++) {
 
             if (psameZone) {

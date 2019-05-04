@@ -48,34 +48,43 @@ export class MTC {
         var subRandomA: number;
         var subRandomB: number;
 
-
-        for (var i = 0; i <4 ; i++) {
+        
+        for (var i = 0; i < 7000; i++) {
 
             if (psameZone) {
 
                 randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0);// random de las secciones 
                 lenSubZoneOne = ((Math.round((pZoneA[randomA].length) / 2)));// len intercalado
-                subRandomA = ((Math.floor(Math.random() * (lenSubZoneOne - 1 + 1)) + 1)*2)-1 ;//aseguramos num par
-               
-                console.log("xxxxxxxxxxxxxxxxxxxX");
+                subRandomA = ((Math.floor(Math.random() * (lenSubZoneOne - 1 + 1)) + 1) * 2) - 1;//aseguramos num par
+
+               // console.log("xxxxxxxxxxxxxxxxxxxX");
                 // console.log( pZoneA[randomA][subRandomA]);
                 // console.log( pZoneA[randomA][subRandomA+2]);
                 // console.log("///////////");
                 var auxJ = 0;
-                for (var j = subRandomA ; j < pZoneA[randomA].length - 1; j++) {
+                for (var j = subRandomA; j < pZoneA[randomA].length - 1; j++) {
                     //subRandomB = pZoneA[randomA][j+2];
-                    
-                    auxJ = j + 2 ;
-                    console.log("///////////" + auxJ);
-                    console.log(pZoneA[randomA][j]); 
-                    console.log(pZoneA[randomA][auxJ]);
-                    console.log("///////////");
-                    console.log("///////////  "+j);
+
+                    auxJ = j + 2;
+                    // console.log("///////////" + auxJ);
+                    // console.log(pZoneA[randomA][j]);
+                    // console.log(pZoneA[randomA][auxJ]);
+                    // console.log("///////////");
+                    // console.log("///////////  " + j);
+                    if (pZoneA[randomA][j] < pZoneA[randomA][auxJ]) {
+                        console.log("///////SIIIIII////  ");
+                        console.log(pZoneA[randomA][j]);
+                        console.log(pZoneA[randomA][auxJ]);
+                        console.log("//////////////////");
+
+                        break;
+
+                    }
                     j++;
                 }
 
 
-            } 
+            }
         }
     }
 

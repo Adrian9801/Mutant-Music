@@ -24,4 +24,5 @@ export declare class MTC {
     makeMT(): void;
     MC(pZoneA: number[][], pZoneB: number[][]): void;
     getZone(zone: number): (number[][]);
+    gps(point: number): number;
 }

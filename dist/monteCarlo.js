@@ -11,7 +11,7 @@ var MTC = /** @class */ (function () {
         this.pointPositionS2 = [];
         this.zonesPointsS2 = [];
         this.zonesAreaS2 = [];
-        this.totalAreasS2 = 0;
+        this.totalAreasS2 = [];
         ////////////////////////////////////////////////// 
         ////////////////form Song////////////////////////// 
         this.zone1 = [];
@@ -30,6 +30,11 @@ var MTC = /** @class */ (function () {
         this.zonesPointsS2 = pZonesPointsS2;
         this.zonesAreaS2 = pZonesAreaS2;
         this.totalAreasS2 = pTotalAreasS2;
+        // console.log(this.pointsAndTimesS2);//puntos y tiempos
+        // console.log(this.pointPositionS2);//posiciones de los puntos
+        // console.log(this.zonesPointsS2);// zonas de cada punto
+        // console.log(this.zonesAreaS2);// areas de cada zona
+        // console.log(this.totalAreasS2);// area total de todas las zonas 
     };
     MTC.prototype.setDataSong = function (pZ1, pZ2, pZ3, pZ4, pZ5, pZ6, pZ7, pZ8) {
         this.zone1 = pZ1;
@@ -40,6 +45,17 @@ var MTC = /** @class */ (function () {
         this.zone6 = pZ6;
         this.zone7 = pZ7;
         this.zone8 = pZ8;
+        console.log("///////////////////////////////////////////////////");
+        console.log("cantidad de secciones de la zona A 1" + this.zone1.length);
+        console.log("cantidad de secciones de la zona B 2" + this.zone2.length);
+        console.log("cantidad de secciones de la zona C 3" + this.zone3.length);
+        console.log("cantidad de secciones de la zona D 4" + this.zone4.length);
+        console.log("EJE X-----------------------------------------------");
+        console.log("cantidad de secciones de la zona E 5" + this.zone5.length);
+        console.log("cantidad de secciones de la zona F 6" + this.zone6.length);
+        console.log("cantidad de secciones de la zona G 7" + this.zone7.length);
+        console.log("cantidad de secciones de la zona H 8" + this.zone8.length);
+        console.log("///////////////////////////////////////////////////");
     };
     return MTC;
 }());

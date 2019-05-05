@@ -17,7 +17,7 @@ var splits = /** @class */ (function () {
         this.zoneS2 = [];
         this.areaWaveS2 = [];
         this.audioData = pAudioData;
-        this.totalAreaWaveS2 = 0;
+        this.totalAreaWaveS2 = [];
     }
     // true para estudiar S2 false para la cancion 
     splits.prototype.splitSong = function (dataSong) {
@@ -182,7 +182,6 @@ var splits = /** @class */ (function () {
     splits.prototype.getZone = function (zone) {
         switch (zone) {
             case 1: {
-                this.dumppi = this.zoneA;
                 return this.zoneA;
             }
             case 2: {
@@ -208,6 +207,26 @@ var splits = /** @class */ (function () {
             }
         }
         return this.dumppi;
+    };
+    splits.prototype.getDataS2 = function (zone) {
+        switch (zone) {
+            case 1: {
+                return this.pointAndTimeS2;
+            }
+            case 2: {
+                return this.positionIS2;
+            }
+            case 3: {
+                return this.zoneS2;
+            }
+            case 4: {
+                return this.areaWaveS2;
+            }
+            case 5: {
+                return this.totalAreaWaveS2;
+            }
+        }
+        return [];
     };
     splits.prototype.loadZoneS2 = function () {
         var nowZone = 0; //zona actual
@@ -255,7 +274,7 @@ var splits = /** @class */ (function () {
             auxTotalArea = auxTotalArea + auxArea;
             i++;
         }
-        this.totalAreaWaveS2 = auxTotalArea;
+        this.totalAreaWaveS2[0] = auxTotalArea;
     };
     return splits;
 }());

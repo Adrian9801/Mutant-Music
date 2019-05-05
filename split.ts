@@ -1,6 +1,16 @@
 import { areas } from "./area";
 export class splits {
 
+
+    ////////////////form S2////////////////////////// 
+    private pointAndTimeS2: number[];// pounto y tiempo de S2 se parados por segundo
+    private positionIS2: number[];//pisiciones de esos datos 
+    private zoneS2: number[];//pisiciones de esos datos 
+    private areaWaveS2: number[];//aea de cada una de las sub-areas
+    private totalAreaWaveS2: number[];//area total
+    ////////////////////////////////////////////////// 
+
+
     ////////////////form Song////////////////////////// 
     private zoneA: number[][];
     private zoneB: number[][];
@@ -12,19 +22,16 @@ export class splits {
     private zoneH: number[][];
     ////////////////////////////////////////////////// 
 
-    ////////////////form S2////////////////////////// 
-    private pointAndTimeS2: number[];// pounto y tiempo de S2 se parados por segundo
-    private positionIS2: number[];//pisiciones de esos datos 
-    private zoneS2: number[];//pisiciones de esos datos 
-    private areaWaveS2: number[];//aea de cada una de las sub-areas
-    private totalAreaWaveS2: number[];//area total
-    ////////////////////////////////////////////////// 
 
-    public dumppi: number[][];
+    private dumppi: number[][];
     private audioData: any;
 
 
     public constructor(pAudioData: any) {
+
+        this.audioData = pAudioData;
+
+        ////////////////form Song////////////////////////// 
         this.zoneA = [];
         this.zoneB = [];
         this.zoneC = [];
@@ -34,12 +41,15 @@ export class splits {
         this.zoneG = [];
         this.zoneH = [];
         this.dumppi = [];
+        ////////////////////////////////////////////////// 
+
+        ////////////////form S2////////////////////////// 
         this.pointAndTimeS2 = [];
         this.positionIS2 = [];
         this.zoneS2 = [];
         this.areaWaveS2 = [];
-        this.audioData = pAudioData;
         this.totalAreaWaveS2 = [];
+        ////////////////////////////////////////////////// 
     }
 
     // true para estudiar S2 false para la cancion 
@@ -144,6 +154,49 @@ export class splits {
     }
 
 
+    //determina en que zona se encantra cada punto guardado de S2(se guarda un punto cada segundo )
+    public loadZoneS2() {
+        var nowZone: number = 0;//zona actual
+        var point: number;//punto 
+
+        for (var i = 0; i < this.pointAndTimeS2.length - 1; i++) {
+            point = this.audioData.channelData[0][i];//punto 
+
+            if (point >= 0.75) { nowZone = 1 }
+            else if (point >= 0.5) { nowZone = 2 }
+            else if (point >= 0.25) { nowZone = 3 }
+            else if (point >= 0) { nowZone = 4 }
+            //-----------------------------------------------------------------LINEA CATESIANA X
+            else if (point >= -0.25) { nowZone = 5 }
+            else if (point >= -0.5) { nowZone = 6 }
+            else if (point >= -0.75) { nowZone = 7 }
+            else { nowZone = 8 }
+            i++;
+            this.zoneS2.push(nowZone);//pisiciones de esos datos 
+
+        }
+        this.areaS2();
+    }
+
+
+    //calcula el area de cada sub-zona de S2
+    public areaS2() {
+
+        var clasesarea = new areas();//area de S2 segun datos
+        var auxArea: number = 0;
+        var auxTotalArea: number = 0;
+        for (var i = 0; i <= this.pointAndTimeS2.length - 3; i++) {
+            //tiempo de inicio , tiempo final , punto de inicio punto final
+            auxArea = clasesarea.waveArea(this.pointAndTimeS2[i + 1], this.pointAndTimeS2[i + 3],
+                this.pointAndTimeS2[i], this.pointAndTimeS2[i + 2]);
+            this.areaWaveS2.push(auxArea);
+            auxTotalArea = auxTotalArea + auxArea;
+            i++;
+        }
+        this.totalAreaWaveS2[0] = auxTotalArea;
+
+    }
+
     private insertZone(pZoneNumber: number, pZone: number[]) {
         switch (pZoneNumber) {
             case 1: {
@@ -214,9 +267,6 @@ export class splits {
         return this.dumppi;
     }
 
-
-
-    
     public getDataS2(zone: number): (number[]) {
         switch (zone) {
             case 1: {
@@ -237,55 +287,5 @@ export class splits {
         }
         return [];
     }
-
-
-
-    public loadZoneS2() {
-        var nowZone: number = 0;//zona actual
-        var point: number;//punto 
-
-        for (var i = 0; i < this.pointAndTimeS2.length - 1; i++) {
-            point = this.audioData.channelData[0][i];//punto 
-
-            if (point >= 0.75) { nowZone = 1 }
-            else if (point >= 0.5) { nowZone = 2 }
-            else if (point >= 0.25) { nowZone = 3 }
-            else if (point >= 0) { nowZone = 4 }
-            //-----------------------------------------------------------------LINEA CATESIANA X
-            else if (point >= -0.25) { nowZone = 5 }
-            else if (point >= -0.5) { nowZone = 6 }
-            else if (point >= -0.75) { nowZone = 7 }
-            else { nowZone = 8 }
-            i++;
-            this.zoneS2.push(nowZone);//pisiciones de esos datos 
-
-        }
-        this.areaS2();
-    }
-
-
-
-
-
-    public areaS2() {
-
-        var clasesarea = new areas();//area de S2 segun datos
-        var auxArea: number = 0;
-        var auxTotalArea: number = 0;
-        for (var i = 0; i <= this.pointAndTimeS2.length - 3; i++) {
-            //tiempo de inicio , tiempo final , punto de inicio punto final
-            auxArea = clasesarea.waveArea(this.pointAndTimeS2[i + 1], this.pointAndTimeS2[i + 3],
-                this.pointAndTimeS2[i], this.pointAndTimeS2[i + 2]);
-            this.areaWaveS2.push(auxArea);
-            auxTotalArea = auxTotalArea + auxArea;
-            i++;
-        }
-        this.totalAreaWaveS2[0] = auxTotalArea;
-
-    }
-
-
-
-
 
 }

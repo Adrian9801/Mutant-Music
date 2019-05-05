@@ -6,6 +6,8 @@ import { areas } from "./area";
 
 export class MTC {
 
+    private NumMTC: number
+    private dumppi: number[][];
     ////////////////form S2////////////////////////// 
     private pointsAndTimesS2: number[];
     private pointPositionS2: number[];
@@ -27,7 +29,7 @@ export class MTC {
 
 
     public constructor() {
-
+        this.NumMTC = 0;
         ////////////////form S2////////////////////////// 
         this.pointsAndTimesS2 = [];
         this.pointPositionS2 = [];
@@ -44,6 +46,7 @@ export class MTC {
         this.zone6 = [];
         this.zone7 = [];
         this.zone8 = [];
+        this.dumppi = [];
         ////////////////////////////////////////////////// 
 
     }
@@ -92,7 +95,25 @@ export class MTC {
 
     }
 
-        public monteCarlo(pZoneA: number[][], pZoneB: number[][], psameZone: boolean, pAterior: number) {
+
+    public makeMT() {
+        var same: boolean;
+
+        for (var i = 0; i < this.zonesPointsS2.length - 1; i++) {
+
+            if (this.getZone(i) == this.getZone(i + 1)) {
+                same = true;
+            } else {
+                same = false;
+            }
+            
+            this.monteCarlo(this.getZone(i), this.getZone(i + 1), same, this.NumMTC);
+
+        }
+
+    }
+
+    public monteCarlo(pZoneA: number[][], pZoneB: number[][], psameZone: boolean, pAterior: number) {
 
         var zoneA: number;
         var zoneB: number;
@@ -147,26 +168,58 @@ export class MTC {
 
             }
         }
+
+
+
+
     }
 
     //   // for (var i = 0; i < zonesSS2.length - 1; i++) {
-//   //   zoneA = clasesplit.getZone(zonesSS2[i]);
-//   //   zoneB = clasesplit.getZone(zonesSS2[i + 1]);
-//   //   if (i == i + 1) {
-//   //     sameZone = true;
-//   //   } else {
-//   //     sameZone = false;
-//   //   }
+    //   //   zoneA = clasesplit.getZone(zonesSS2[i]);
+    //   //   zoneB = clasesplit.getZone(zonesSS2[i + 1]);
+    //   //   if (i == i + 1) {
+    //   //     sameZone = true;
+    //   //   } else {
+    //   //     sameZone = false;
+    //   //   }
 
-//   //   claseMTC.monteCarlo(zoneA,zoneB,sameZone); 
-
-
-    
+    //   //   claseMTC.monteCarlo(zoneA,zoneB,sameZone); 
 
 
+    public getZone(zone: number): (number[][]) {
+        switch (zone) {
+            case 1: {
+                return this.zone1;
+            }
+            case 2: {
+                return this.zone2;
+            }
+            case 3: {
+                return this.zone3;
+            }
+            case 4: {
+                return this.zone4;
+            }
+            case 5: {
+                return this.zone5;
+            }
+            case 6: {
+                return this.zone6;
+            }
+            case 7: {
+                return this.zone7;
+            }
+            case 8: {
+                return this.zone8;
+            }
+        }
+        return this.dumppi;
+    }
 
 
-    
+
+
+
 
 
 }

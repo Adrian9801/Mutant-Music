@@ -32,7 +32,7 @@ var MTC = /** @class */ (function () {
         this.totalAreasS2 = pTotalAreasS2;
         // console.log(this.pointsAndTimesS2);//puntos y tiempos
         // console.log(this.pointPositionS2);//posiciones de los puntos
-        // console.log(this.zonesPointsS2);// zonas de cada punto
+        console.log(this.zonesPointsS2); // zonas de cada punto
         // console.log(this.zonesAreaS2);// areas de cada zona
         // console.log(this.totalAreasS2);// area total de todas las zonas 
     };
@@ -45,17 +45,62 @@ var MTC = /** @class */ (function () {
         this.zone6 = pZ6;
         this.zone7 = pZ7;
         this.zone8 = pZ8;
-        console.log("///////////////////////////////////////////////////");
-        console.log("cantidad de secciones de la zona A 1" + this.zone1.length);
-        console.log("cantidad de secciones de la zona B 2" + this.zone2.length);
-        console.log("cantidad de secciones de la zona C 3" + this.zone3.length);
-        console.log("cantidad de secciones de la zona D 4" + this.zone4.length);
-        console.log("EJE X-----------------------------------------------");
-        console.log("cantidad de secciones de la zona E 5" + this.zone5.length);
-        console.log("cantidad de secciones de la zona F 6" + this.zone6.length);
-        console.log("cantidad de secciones de la zona G 7" + this.zone7.length);
-        console.log("cantidad de secciones de la zona H 8" + this.zone8.length);
-        console.log("///////////////////////////////////////////////////");
+        // console.log("///////////////////////////////////////////////////")
+        // console.log("cantidad de secciones de la zona A 1" +  this.zone1.length);
+        // console.log("cantidad de secciones de la zona B 2" +  this.zone2.length);
+        // console.log("cantidad de secciones de la zona C 3" +  this.zone3.length);
+        // console.log("cantidad de secciones de la zona D 4" +  this.zone4.length);
+        // console.log("EJE X-----------------------------------------------")
+        // console.log("cantidad de secciones de la zona E 5" +  this.zone5.length);
+        // console.log("cantidad de secciones de la zona F 6" +  this.zone6.length);
+        // console.log("cantidad de secciones de la zona G 7" +  this.zone7.length);
+        // console.log("cantidad de secciones de la zona H 8" +  this.zone8.length);
+        // console.log("///////////////////////////////////////////////////");
+    };
+    MTC.prototype.makeMT = function () {
+        for (var i = 0; i < 7000; i++) {
+        }
+    };
+    MTC.prototype.monteCarlo = function (pZoneA, pZoneB, psameZone, pAterior) {
+        var zoneA;
+        var zoneB;
+        var randomA;
+        var randomB;
+        var lenZoneOne = pZoneA.length - 1;
+        var lenZoneTwo = pZoneB.length - 1;
+        var lenSubZoneOne;
+        var lenSubZoneTwo;
+        var subRandomA;
+        var subRandomB;
+        for (var i = 0; i < 7000; i++) {
+            if (psameZone) {
+                randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0); // random de las secciones 
+                lenSubZoneOne = ((Math.round((pZoneA[randomA].length) / 2))); // len intercalado
+                subRandomA = ((Math.floor(Math.random() * (lenSubZoneOne - 1 + 1)) + 1) * 2) - 1; //aseguramos num par
+                // console.log("xxxxxxxxxxxxxxxxxxxX");
+                // console.log( pZoneA[randomA][subRandomA]);
+                // console.log( pZoneA[randomA][subRandomA+2]);
+                // console.log("///////////");
+                var auxJ = 0;
+                for (var j = subRandomA; j < pZoneA[randomA].length - 1; j++) {
+                    //subRandomB = pZoneA[randomA][j+2];
+                    auxJ = j + 2;
+                    // console.log("///////////" + auxJ);
+                    // console.log(pZoneA[randomA][j]);
+                    // console.log(pZoneA[randomA][auxJ]);
+                    // console.log("///////////");
+                    // console.log("///////////  " + j);
+                    if (pZoneA[randomA][j] < pZoneA[randomA][auxJ]) {
+                        console.log("///////SIIIIII////  ");
+                        console.log(pZoneA[randomA][j]);
+                        console.log(pZoneA[randomA][auxJ]);
+                        console.log("//////////////////");
+                        break;
+                    }
+                    j++;
+                }
+            }
+        }
     };
     return MTC;
 }());

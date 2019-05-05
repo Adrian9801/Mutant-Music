@@ -15,4 +15,6 @@ export declare class MTC {
     constructor();
     setDataS2(pPointsAndTimesS2: number[], pPointPositionS2: number[], pZonesPointsS2: number[], pZonesAreaS2: number[], pTotalAreasS2: number[]): void;
     setDataSong(pZ1: number[][], pZ2: number[][], pZ3: number[][], pZ4: number[][], pZ5: number[][], pZ6: number[][], pZ7: number[][], pZ8: number[][]): void;
+    makeMT(): void;
+    monteCarlo(pZoneA: number[][], pZoneB: number[][], psameZone: boolean, pAterior: number): void;
 }

@@ -142,7 +142,7 @@ var splits = /** @class */ (function () {
         }
         if (dataSong) { // de estar estudiando el S2
             this.pointAndTimeS2.push(this.audioData.channelData[0][audioLength]);
-            this.pointAndTimeS2.push(Math.round(audioLength / 44100));
+            this.pointAndTimeS2.push(Math.round(audioLength / 44100)); //ultimo segundo 
             this.positionIS2.push(audioLength);
             this.loadZoneS2(); // en caso de estudiar s2 termina con la carga de las areas 
         }
@@ -196,6 +196,10 @@ var splits = /** @class */ (function () {
             i++;
         }
         this.totalAreaWaveS2[0] = auxTotalArea;
+        // console.log(
+        // clasesarea.waveArea(this.pointAndTimeS2[1], this.pointAndTimeS2[this.pointAndTimeS2.length-1],
+        //     this.pointAndTimeS2[0], this.pointAndTimeS2[this.pointAndTimeS2.length- 2])
+        // );
     };
     splits.prototype.insertZone = function (pZoneNumber, pZone) {
         switch (pZoneNumber) {

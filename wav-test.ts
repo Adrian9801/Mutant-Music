@@ -48,6 +48,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
     clasesplit.getZone(5), clasesplit.getZone(6), clasesplit.getZone(7), clasesplit.getZone(8));
 
 
+ claseMTC.setAudioData(audioData);
   claseMTC.makeMT();
 
 });

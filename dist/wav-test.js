@@ -41,6 +41,8 @@ readFile("./Sound/Dua.wav").then(function (buffer) {
     var clasesplit = new split_1.splits(audioData);
     clasesplit.splitSong(false);
     claseMTC.setDataSong(clasesplit.getZone(1), clasesplit.getZone(2), clasesplit.getZone(3), clasesplit.getZone(4), clasesplit.getZone(5), clasesplit.getZone(6), clasesplit.getZone(7), clasesplit.getZone(8));
+    claseMTC.setAudioData(audioData);
+    claseMTC.makeMT();
 });
 //  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  //-----------------------------------------------------RODRI------------------------------------------------//

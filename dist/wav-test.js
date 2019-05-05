@@ -25,7 +25,7 @@ var readFile = function (filepath) {
         });
     });
 };
-readFile("./Sound/s2.wav").then(function (buffer) {
+readFile("./Sound/s22.wav").then(function (buffer) {
     return WavDecoder.decode(buffer);
 }).then(function (audioData) {
     console.log("ampliando 30%");

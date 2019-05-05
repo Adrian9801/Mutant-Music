@@ -22,7 +22,7 @@ const readFile = (filepath: string) => {
 };
 
 
-readFile("./Sound/s2.wav").then((buffer) => {
+readFile("./Sound/s22.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
   console.log("ampliando 30%");

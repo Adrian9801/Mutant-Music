@@ -1,6 +1,7 @@
 export declare class MTC {
     private NumMTC;
     private dumppi;
+    private reptit;
     private lastSeconS2;
     private auxPZoneA;
     private auxPZoneB;
@@ -27,4 +28,5 @@ export declare class MTC {
     MC(pZoneA: number[][], pZoneB: number[][]): void;
     getZone(zone: number): (number[][]);
     gps(point: number): number;
+    isRepit(point: number): boolean;
 }

@@ -6,188 +6,229 @@ import { areas } from "./area";
 
 export class MTC {
 
+    ////////////////form S2////////////////////////// 
+    private pointsAndTimesS2: number[];
+    private pointPositionS2: number[];
+    private zonesPointsS2: number[];
+    private zonesAreaS2: number[];
+    private totalAreasS2: number[];
+    ////////////////////////////////////////////////// 
 
-    public Respuesta: number[][];
-    public zoneA: number[][];
-    public zoneB: number[][];
-    public zonesS2: number[];
-    public respMT: number[];
-    public areaS2: number;
-    public time: number;
+    ////////////////form Song////////////////////////// 
+      private zone1: number[][];
+      private zone2: number[][];
+      private zone3: number[][];
+      private zone4: number[][];
+      private zone5: number[][];
+      private zone6: number[][];
+      private zone7: number[][];
+      private zone8: number[][];
+    ////////////////////////////////////////////////// 
+
 
     public constructor() {
-        this.zonesS2=[];
-        this.zoneA = [];
-        this.zoneB = [];
-        this.Respuesta = [];
-        this.respMT = [];
-        this.areaS2 = 0;
-        this.time = 0;
-    }
 
-    public setMC(pZone1: number[][], pZone2: number[][], pAreaS2: number, ptime: number) {
-        this.zoneA = pZone1;
-        this.zoneB = pZone2;
-        this.areaS2 = pAreaS2;
-        this.time = ptime;
-        this.MC();
-    }
+    ////////////////form S2////////////////////////// 
+    this.pointsAndTimesS2 = [];
+    this.pointPositionS2 = [];
+    this.zonesPointsS2 = [];
+    this.zonesAreaS2 = [];
+    this.totalAreasS2 = [];
+    ////////////////////////////////////////////////// 
+    ////////////////form Song////////////////////////// 
+    this.zone1 = [];
+    this.zone2 = [];
+    this.zone3 = [];
+    this.zone4 = [];
+    this.zone5 = [];
+    this.zone6 = [];
+    this.zone7 = [];
+    this.zone8 = [];
+  ////////////////////////////////////////////////// 
+
+}
+
+    public setDataS2(pPointsAndTimesS2 : number[], pPointPositionS2: number[],
+    pZonesPointsS2: number[], pZonesAreaS2 : number[], pTotalAreasS2: number[]) {
+
+    this.pointsAndTimesS2 = pPointsAndTimesS2;
+    this.pointPositionS2 = pPointPositionS2;
+    this.zonesPointsS2 = pZonesPointsS2;
+    this.zonesAreaS2 = pZonesAreaS2;
+    this.totalAreasS2 = pTotalAreasS2;
+
+}
+
+
+public setDataSong(pZ1 : number[][],pZ2 : number[][],pZ3 : number[][],pZ4 : number[][],
+    pZ5 : number[][],pZ6 : number[][],pZ7 : number[][],pZ8 : number[][]) {
+
+    this.zone1 = pZ1;
+    this.zone2 = pZ2;
+    this.zone3 = pZ3;
+    this.zone4 = pZ4;
+    this.zone5 = pZ5;
+    this.zone6 = pZ6;
+    this.zone7 = pZ7;
+    this.zone8 = pZ8;
     
-
-    public setZonesS2(pZonesS2: number[]){
-       this.zonesS2= pZonesS2;
-    //    .monteCarlo(zoneA, zoneB, true, 0);
-    }
+}
 
 
-
-
-    public monteCarlo(pZoneA: number[][], pZoneB: number[][], psameZone: boolean, pAterior: number ) {
-
-        var zoneA: number;
-        var zoneB: number;
-
-        var randomA: number;
-        var randomB: number;
-
-        var lenZoneOne: number = pZoneA.length - 1;
-        var lenZoneTwo: number = pZoneB.length - 1;
-
-        var lenSubZoneOne: number;
-        var lenSubZoneTwo: number;
-
-        var subRandomA: number;
-        var subRandomB: number;
-
-            
-        for (var i = 0; i < 7000; i++) {
-
-            if (psameZone) {
-
-                randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0);// random de las secciones 
-                lenSubZoneOne = ((Math.round((pZoneA[randomA].length) / 2)));// len intercalado
-                subRandomA = ((Math.floor(Math.random() * (lenSubZoneOne - 1 + 1)) + 1) * 2) - 1;//aseguramos num par
-
-               // console.log("xxxxxxxxxxxxxxxxxxxX");
-                // console.log( pZoneA[randomA][subRandomA]);
-                // console.log( pZoneA[randomA][subRandomA+2]);
-                // console.log("///////////");
-                var auxJ = 0;
-                for (var j = subRandomA; j < pZoneA[randomA].length - 1; j++) {
-                    //subRandomB = pZoneA[randomA][j+2];
-
-                    auxJ = j + 2;
-                    // console.log("///////////" + auxJ);
-                    // console.log(pZoneA[randomA][j]);
-                    // console.log(pZoneA[randomA][auxJ]);
-                    // console.log("///////////");
-                    // console.log("///////////  " + j);
-                    if (pZoneA[randomA][j] < pZoneA[randomA][auxJ]) {
-                        console.log("///////SIIIIII////  ");
-                        console.log(pZoneA[randomA][j]);
-                        console.log(pZoneA[randomA][auxJ]);
-                        console.log("//////////////////");
-
-                        break;
-
-                    }
-                    j++;
-                }
-
-
-            }
-        }
-    }
+    // public setZonesS2(pZonesS2: number[]) {
+    //     this.zonesS2 = pZonesS2;
+    //     //    .monteCarlo(zoneA, zoneB, true, 0);
+    // }
 
 
 
-    public MC() {
-        var lenZoneOne: number;
-        var lenZoneTwo: number;
 
-        var lenSubZoneOne: number;
-        var lenSubZoneTwo: number;
+//     public monteCarlo(pZoneA: number[][], pZoneB: number[][], psameZone: boolean, pAterior: number) {
 
-        var randomA: number;
-        var randomB: number;
-        var subRandomA: number;
-        var subRandomB: number;
+//     var zoneA: number;
+//     var zoneB: number;
 
+//     var randomA: number;
+//     var randomB: number;
 
-        lenZoneOne = this.zoneA.length - 1;
-        lenZoneTwo = this.zoneB.length - 1;
+//     var lenZoneOne: number = pZoneA.length - 1;
+//     var lenZoneTwo: number = pZoneB.length - 1;
 
+//     var lenSubZoneOne: number;
+//     var lenSubZoneTwo: number;
 
-        for (var i = 0; i < 80000; i++) {
-            // random de entre los conjuntos de la zona 1 y 2//
-            randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0);
-            randomB = (Math.floor(Math.random() * (lenZoneTwo - 0 + 1)) + 0);
-
-            //-------------------------------------------------//
-
-            // random de los elementos de los conjuntos seleccionados de la zona 1 y 2//
-            lenSubZoneOne = (Math.round(((this.zoneA[randomA].length - 2) / 2)));
-            lenSubZoneTwo = (Math.round(((this.zoneB[randomB].length - 2) / 2)));
+//     var subRandomA: number;
+//     var subRandomB: number;
 
 
+//     for (var i = 0; i < 7000; i++) {
 
-            subRandomA = (Math.floor(Math.random() * (lenSubZoneOne - 0 + 1)) + 0) * 2;//aseguramos num par
-            subRandomB = (Math.floor(Math.random() * (lenSubZoneTwo - 0 + 1)) + 0) * 2;//aseguramos num par
-            //-------------------------------------------------//
+//         if (psameZone) {
 
+//             randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0);// random de las secciones 
+//             lenSubZoneOne = ((Math.round((pZoneA[randomA].length) / 2)));// len intercalado
+//             subRandomA = ((Math.floor(Math.random() * (lenSubZoneOne - 1 + 1)) + 1) * 2) - 1;//aseguramos num par
 
-            if (((this.zoneB[randomB].length > 1) && (this.zoneA[randomA].length > 1))// que no sea un par ya seleccionado
-                &&
-                this.segMonteCarlo(this.zoneA[randomA][subRandomA + 1], this.zoneB[randomB][subRandomB + 1]//que cumpla los n segundos requeridos
-                    , this.zoneA[randomA][subRandomA], this.zoneB[randomB][subRandomB])
+//             // console.log("xxxxxxxxxxxxxxxxxxxX");
+//             // console.log( pZoneA[randomA][subRandomA]);
+//             // console.log( pZoneA[randomA][subRandomA+2]);
+//             // console.log("///////////");
+//             var auxJ = 0;
+//             for (var j = subRandomA; j < pZoneA[randomA].length - 1; j++) {
+//                 //subRandomB = pZoneA[randomA][j+2];
 
-            ) {
-                this.respMT.push(this.zoneA[randomA][subRandomA + 1]);
-                this.respMT.push(this.zoneB[randomB][subRandomB + 1]);
-                this.Respuesta.push(this.respMT);
-                this.respMT = [];
-                this.zoneB[randomB] = [];
-                this.zoneA[randomA] = [];
-            }
+//                 auxJ = j + 2;
+//                 // console.log("///////////" + auxJ);
+//                 // console.log(pZoneA[randomA][j]);
+//                 // console.log(pZoneA[randomA][auxJ]);
+//                 // console.log("///////////");
+//                 // console.log("///////////  " + j);
+//                 if (pZoneA[randomA][j] < pZoneA[randomA][auxJ]) {
+//                     console.log("///////SIIIIII////  ");
+//                     console.log(pZoneA[randomA][j]);
+//                     console.log(pZoneA[randomA][auxJ]);
+//                     console.log("//////////////////");
 
-        }
-        console.log(this.Respuesta.length);
-        console.log(this.Respuesta[0]);
-    }
+//                     break;
 
-    public segMonteCarlo(segOne: number, segTwo: number, posOne: number, posTwo: number): boolean {
-        var clasesarea = new areas();//area de S2 segun datos
-        var area: number;
-        if (segTwo - segOne == this.time) {
-            area = clasesarea.waveArea(segOne, segTwo, posOne, posTwo)
-            if (((this.areaS2 / 100) * 70 <= area) && (area <= this.areaS2)) {
-                // console.log(this.areaS2  + " area original");
-                // console.log(clasesarea.waveArea(segOne, segTwo, posOne, posTwo)  + " area de muestra");
-                // console.log("//////////////////////////////" );
-                return true;
-            } else {
-                return false;
-            }
+//                 }
+//                 j++;
+//             }
 
 
-        } else {
-            return false;
-        }
-
-    }
-
-
-
-    // console.log("//////////////////////////////");
-    // console.log(this.zoneA[randomA][subRandomA]);
-    // console.log(this.zoneA[randomA][subRandomA + 1]);
-    // console.log("-------------------------------");
-    // //-------------------------//
-    // console.log(this.zoneB[randomB][subRandomB]);
-    // console.log(this.zoneB[randomB][subRandomB + 1]);
-    // console.log("//////////////////////////////");
-
-
+//         }
+//     }
+// }
 
 
 }
+//     public MC() {
+//         var lenZoneOne: number;
+//         var lenZoneTwo: number;
+
+//         var lenSubZoneOne: number;
+//         var lenSubZoneTwo: number;
+
+//         var randomA: number;
+//         var randomB: number;
+//         var subRandomA: number;
+//         var subRandomB: number;
+
+
+//         lenZoneOne = this.zoneA.length - 1;
+//         lenZoneTwo = this.zoneB.length - 1;
+
+
+//         for (var i = 0; i < 80000; i++) {
+//             // random de entre los conjuntos de la zona 1 y 2//
+//             randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0);
+//             randomB = (Math.floor(Math.random() * (lenZoneTwo - 0 + 1)) + 0);
+
+//             //-------------------------------------------------//
+
+//             // random de los elementos de los conjuntos seleccionados de la zona 1 y 2//
+//             lenSubZoneOne = (Math.round(((this.zoneA[randomA].length - 2) / 2)));
+//             lenSubZoneTwo = (Math.round(((this.zoneB[randomB].length - 2) / 2)));
+
+
+
+//             subRandomA = (Math.floor(Math.random() * (lenSubZoneOne - 0 + 1)) + 0) * 2;//aseguramos num par
+//             subRandomB = (Math.floor(Math.random() * (lenSubZoneTwo - 0 + 1)) + 0) * 2;//aseguramos num par
+//             //-------------------------------------------------//
+
+
+//             if (((this.zoneB[randomB].length > 1) && (this.zoneA[randomA].length > 1))// que no sea un par ya seleccionado
+//                 &&
+//                 this.segMonteCarlo(this.zoneA[randomA][subRandomA + 1], this.zoneB[randomB][subRandomB + 1]//que cumpla los n segundos requeridos
+//                     , this.zoneA[randomA][subRandomA], this.zoneB[randomB][subRandomB])
+
+//             ) {
+//                 this.respMT.push(this.zoneA[randomA][subRandomA + 1]);
+//                 this.respMT.push(this.zoneB[randomB][subRandomB + 1]);
+//                 this.Respuesta.push(this.respMT);
+//                 this.respMT = [];
+//                 this.zoneB[randomB] = [];
+//                 this.zoneA[randomA] = [];
+//             }
+
+//         }
+//         console.log(this.Respuesta.length);
+//         console.log(this.Respuesta[0]);
+//     }
+
+//     public segMonteCarlo(segOne: number, segTwo: number, posOne: number, posTwo: number): boolean {
+//         var clasesarea = new areas();//area de S2 segun datos
+//         var area: number;
+//         if (segTwo - segOne == this.time) {
+//             area = clasesarea.waveArea(segOne, segTwo, posOne, posTwo)
+//             if (((this.areaS2 / 100) * 70 <= area) && (area <= this.areaS2)) {
+//                 // console.log(this.areaS2  + " area original");
+//                 // console.log(clasesarea.waveArea(segOne, segTwo, posOne, posTwo)  + " area de muestra");
+//                 // console.log("//////////////////////////////" );
+//                 return true;
+//             } else {
+//                 return false;
+//             }
+
+
+//         } else {
+//             return false;
+//         }
+
+//     }
+
+
+
+//     // console.log("//////////////////////////////");
+//     // console.log(this.zoneA[randomA][subRandomA]);
+//     // console.log(this.zoneA[randomA][subRandomA + 1]);
+//     // console.log("-------------------------------");
+//     // //-------------------------//
+//     // console.log(this.zoneB[randomB][subRandomB]);
+//     // console.log(this.zoneB[randomB][subRandomB + 1]);
+//     // console.log("//////////////////////////////");
+
+
+
+
+// }

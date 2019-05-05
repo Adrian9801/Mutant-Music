@@ -1,24 +1,14 @@
+///////////////////////////////////////////////
 import * as fs from 'fs';
 // import { complex as fft } from 'fft';
 import * as WavEncoder from 'wav-encoder';
 // import { default as ft } from 'fourier-transform';
 import * as WavDecoder from 'wav-decoder';
-
-
-//s2 data
-let puntosytiempos:number[];
-let posiciondepuntos:number[];
-let zonesSamplaes: number[];// zonas de los puntos
-let zonesSS2: number[];// areadecdzonas
-let totalArea : number; //areatotaldelaszoanas
-
-
-
-
+////////////////////////////////////////////////
 import { splits } from "./split";
 import { MTC } from "./monteCarlo";
 
-
+var claseMTC = new MTC();
 
 const readFile = (filepath: string) => {
   return new Promise((resolve, reject) => {
@@ -40,26 +30,41 @@ readFile("./Sound/s2.wav").then((buffer) => {
 
   var clasesplit = new splits(audioData);
   clasesplit.splitSong(true);
-  puntosytiempos = clasesplit.pointAndTimeS2;
-  posiciondepuntos= clasesplit.positionIS2;
-  zonesSamplaes = clasesplit.zoneS2;
-  zonesSS2 = clasesplit.areaWaveS2;
-  totalArea= clasesplit.totalAreaWaveS2;
 
+  // public pointAndTimeS2: number[];// pounto y tiempo de S2 se parados por segundo
+  //   public positionIS2: number[];//pisiciones de esos datos 
+  //   public zoneS2: number[];//pisiciones de esos datos 
+  //   public areaWaveS2: number[];//aea de cada una de las sub-areas
+  //   public totalAreaWaveS2: number;//area total
+
+  claseMTC.setDataS2(clasesplit.getDataS2(1),
+  clasesplit.getDataS2(2),clasesplit.getDataS2(3),clasesplit.getDataS2(4),clasesplit.getDataS2(5));
 });
 
 console.log('');
 readFile("./Sound/Dua.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
-  var claseMTC = new MTC();
-  claseMTC.setZonesS2( zonesSamplaes );
-  ////////////////////////////////////////////////////////////////////
+
   var clasesplit = new splits(audioData);
+
   clasesplit.splitSong(false);
-  
+
+  claseMTC.setDataSong(clasesplit.getZone(1), clasesplit.getZone(2), clasesplit.getZone(3), clasesplit.getZone(4),
+    clasesplit.getZone(5), clasesplit.getZone(6), clasesplit.getZone(7), clasesplit.getZone(8));
+
+
+
+  // claseMTC.setDataSong(clasesplit.getZone(1));
+
+
+
+
+
+
+
 });
-  
+
 
 //   // for (var i = 0; i < zonesSS2.length - 1; i++) {
 //   //   zoneA = clasesplit.getZone(zonesSS2[i]);

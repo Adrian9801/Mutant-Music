@@ -1,29 +1,29 @@
 import { areas } from "./area";
 export class splits {
 
-    // para la cancion
-    public zoneA: number[][];
-    public zoneB: number[][];
-    public zoneC: number[][];
-    public zoneD: number[][];
-    public zoneE: number[][];
-    public zoneF: number[][];
-    public zoneG: number[][];
-    public zoneH: number[][];
+    ////////////////form Song////////////////////////// 
+    private zoneA: number[][];
+    private zoneB: number[][];
+    private zoneC: number[][];
+    private zoneD: number[][];
+    private zoneE: number[][];
+    private zoneF: number[][];
+    private zoneG: number[][];
+    private zoneH: number[][];
+    ////////////////////////////////////////////////// 
 
-
-    // para S2
-    public pointAndTimeS2: number[];// pounto y tiempo de S2 se parados por segundo
-    public positionIS2: number[];//pisiciones de esos datos 
-    public zoneS2: number[];//pisiciones de esos datos 
-    public areaWaveS2: number[];//aea de cada una de las sub-areas
-    public totalAreaWaveS2: number;//area total
-
+    ////////////////form S2////////////////////////// 
+    private pointAndTimeS2: number[];// pounto y tiempo de S2 se parados por segundo
+    private positionIS2: number[];//pisiciones de esos datos 
+    private zoneS2: number[];//pisiciones de esos datos 
+    private areaWaveS2: number[];//aea de cada una de las sub-areas
+    private totalAreaWaveS2: number[];//area total
+    ////////////////////////////////////////////////// 
 
     public dumppi: number[][];
     private audioData: any;
 
-   
+
     public constructor(pAudioData: any) {
         this.zoneA = [];
         this.zoneB = [];
@@ -39,7 +39,7 @@ export class splits {
         this.zoneS2 = [];
         this.areaWaveS2 = [];
         this.audioData = pAudioData;
-        this.totalAreaWaveS2 = 0;
+        this.totalAreaWaveS2 = [];
     }
 
     // true para estudiar S2 false para la cancion 
@@ -143,6 +143,7 @@ export class splits {
         }
     }
 
+
     private insertZone(pZoneNumber: number, pZone: number[]) {
         switch (pZoneNumber) {
             case 1: {
@@ -181,6 +182,8 @@ export class splits {
         }
     }
 
+
+
     public getZone(zone: number): (number[][]) {
         switch (zone) {
             case 1: {
@@ -210,6 +213,32 @@ export class splits {
         }
         return this.dumppi;
     }
+
+
+
+    
+    public getDataS2(zone: number): (number[]) {
+        switch (zone) {
+            case 1: {
+                return this.pointAndTimeS2;
+            }
+            case 2: {
+                return this.positionIS2;
+            }
+            case 3: {
+                return this.zoneS2;
+            }
+            case 4: {
+                return this.areaWaveS2;
+            }
+            case 5: {
+                return this.totalAreaWaveS2;
+            }
+        }
+        return [];
+    }
+
+
 
     public loadZoneS2() {
         var nowZone: number = 0;//zona actual
@@ -251,7 +280,7 @@ export class splits {
             auxTotalArea = auxTotalArea + auxArea;
             i++;
         }
-        this.totalAreaWaveS2 = auxTotalArea;
+        this.totalAreaWaveS2[0] = auxTotalArea;
 
     }
 

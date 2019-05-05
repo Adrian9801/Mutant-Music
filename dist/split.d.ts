@@ -1,5 +1,5 @@
 export declare class splits {
-    zoneA: number[][];
+    private zoneA;
     zoneB: number[][];
     zoneC: number[][];
     zoneD: number[][];

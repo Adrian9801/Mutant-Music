@@ -7,26 +7,20 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+///////////////////////////////////////////////
 var fs = __importStar(require("fs"));
 // import { default as ft } from 'fourier-transform';
 var WavDecoder = __importStar(require("wav-decoder"));
-var bigArea;
-var area1;
-var area2;
-var area3;
-var area4;
-var areasS2;
-var puntosytiempos;
-var posiciondepuntos;
-var zonesSamplaes; // zonas de los puntos
-var zonesSS2; // areadecdzonas
-var totalArea; //areatotaldelaszoanas
-var time;
-var bZone;
-var fZone;
-var zonesS2;
-var timesS2;
+////////////////////////////////////////////////
 var split_1 = require("./split");
+var monteCarlo_1 = require("./monteCarlo");
+var claseMTC = new monteCarlo_1.MTC();
+//s2 data
+var pointsAndTimesS2;
+var pointPositionS2;
+var zonesPointsS2; // zonas de los puntos
+var zonesAreaS2; // areadecdzonas
+var totalAreasS2; //areatotaldelaszoanas
 var readFile = function (filepath) {
     return new Promise(function (resolve, reject) {
         fs.readFile(filepath, function (err, buffer) {
@@ -44,28 +38,17 @@ readFile("./Sound/s2.wav").then(function (buffer) {
     var size = 20000;
     var clasesplit = new split_1.splits(audioData);
     clasesplit.splitSong(true);
-    puntosytiempos = clasesplit.pointAndTimeS2;
-    posiciondepuntos = clasesplit.positionIS2;
-    zonesSamplaes = clasesplit.zoneS2;
-    zonesSamplaes = clasesplit.zoneS2;
-    zonesSS2 = clasesplit.areaWaveS2;
-    totalArea = clasesplit.totalAreaWaveS2;
+    claseMTC.setDataS2(clasesplit.pointAndTimeS2, clasesplit.positionIS2, clasesplit.zoneS2, clasesplit.areaWaveS2, clasesplit.totalAreaWaveS2);
 });
-// console.log('');
-// readFile("./Sound/Dua.wav").then((buffer) => {
-//   return WavDecoder.decode(buffer);
-// }).then(function (audioData) {
-//   var claseMTC = new MTC();
-//   ////////////////////////////////////////////////////////////////////
-//   var zoneA: number[][];
-//   var zoneB: number[][];
-//   var firs: number[] = [];
-//   var sameZone: boolean;
-//   claseMTC.setZonesS2( zonesSamplaes );
-//   var clasesplit = new splits(audioData);
-//   clasesplit.splitSong(false);
-//   zoneA = clasesplit.getZone(5);
-//   zoneB = clasesplit.getZone(5);
+console.log('');
+readFile("./Sound/Dua.wav").then(function (buffer) {
+    return WavDecoder.decode(buffer);
+}).then(function (audioData) {
+    var clasesplit = new split_1.splits(audioData);
+    clasesplit.splitSong(false);
+    console.log(clasesplit.getZone(1));
+    // claseMTC.setDataSong(clasesplit.getZone(1));
+});
 //   // for (var i = 0; i < zonesSS2.length - 1; i++) {
 //   //   zoneA = clasesplit.getZone(zonesSS2[i]);
 //   //   zoneB = clasesplit.getZone(zonesSS2[i + 1]);

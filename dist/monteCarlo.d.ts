@@ -2,6 +2,8 @@ export declare class MTC {
     private NumMTC;
     private dumppi;
     private lastSeconS2;
+    private auxPZoneA;
+    private auxPZoneB;
     private pointsAndTimesS2;
     private pointPositionS2;
     private zonesPointsS2;

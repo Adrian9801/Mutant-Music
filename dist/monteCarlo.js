@@ -13,6 +13,7 @@ var MTC = /** @class */ (function () {
         this.NumPrmArea = 0;
         this.NumPrmSector = 0;
         ////////////////form S2////////////////////////// 
+        this.totalAreaOrg = [];
         this.pointsAndTimesS2 = [];
         this.pointPositionS2 = [];
         this.zonesPointsS2 = [];
@@ -38,18 +39,20 @@ var MTC = /** @class */ (function () {
     MTC.prototype.setAudioData = function (pAudioData) {
         this.audioData = pAudioData;
     };
-    MTC.prototype.setDataS2 = function (pPointsAndTimesS2, pPointPositionS2, pZonesPointsS2, pZonesAreaS2, pTotalAreasS2) {
+    MTC.prototype.setDataS2 = function (pPointsAndTimesS2, pPointPositionS2, pZonesPointsS2, pZonesAreaS2, pTotalAreasS2, pTotalAreaor) {
         this.pointsAndTimesS2 = pPointsAndTimesS2;
         this.pointPositionS2 = pPointPositionS2;
         this.zonesPointsS2 = pZonesPointsS2;
         this.zonesAreaS2 = pZonesAreaS2;
         this.totalAreasS2 = pTotalAreasS2;
         this.lastSeconS2 = this.pointsAndTimesS2[this.pointsAndTimesS2.length - 1];
+        this.totalAreaOrg = pTotalAreaor;
         // console.log(this.pointsAndTimesS2);//puntos y tiempos 
         // console.log(this.pointPositionS2);//posiciones de los puntos
         // console.log(this.zonesPointsS2);// zonas de cada punto
-        //  console.log(this.zonesAreaS2);// areas de cada zona
-        // console.log(this.totalAreasS2);// area total de todas las zonas 
+        // console.log(this.zonesAreaS2);// areas de cada zona
+        console.log(this.totalAreasS2); // area total de todas las zonas 
+        console.log(this.totalAreaOrg); // area total de todas las zonas 
     };
     MTC.prototype.setDataSong = function (pZ1, pZ2, pZ3, pZ4, pZ5, pZ6, pZ7, pZ8) {
         this.zone1 = pZ1;
@@ -93,7 +96,7 @@ var MTC = /** @class */ (function () {
         resp = [];
         lenZoneOne = this.auxPZoneA.length - 1;
         lenZoneTwo = this.auxPZoneB.length - 1;
-        for (var i = 0; i < 3000; i++) {
+        for (var i = 0; i < 2000; i++) {
             // random de entre los conjuntos de la zona 1 y 2//
             randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0);
             randomB = (Math.floor(Math.random() * (lenZoneTwo - 0 + 1)) + 0);
@@ -137,10 +140,10 @@ var MTC = /** @class */ (function () {
                         // console.log(this.gps(this.audioData.channelData[0][postA + ((44100) * (i + 1))])+" la calculada");
                         // console.log(this.zonesPointsS2[i]+" la que debe ser");
                         // console.log("//////////////////////////////////////////////////////////////");   
-                        if ( // Math.round((this.zonesAreaS2[i - 1] / 100) * 90) <= auxArea &&
-                        (this.gps(this.audioData.channelData[0][postA + ((44100) * (i))]) == this.zonesPointsS2[i - 1]) //cumplen con el adn
+                        if (Math.round((this.zonesAreaS2[i - 1] / 100) * 70) <= auxArea &&
+                            (Math.round((this.gps(this.audioData.channelData[0][postA + ((44100) * (i))]) / 100) * 70) <= this.zonesPointsS2[i - 1]) //cumplen con el adn
                             ||
-                                (this.gps(this.audioData.channelData[0][postA + ((44100) * (i + 1))]) == this.zonesPointsS2[i]) //cumplen con el adn
+                                (Math.round((this.gps(this.audioData.channelData[0][postA + ((44100) * (i + 1))] / 100) * 70)) <= this.zonesPointsS2[i]) //cumplen con el adn
                         ) {
                             //console.log(this.gps(this.audioData.channelData[0][postA + ((44100) * (i))]));
                             this.zonesAreaSong.push(auxArea);
@@ -151,10 +154,9 @@ var MTC = /** @class */ (function () {
                         }
                     } //for de cada sub area 
                     // console.log((this.NumPrm));
-                    if (this.zonesAreaSong.length == this.zonesAreaS2.length //&&
-                    // this.NumPrmArea>=  Math.round((this.totalAreasS2[0]/100)*80)
-                    //&& this.NumPrmSector+2 >= Math.round((32/100)*80) 
-                    ) {
+                    if (this.zonesAreaSong.length == this.zonesAreaS2.length &&
+                        this.NumPrmArea >= Math.round((this.totalAreasS2[0] / 100) * 90)
+                        && this.NumPrmSector + 2 >= Math.round((32 / 100) * 80)) {
                         // pZoneA[randomA][subRandomA] = -1;
                         // pZoneB[randomB][subRandomB] = -1
                         console.log("///////////////////////////");

@@ -8,6 +8,7 @@ export class splits {
     private zoneS2: number[];//pisiciones de esos datos 
     private areaWaveS2: number[];//aea de cada una de las sub-areas
     private totalAreaWaveS2: number[];//area total
+    private totalAreaOrg: number[];//area total
     ////////////////////////////////////////////////// 
 
 
@@ -44,6 +45,7 @@ export class splits {
         ////////////////////////////////////////////////// 
 
         ////////////////form S2////////////////////////// 
+        this.totalAreaOrg =[];
         this.pointAndTimeS2 = [];
         this.positionIS2 = [];
         this.zoneS2 = [];
@@ -194,10 +196,12 @@ export class splits {
             i++;
         }
         this.totalAreaWaveS2[0] = auxTotalArea;
+        this.totalAreaOrg[0]= clasesarea.waveArea(this.pointAndTimeS2[1], this.pointAndTimeS2[this.pointAndTimeS2.length-1],
+            this.pointAndTimeS2[0], this.pointAndTimeS2[this.pointAndTimeS2.length- 2]);
         // console.log(
         // clasesarea.waveArea(this.pointAndTimeS2[1], this.pointAndTimeS2[this.pointAndTimeS2.length-1],
         //     this.pointAndTimeS2[0], this.pointAndTimeS2[this.pointAndTimeS2.length- 2])
-        // );
+        // +"iss");
 
     }
 
@@ -287,6 +291,9 @@ export class splits {
             }
             case 5: {
                 return this.totalAreaWaveS2;
+            }
+            case 6: {
+                return this.totalAreaOrg;
             }
         }
         return [];

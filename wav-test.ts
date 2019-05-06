@@ -24,7 +24,7 @@ const readFile = (filepath: string) => {
 };
 
 
-readFile("./Sound/Ceratis2.wav").then((buffer) => {
+readFile("./Sound/Ws2.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
   console.log("ampliando 30%");
@@ -34,12 +34,12 @@ readFile("./Sound/Ceratis2.wav").then((buffer) => {
   clasesplit.splitSong(true);
 
   claseMTC.setDataS2(clasesplit.getDataS2(1),
-    clasesplit.getDataS2(2), clasesplit.getDataS2(3), clasesplit.getDataS2(4), clasesplit.getDataS2(5));
+    clasesplit.getDataS2(2), clasesplit.getDataS2(3), clasesplit.getDataS2(4), clasesplit.getDataS2(5),clasesplit.getDataS2(6));
 
 });
 
 console.log('');
-readFile("./Sound/Cerati.wav").then((buffer) => {
+readFile("./Sound/W.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
 

@@ -10,7 +10,7 @@ export class MTC {
 
 
     private NumMTC: number
-    private NumPrmSector:number
+    private NumPrmSector: number
     private NumPrmArea: number
     private dumppi: number[][];
     private reptit: number[];
@@ -23,6 +23,7 @@ export class MTC {
     private zonesPointsS2: number[];
     private zonesAreaS2: number[];
     private totalAreasS2: number[];
+    private totalAreaOrg:number[];
     ////////////////////////////////////////////////// 
 
     ////////////////form Song////////////////////////// 
@@ -44,9 +45,10 @@ export class MTC {
         this.NumMTC = 0;
         this.audioData = 0;
         this.reptit = [];
-        this.NumPrmArea=0;
-        this.NumPrmSector=0;
+        this.NumPrmArea = 0;
+        this.NumPrmSector = 0;
         ////////////////form S2////////////////////////// 
+        this.totalAreaOrg=[];
         this.pointsAndTimesS2 = [];
         this.pointPositionS2 = [];
         this.zonesPointsS2 = [];
@@ -76,7 +78,7 @@ export class MTC {
     }
 
     public setDataS2(pPointsAndTimesS2: number[], pPointPositionS2: number[],
-        pZonesPointsS2: number[], pZonesAreaS2: number[], pTotalAreasS2: number[]) {
+        pZonesPointsS2: number[], pZonesAreaS2: number[], pTotalAreasS2: number[],pTotalAreaor: number[]) {
 
         this.pointsAndTimesS2 = pPointsAndTimesS2;
         this.pointPositionS2 = pPointPositionS2;
@@ -84,12 +86,14 @@ export class MTC {
         this.zonesAreaS2 = pZonesAreaS2;
         this.totalAreasS2 = pTotalAreasS2;
         this.lastSeconS2 = this.pointsAndTimesS2[this.pointsAndTimesS2.length - 1];
+        this.totalAreaOrg = pTotalAreaor;
 
         // console.log(this.pointsAndTimesS2);//puntos y tiempos 
         // console.log(this.pointPositionS2);//posiciones de los puntos
         // console.log(this.zonesPointsS2);// zonas de cada punto
-        //  console.log(this.zonesAreaS2);// areas de cada zona
-        // console.log(this.totalAreasS2);// area total de todas las zonas 
+        // console.log(this.zonesAreaS2);// areas de cada zona
+         console.log(this.totalAreasS2);// area total de todas las zonas 
+         console.log( this.totalAreaOrg);// area total de todas las zonas 
 
     }
 
@@ -154,7 +158,7 @@ export class MTC {
         lenZoneTwo = this.auxPZoneB.length - 1;
 
 
-        for (var i = 0; i < 3000; i++) {
+        for (var i = 0; i < 2000; i++) {
 
             // random de entre los conjuntos de la zona 1 y 2//
             randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0);
@@ -179,11 +183,11 @@ export class MTC {
                 areaSong = claseArea.waveArea(this.auxPZoneA[randomA][subRandomA],
                     this.auxPZoneB[randomB][subRandomB], this.auxPZoneA[randomA][subRandomA - 1], this.auxPZoneB[randomB][subRandomB - 1]);//calculo del area total
 
-                if ( Math.round((this.totalAreasS2[0] / 100) * 70) <= areaSong) {//si el area total cumple con 70% 
+                if (Math.round((this.totalAreasS2[0] / 100) * 70) <= areaSong) {//si el area total cumple con 70% 
 
                     postA = this.auxPZoneA[randomA][subRandomA];// posicion en la  cancion 
 
-                    
+
 
                     for (var i = 1; i <= this.zonesAreaS2.length; i++) { // analisis de las sub areas
 
@@ -192,9 +196,9 @@ export class MTC {
                             , this.auxPZoneA[randomA][subRandomA] + i,//segundo
                             this.audioData.channelData[0][postA + ((44100) * (i))],//punto
                             this.audioData.channelData[0][postA + ((44100) * (i + 1))]);//punto
-                            
-                            this.NumPrmArea = this.NumPrmArea + auxArea;
-                            this.NumPrmSector=this.NumPrmSector+this.gps( this.audioData.channelData[0][postA + ((44100) * (i))]);;
+
+                        this.NumPrmArea = this.NumPrmArea + auxArea;
+                        this.NumPrmSector = this.NumPrmSector + this.gps(this.audioData.channelData[0][postA + ((44100) * (i))]);;
 
                         // if ((this.auxPZoneA[randomA][subRandomA]) == 180) {//36
                         //     this.NumPrm = this.NumPrm + auxArea;//this.NumPrm +this.gps( this.audioData.channelData[0][postA + ((44100) * (i))]);
@@ -217,27 +221,28 @@ export class MTC {
                         // console.log("//////////////////////////////////////////////////////////////");   
 
 
-                        if (// Math.round((this.zonesAreaS2[i - 1] / 100) * 90) <= auxArea &&
-                            (this.gps(this.audioData.channelData[0][postA + ((44100) * (i))]) == this.zonesPointsS2[i - 1])//cumplen con el adn
+                        if ( Math.round((this.zonesAreaS2[i - 1] / 100) * 70) <= auxArea &&
+                            (Math.round((this.gps(this.audioData.channelData[0][postA + ((44100) * (i))]) / 100) * 70) <= this.zonesPointsS2[i - 1])//cumplen con el adn
                             ||
-                            (this.gps(this.audioData.channelData[0][postA + ((44100) * (i + 1))]) == this.zonesPointsS2[i])//cumplen con el adn
+                            (Math.round((this.gps(this.audioData.channelData[0][postA + ((44100) * (i + 1))] / 100) * 70)) <= this.zonesPointsS2[i])//cumplen con el adn
                         ) {
                             //console.log(this.gps(this.audioData.channelData[0][postA + ((44100) * (i))]));
                             this.zonesAreaSong.push(auxArea);
+
                         } else {
                             this.zonesAreaSong = [];
                             break;
                         }
-                       
+
                     }//for de cada sub area 
-                   // console.log((this.NumPrm));
-                    
+                    // console.log((this.NumPrm));
 
 
-                    if (this.zonesAreaSong.length == this.zonesAreaS2.length //&&
-                       // this.NumPrmArea>=  Math.round((this.totalAreasS2[0]/100)*80)
-                         //&& this.NumPrmSector+2 >= Math.round((32/100)*80) 
-                        ) {
+
+                    if (this.zonesAreaSong.length == this.zonesAreaS2.length &&
+                         this.NumPrmArea>=  Math.round((this.totalAreasS2[0]/100)*90)
+                         && this.NumPrmSector+2 >= Math.round((32/100)*80) 
+                    ) {
                         // pZoneA[randomA][subRandomA] = -1;
                         // pZoneB[randomB][subRandomB] = -1
                         console.log("///////////////////////////");
@@ -254,19 +259,19 @@ export class MTC {
                         this.reptit.push(this.auxPZoneA[randomA][subRandomA]);
                         this.zonesAreaSong = [];
                     }
-                    if(this.NumPrmArea!==0){
-                        this.NumPrmArea=0;
+                    if (this.NumPrmArea !== 0) {
+                        this.NumPrmArea = 0;
                     }
-                    if(this.NumPrmSector!==0){
-                      this.NumPrmSector=0;
+                    if (this.NumPrmSector !== 0) {
+                        this.NumPrmSector = 0;
                     }
-                   
+
                 }
 
             }
         }
         //console.log((this.zonesAreaS2));
-       
+
 
     }
 

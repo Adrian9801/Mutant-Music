@@ -4,6 +4,7 @@ export declare class splits {
     private zoneS2;
     private areaWaveS2;
     private totalAreaWaveS2;
+    private totalAreaOrg;
     private zoneA;
     private zoneB;
     private zoneC;

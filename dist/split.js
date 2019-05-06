@@ -16,6 +16,7 @@ var splits = /** @class */ (function () {
         this.dumppi = [];
         ////////////////////////////////////////////////// 
         ////////////////form S2////////////////////////// 
+        this.totalAreaOrg = [];
         this.pointAndTimeS2 = [];
         this.positionIS2 = [];
         this.zoneS2 = [];
@@ -196,10 +197,11 @@ var splits = /** @class */ (function () {
             i++;
         }
         this.totalAreaWaveS2[0] = auxTotalArea;
+        this.totalAreaOrg[0] = clasesarea.waveArea(this.pointAndTimeS2[1], this.pointAndTimeS2[this.pointAndTimeS2.length - 1], this.pointAndTimeS2[0], this.pointAndTimeS2[this.pointAndTimeS2.length - 2]);
         // console.log(
         // clasesarea.waveArea(this.pointAndTimeS2[1], this.pointAndTimeS2[this.pointAndTimeS2.length-1],
         //     this.pointAndTimeS2[0], this.pointAndTimeS2[this.pointAndTimeS2.length- 2])
-        // );
+        // +"iss");
     };
     splits.prototype.insertZone = function (pZoneNumber, pZone) {
         switch (pZoneNumber) {
@@ -282,6 +284,9 @@ var splits = /** @class */ (function () {
             }
             case 5: {
                 return this.totalAreaWaveS2;
+            }
+            case 6: {
+                return this.totalAreaOrg;
             }
         }
         return [];

@@ -26,17 +26,17 @@ var readFile = function (filepath) {
         });
     });
 };
-readFile("./Sound/Ceratis2.wav").then(function (buffer) {
+readFile("./Sound/Ws2.wav").then(function (buffer) {
     return WavDecoder.decode(buffer);
 }).then(function (audioData) {
     console.log("ampliando 30%");
     var size = 20000;
     var clasesplit = new split_1.splits(audioData);
     clasesplit.splitSong(true);
-    claseMTC.setDataS2(clasesplit.getDataS2(1), clasesplit.getDataS2(2), clasesplit.getDataS2(3), clasesplit.getDataS2(4), clasesplit.getDataS2(5));
+    claseMTC.setDataS2(clasesplit.getDataS2(1), clasesplit.getDataS2(2), clasesplit.getDataS2(3), clasesplit.getDataS2(4), clasesplit.getDataS2(5), clasesplit.getDataS2(6));
 });
 console.log('');
-readFile("./Sound/Cerati.wav").then(function (buffer) {
+readFile("./Sound/W.wav").then(function (buffer) {
     return WavDecoder.decode(buffer);
 }).then(function (audioData) {
     var clasesplit = new split_1.splits(audioData);

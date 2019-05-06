@@ -111,7 +111,7 @@ var MTC = /** @class */ (function () {
                     == this.lastSeconS2 //que cumpla los n segundos requeridos
             ) {
                 areaSong = claseArea.waveArea(this.auxPZoneA[randomA][subRandomA], this.auxPZoneB[randomB][subRandomB], this.auxPZoneA[randomA][subRandomA - 1], this.auxPZoneB[randomB][subRandomB - 1]); //calculo del area total
-                if (Math.round((this.totalAreaOrg[0] / 100) * 75) <= areaSong) { //si el area total cumple con 70% 
+                if (Math.round((this.totalAreaOrg[0] / 100) * 70) <= areaSong) { //si el area total cumple con 70% 
                     postA = this.auxPZoneA[randomA][subRandomA]; // posicion en la  cancion 
                     for (var i = 1; i <= this.zonesAreaS2.length; i++) { // analisis de las sub areas
                         //tiempo de inicio , tiempo final , punto de inicio punto final, caluclo de cada sub area

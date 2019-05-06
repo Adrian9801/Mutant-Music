@@ -221,7 +221,7 @@ export class MTC {
                         // console.log("//////////////////////////////////////////////////////////////");   
 
 
-                        if ( //Math.round((this.zonesAreaS2[i - 1] / 100) * 70) <= auxArea &&
+                        if ( //yaMath.round((this.zonesAreaS2[i - 1] / 100) * 70) <= auxArea &&
                             (Math.round((this.gps(this.audioData.channelData[0][postA + ((44100) * (i))]) / 100) * 80) <= this.zonesPointsS2[i - 1])//cumplen con el adn
                             ||
                             (Math.round((this.gps(this.audioData.channelData[0][postA + ((44100) * (i + 1))] / 100) * 75)) <= this.zonesPointsS2[i])//cumplen con el adn

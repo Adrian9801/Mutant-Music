@@ -236,7 +236,7 @@ export class MTC {
 
                     if (this.zonesAreaSong.length == this.zonesAreaS2.length &&
                         this.NumPrmArea>=  Math.round((this.totalAreasS2[0]/100)*80)
-                         && this.NumPrmSector+2 >= Math.round((32/100)*80) 
+                         //&& this.NumPrmSector+2 >= Math.round((32/100)*80) 
                         ) {
                         // pZoneA[randomA][subRandomA] = -1;
                         // pZoneB[randomB][subRandomB] = -1

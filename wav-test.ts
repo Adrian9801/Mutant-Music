@@ -9,6 +9,8 @@ import { splits } from "./split";
 import { MTC } from "./monteCarlo";
 
 var claseMTC = new MTC();
+var audioAux: number[];
+
 
 const readFile = (filepath: string) => {
   return new Promise((resolve, reject) => {
@@ -51,6 +53,19 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   claseMTC.setAudioData(audioData);
   claseMTC.makeMT();
 
+  // for (var i = 44100 * 5; i < 44100 * 10; i++) {
+  //   audioData.channelData[0][i - 44100 * 5] = audioData.channelData[0][i];
+  // }
+
+  // for (var i = 44100 * 11; i < 44100 * 16; i++) {
+  //   audioData.channelData[0][i + 44100 * 6] = audioData.channelData[0][i];
+  // }
+
+  // console.log("writing...");
+  // WavEncoder.encode( audioAux).then((buffer: any) => {
+  //   fs.writeFileSync("C:\\Users\\USER\\Desktop\\pp.wav", new Buffer(buffer));
+
+
 });
 
 
@@ -58,23 +73,23 @@ readFile("./Sound/Dua.wav").then((buffer) => {
 //  //-----------------------------------------------------RODRI------------------------------------------------//
 //  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//   // for (var i = 0; i < 5; i++) {
-//   //   console.log(audioData.channelData[0][i]);//IZQ
-//   //   console.log(audioData.channelData[1][i]);//DER
-//   //   console.log('*******************');
-//   // }
+  // for (var i = 0; i < 5; i++) {
+  //   console.log(audioData.channelData[0][i]);//IZQ
+  //   console.log(audioData.channelData[1][i]);//DER
+  //   console.log('*******************');
+  // }
 
-//   // for (var i = 44100 * 5; i < 44100 * 10; i++) {
-//   //   audioData.channelData[0][i - 44100 * 5] = audioData.channelData[0][i];
-//   // }
+  // for (var i = 44100 * 5; i < 44100 * 10; i++) {
+  //   audioData.channelData[0][i - 44100 * 5] = audioData.channelData[0][i];
+  // }
 
-//   // for (var i = 44100 * 11; i < 44100 * 16; i++) {
-//   //   audioData.channelData[0][i + 44100 * 6] = audioData.channelData[0][i];
-//   // }
+  // for (var i = 44100 * 11; i < 44100 * 16; i++) {
+  //   audioData.channelData[0][i + 44100 * 6] = audioData.channelData[0][i];
+  // }
 
-// //   console.log("writing...");
-// //   WavEncoder.encode(audioData).then((buffer: any) => {
-// //     fs.writeFileSync("C:\\Users\\USER\\Desktop\\newsulky.wav", new Buffer(buffer));
-// //   });
+//   console.log("writing...");
+//   WavEncoder.encode(audioData).then((buffer: any) => {
+//     fs.writeFileSync("C:\\Users\\USER\\Desktop\\newsulky.wav", new Buffer(buffer));
+//   });
 
 

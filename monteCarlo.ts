@@ -90,10 +90,10 @@ export class MTC {
 
         // console.log(this.pointsAndTimesS2);//puntos y tiempos 
         // console.log(this.pointPositionS2);//posiciones de los puntos
-        // console.log(this.zonesPointsS2);// zonas de cada punto
+         console.log(this.zonesPointsS2);// zonas de cada punto
         // console.log(this.zonesAreaS2);// areas de cada zona
-         console.log(this.totalAreasS2);// area total de todas las zonas 
-         console.log( this.totalAreaOrg);// area total de todas las zonas 
+        // console.log(this.totalAreasS2);// area total de todas las zonas 
+        // console.log( this.totalAreaOrg);// area total de todas las zonas 
 
     }
 
@@ -221,7 +221,7 @@ export class MTC {
                         // console.log("//////////////////////////////////////////////////////////////");   
 
 
-                        if (// Math.round((this.zonesAreaS2[i - 1] / 100) * 70) <= auxArea &&
+                        if ( //Math.round((this.zonesAreaS2[i - 1] / 100) * 70) <= auxArea &&
                             (Math.round((this.gps(this.audioData.channelData[0][postA + ((44100) * (i))]) / 100) * 80) <= this.zonesPointsS2[i - 1])//cumplen con el adn
                             ||
                             (Math.round((this.gps(this.audioData.channelData[0][postA + ((44100) * (i + 1))] / 100) * 75)) <= this.zonesPointsS2[i])//cumplen con el adn
@@ -240,8 +240,8 @@ export class MTC {
 
 
                     if (this.zonesAreaSong.length == this.zonesAreaS2.length &&
-                         this.NumPrmArea>=  Math.round((this.totalAreaOrg[0]/100)*90)
-                         && this.NumPrmSector+2 >= Math.round((32/100)*80) 
+                         this.NumPrmArea>=  Math.round((this.totalAreaOrg[0]/100)*80)
+                        //&& this.NumPrmSector+2 >= Math.round((32/100)*80) 
                     ) {
                         // pZoneA[randomA][subRandomA] = -1;
                         // pZoneB[randomB][subRandomB] = -1

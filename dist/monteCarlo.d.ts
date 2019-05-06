@@ -1,5 +1,6 @@
 export declare class MTC {
     private NumMTC;
+    private NumPrm;
     private dumppi;
     private reptit;
     private lastSeconS2;

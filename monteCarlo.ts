@@ -217,7 +217,7 @@ export class MTC {
                         // console.log("//////////////////////////////////////////////////////////////");   
 
 
-                        if ( Math.round((this.zonesAreaS2[i - 1] / 100) * 90) <= auxArea &&
+                        if (// Math.round((this.zonesAreaS2[i - 1] / 100) * 90) <= auxArea &&
                             (this.gps(this.audioData.channelData[0][postA + ((44100) * (i))]) == this.zonesPointsS2[i - 1])//cumplen con el adn
                             ||
                             (this.gps(this.audioData.channelData[0][postA + ((44100) * (i + 1))]) == this.zonesPointsS2[i])//cumplen con el adn
@@ -234,8 +234,8 @@ export class MTC {
                     
 
 
-                    if (this.zonesAreaSong.length == this.zonesAreaS2.length &&
-                        this.NumPrmArea>=  Math.round((this.totalAreasS2[0]/100)*80)
+                    if (this.zonesAreaSong.length == this.zonesAreaS2.length //&&
+                       // this.NumPrmArea>=  Math.round((this.totalAreasS2[0]/100)*80)
                          //&& this.NumPrmSector+2 >= Math.round((32/100)*80) 
                         ) {
                         // pZoneA[randomA][subRandomA] = -1;

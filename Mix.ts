@@ -46,7 +46,10 @@ export class Mix{
     
     private addPart(pTime: number[], pPosAudio: number, pAudio: number[][], pResult: number[][]): number[][]{
         switch(pPosAudio){
-            case 2 || 5 || 7:{
+            case 1:
+            case 2:
+            case 5:
+            case 7:{
                 pResult[0] = pResult[0].concat(Array.prototype.slice.call(pAudio[0].slice(pTime[0], 44100 + pTime[0])));
                 pResult[1] = pResult[1].concat(this.silence);
                 pResult[0] = pResult[0].concat(this.silence);
@@ -55,8 +58,11 @@ export class Mix{
                 pResult[1] = pResult[1].concat(Array.prototype.slice.call(pAudio[1].slice(pTime[2], 44100*2+pTime[2])));
                 break;
             }
-            case 3 || 4 || 8 || 9:{
-                var duration = (Math.floor(Math.random() *(3)) +4);
+            case 3:
+            case 4:
+            case 8:
+            case 9:{
+                var duration = (Math.floor(Math.random() *(4)) +4);
                 for(var index: number = 0; index < duration; index++){
                     pResult[0] = pResult[0].concat(Array.prototype.slice.call(pAudio[0].slice(pTime[0], 44100+pTime[0])));
                     pResult[1] = pResult[1].concat(Array.prototype.slice.call(pAudio[1].slice(pTime[0], 44100+pTime[0])));

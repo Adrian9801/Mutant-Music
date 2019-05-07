@@ -25,7 +25,7 @@ const readFile = (filepath: string) => {
 };
 
 
-readFile("./Sound/WS2.wav").then((buffer) => {
+readFile("./Sound/s22l.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
   console.log("ampliando 30%");
@@ -43,7 +43,7 @@ readFile("./Sound/WS2.wav").then((buffer) => {
 });
 
 console.log('');
-readFile("./Sound/W.wav").then((buffer) => {
+readFile("./Sound/Dua.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
 

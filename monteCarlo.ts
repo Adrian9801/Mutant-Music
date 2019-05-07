@@ -182,7 +182,7 @@ export class MTC {
           
 
                 //90 98
-            if ( (Math.round((this.masterMTC / 100) * 98) <= areaSong)
+            if ( (Math.round((this.masterMTC / 100) * 90) <= areaSong)
             // ||
             // ((this.masterMTC+Math.round((this.masterMTC / 100) * 70) >= areaSong))
             )

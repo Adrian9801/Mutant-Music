@@ -10,23 +10,30 @@ var splitMaster = /** @class */ (function () {
     // 0 IZQ
     splitMaster.prototype.splitPeak = function (pSide, pAudioData, pI, pLastI) {
         var musicalFootprint = 0;
+        var lastSeg = -1;
+        var nowseg = 1;
         var point; //temp para guardar los datos de una zona 
         var down = true;
         var grow = 1;
         var auxPoint = 0;
         for (var i = pI; i < pLastI; i++) {
             point = pAudioData.channelData[pSide][i]; //punto 
+            nowseg = Math.round(i / 44100);
             if (point > 0.5) {
                 if ((point >= pAudioData.channelData[pSide][i + 1]) && down) {
                     if (auxPoint < point) {
                         auxPoint = point;
                     }
-                    else if (i >= ((pLastI - pI) / 90) * grow) {
+                    /// else if (i >= ((pLastI - pI)/ 90) * grow) {
+                    else if (i >= ((pLastI - pI) / 8) * grow
+                        && (nowseg != lastSeg)) {
                         // console.log(auxPoint);
-                        // console.log(Math.round(i / 44100));
+                        // console.log(Math.round(i / 44100));.
+                        lastSeg = Math.round(i / 44100);
                         this.peak.push(auxPoint); //punto
                         this.peak.push(Math.round(i / 44100)); //tiempo
                         down = false;
+                        i++;
                         grow++;
                     }
                 }

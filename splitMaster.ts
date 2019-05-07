@@ -20,6 +20,8 @@ export class splitMaster {
     public splitPeak(pSide: number, pAudioData: any, pI: number, pLastI: number): number {
 
         var musicalFootprint: number = 0;
+        var lastSeg:number=-1
+        var nowseg:number=1
         var point: number;//temp para guardar los datos de una zona 
         var down: boolean = true;
         var grow: number = 1;
@@ -28,6 +30,7 @@ export class splitMaster {
         for (var i = pI; i < pLastI; i++) {
 
             point = pAudioData.channelData[pSide][i];//punto 
+            nowseg = Math.round(i / 44100);
 
              if (point > 0.5) {
 
@@ -36,12 +39,16 @@ export class splitMaster {
                         auxPoint = point;
                     }
 
-                    else if (i >= ((pLastI - pI)/ 90) * grow) {
+                    /// else if (i >= ((pLastI - pI)/ 90) * grow) {
+                    else if (i >= ((pLastI - pI)/ 8) * grow
+                             && (nowseg != lastSeg)) {
                         // console.log(auxPoint);
-                        // console.log(Math.round(i / 44100));
+                        // console.log(Math.round(i / 44100));.
+                        lastSeg = Math.round(i / 44100);
                         this.peak.push(auxPoint);//punto
                         this.peak.push(Math.round(i / 44100));//tiempo
                         down = false;
+                        i++;
                         grow++;
                     }
 

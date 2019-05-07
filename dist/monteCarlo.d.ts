@@ -1,5 +1,5 @@
 export declare class MTC {
-    private NumMTC;
+    private masterMTC;
     private NumPrmSector;
     private NumPrmArea;
     private dumppi;
@@ -27,7 +27,8 @@ export declare class MTC {
     setAudioData(pAudioData: any): void;
     setDataS2(pPointsAndTimesS2: number[], pPointPositionS2: number[], pZonesPointsS2: number[], pZonesAreaS2: number[], pTotalAreasS2: number[], pTotalAreaor: number[]): void;
     setDataSong(pZ1: number[][], pZ2: number[][], pZ3: number[][], pZ4: number[][], pZ5: number[][], pZ6: number[][], pZ7: number[][], pZ8: number[][]): void;
-    makeMT(): void;
+    makeMT(pmasterArea: number): void;
+    masterMC(pZoneA: number[][], pZoneB: number[][]): void;
     MC(pZoneA: number[][], pZoneB: number[][]): void;
     getZone(zone: number): (number[][]);
     gps(point: number): number;

@@ -23,7 +23,7 @@ export class splitMaster {
         var point: number;//temp para guardar los datos de una zona 
         var down: boolean = true;
         var grow: number = 1;
-        var auxPoint: number = -3;
+        var auxPoint: number = 0;
 
         for (var i = pI; i < pLastI; i++) {
 
@@ -36,7 +36,7 @@ export class splitMaster {
                         auxPoint = point;
                     }
 
-                    else if (i >= ((pLastI - pI)/ 85) * grow) {
+                    else if (i >= ((pLastI - pI)/ 90) * grow) {
                         // console.log(auxPoint);
                         // console.log(Math.round(i / 44100));
                         this.peak.push(auxPoint);//punto

@@ -13,7 +13,7 @@ var splitMaster = /** @class */ (function () {
         var point; //temp para guardar los datos de una zona 
         var down = true;
         var grow = 1;
-        var auxPoint = -3;
+        var auxPoint = 0;
         for (var i = pI; i < pLastI; i++) {
             point = pAudioData.channelData[pSide][i]; //punto 
             if (point > 0.5) {
@@ -21,7 +21,7 @@ var splitMaster = /** @class */ (function () {
                     if (auxPoint < point) {
                         auxPoint = point;
                     }
-                    else if (i >= ((pLastI - pI) / 85) * grow) {
+                    else if (i >= ((pLastI - pI) / 90) * grow) {
                         // console.log(auxPoint);
                         // console.log(Math.round(i / 44100));
                         this.peak.push(auxPoint); //punto

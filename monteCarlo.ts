@@ -181,9 +181,10 @@ export class MTC {
                 ,this.auxPZoneB[randomB][subRandomB]*44100);
           
 
-            if ( (Math.round((this.masterMTC / 100) * 95) <= areaSong)
+                //90 98
+            if ( (Math.round((this.masterMTC / 100) * 90) <= areaSong)
             // ||
-            // ((this.masterMTC+Math.round((this.masterMTC / 100) * 95) >= areaSong))
+            // ((this.masterMTC+Math.round((this.masterMTC / 100) * 70) >= areaSong))
             )
              {//si el area total cumple con 70% 
 

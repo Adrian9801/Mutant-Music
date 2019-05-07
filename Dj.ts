@@ -5,35 +5,32 @@ export class Djs{
     public constructor(pAudioData: number[]){
         this.shapeSecond = this.getShape(pAudioData);
         this.coincidenceList = [];
-        for(var i: number = 0; this.shapeSecond.length > 0; i++){
-            this.splitSong(i);
+        for(var index: number = 0; this.shapeSecond.length > 0; index++){
+            this.splitSong(index);
         }
-        console.log(this.coincidenceList);
+        this.coincidenceList = this.sortSolution(this.coincidenceList,0);
     }
 
     private splitSong(pPos: number){
-        var entro: boolean = true;
         this.shapeSecond = this.sortSolution(this.shapeSecond,1);
         var split: number[][] = Object.assign([],this.shapeSecond);
         var num: number = 0;
-            if(split.length > 1){
-                for(var i: number = 1; i < split.length; i++){
-                    num = Math.abs(split[0][1] - split[i][1])+Math.abs(split[0][2] - split[i][2])+Math.abs(split[0][3] - split[i][3])
-                    +Math.abs(split[0][4] - split[i][4])+Math.abs(split[0][5] - split[i][5])+Math.abs(split[0][6] - split[i][6])
-                    +Math.abs(split[0][7] - split[i][7])+Math.abs(split[0][8] - split[i][8]);
-                    if((num > 4000)){
-                        this.shapeSecond = this.shapeSecond.slice(i);
-                        split = split.slice(0,i);
-                        entro = false;
-                        break;
-                    }
+        if(split.length > 1){
+            for(var i: number = 1; i < split.length; i++){
+                num = Math.abs(split[0][1] - split[i][1])+Math.abs(split[0][2] - split[i][2])+Math.abs(split[0][3] - split[i][3])
+                +Math.abs(split[0][4] - split[i][4])+Math.abs(split[0][5] - split[i][5])+Math.abs(split[0][6] - split[i][6])
+                +Math.abs(split[0][7] - split[i][7])+Math.abs(split[0][8] - split[i][8]);
+                if((num > 4000)){
+                    this.shapeSecond = this.shapeSecond.slice(i);
+                    split = split.slice(0,i);
+                    break;
                 }
-
             }
-            else{
-                this.shapeSecond = [];
-            }
-        var similar: number[] = [];
+        }
+        else{
+            this.shapeSecond = [];
+        }
+        var similar: number[] = [split.length];
         while(split.length > 0){
             similar.push(split[split.length-1][0]);
             split.pop();
@@ -93,5 +90,13 @@ export class Djs{
         }
         result[cont][0] = cont;
         return result;
+    }
+
+    public getDominantS(): number[]{ 
+        var dominantSection: number[]= [];
+        for(var index: number = 0; index < 10; index++){
+            dominantSection.push(this.coincidenceList[index][1]*44100);
+        }
+        return dominantSection;
     }
 }

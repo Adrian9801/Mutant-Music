@@ -4,8 +4,13 @@ import * as WavEncoder from 'wav-encoder';
 // import { default as ft } from 'fourier-transform';
 import * as WavDecoder from 'wav-decoder';
 
-import { mats } from "./match";
-import { s2 } from "./sampleS2";
+import {mats} from "./match";
+
+import { splits } from "./split";
+
+import { Djs } from "./Dj";
+
+import { Mix } from "./Mix";
 
 
 const readFile = (filepath: string) => {
@@ -19,46 +24,23 @@ const readFile = (filepath: string) => {
   });
 };
 
-
-readFile("C:\\Users\\USER\\Documents\\VisualCode\\Wav\\ssi.wav").then((buffer) => {
+readFile("C:\\Users\\adri-\\OneDrive\\Escritorio\\Boku.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
-}).then(function (audioData) {
-  console.log("ampliando 30%");
-  const size = 20000;
+}).then(function(audioData) {
 
-  // var ss = new s2(audioData);
-  // ss.mainComponent();
-  // console.log('*******************');
-  // console.log(ss.zones[0]);
-  // console.log(ss.zones[1]);
-  // console.log('*******************');
-  // console.log(ss.zonesStr[0]);
-  // console.log(ss.zonesStr[1]);
+  var dj = new Djs(audioData.channelData[0]);
+  var mix = new Mix(dj.getDominantS(), audioData.channelData);
 
-  var s = new mats(audioData);
-  s.splitSong();
-
-  console.log("listo");
-
-  for (var i = 0; i < 5; i++) {
-    console.log(audioData.channelData[0][i]);
-    console.log(audioData.channelData[1][i]);
-    console.log('*******************');
-  }
-
-  for (var i = 44100 * 5; i < 44100 * 10; i++) {
-    audioData.channelData[0][i - 44100 * 5] = audioData.channelData[0][i];
-  }
-
-  for (var i = 44100 * 11; i < 44100 * 16; i++) {
-    audioData.channelData[0][i + 44100 * 6] = audioData.channelData[0][i];
-  }
+  var audioMix: number[][]= mix.getDominantSection();
+ 
+  audioData.channelData[0] = new Float32Array(audioMix[0]);
+  
+  audioData.channelData[1] = new Float32Array(audioMix[1]);
+  
 
   console.log("writing...");
   WavEncoder.encode(audioData).then((buffer: any) => {
-    fs.writeFileSync("C:\\Users\\USER\\Desktop\\newsulky.wav", new Buffer(buffer));
+    fs.writeFileSync("C:\\Users\\adri-\\OneDrive\\Escritorio\\Mutant Music Algoritmos\\Mutant-Music\\Mix.wav", new Buffer(buffer));
   });
-
-
 
 });

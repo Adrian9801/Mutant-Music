@@ -99,7 +99,7 @@ var MTC = /** @class */ (function () {
         resp = [];
         lenZoneOne = this.auxPZoneA.length - 1;
         lenZoneTwo = this.auxPZoneB.length - 1;
-        for (var i = 0; i < 2000; i++) {
+        for (var i = 0; i < 5000; i++) {
             // random de entre los conjuntos de la zona 1 y 2//
             randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0);
             randomB = (Math.floor(Math.random() * (lenZoneTwo - 0 + 1)) + 0);
@@ -114,20 +114,21 @@ var MTC = /** @class */ (function () {
                 == this.lastSeconS2 //que cumpla los n segundos requeridos
             ) {
                 areaSong = clasSplitMaster.splitPeak(0, this.audioData, this.auxPZoneA[randomA][subRandomA] * 44100, this.auxPZoneB[randomB][subRandomB] * 44100);
-                //90 98
-                if ((Math.round((this.masterMTC / 100) * 90) <= areaSong)
-                // ||
-                // ((this.masterMTC+Math.round((this.masterMTC / 100) * 70) >= areaSong))
-                ) { //si el area total cumple con 70% 
+                //95 15
+                if ((areaSong >= (Math.round((this.masterMTC / 100) * 95)))
+                    &&
+                        ((areaSong <= (this.masterMTC + (Math.round((this.masterMTC / 100) * 10)))))) { //si el area total cumple con 70% 
                     console.log("///////////////////////////");
-                    console.log((this.masterMTC / 100) * 70 + "70%");
-                    console.log(this.masterMTC + "org");
-                    console.log((areaSong) + "areaSong i");
-                    console.log(this.lastSeconS2);
-                    console.log(this.auxPZoneA[randomA][subRandomA]);
-                    console.log(this.auxPZoneB[randomB][subRandomB]);
-                    console.log(this.auxPZoneA[randomA][subRandomA] * 44100);
-                    console.log(this.auxPZoneB[randomB][subRandomB] * 44100);
+                    console.log("Area Original:  " + this.masterMTC);
+                    console.log("Area Calculada:  " + (areaSong));
+                    console.log("Duracion " + this.lastSeconS2);
+                    var segI = this.auxPZoneA[randomA][subRandomA];
+                    var segF = this.auxPZoneB[randomB][subRandomB];
+                    console.log("segundos i y f " + segI + "---- " + segF);
+                    console.log("Tiempo Inicial" + this.giveTime(segI));
+                    console.log("Tiempo Final" + this.giveTime(segF));
+                    console.log("posicion inicial en cancnion Original " + this.auxPZoneA[randomA][subRandomA] * 44100);
+                    console.log("posicion final en cancnion Original " + this.auxPZoneB[randomB][subRandomB] * 44100);
                     console.log("///////////////////////////");
                     resp.push(this.zonesAreaSong);
                     // console.log(this.auxPZoneA[randomA][subRandomA] + " rep");
@@ -320,6 +321,20 @@ var MTC = /** @class */ (function () {
                 }
             }
             return datarepit;
+        }
+    };
+    MTC.prototype.giveTime = function (pSecond) {
+        var min = "";
+        var minA = 0;
+        var seg = 0;
+        if (pSecond < 60) {
+            console.log(minA + " : " + pSecond);
+        }
+        else {
+            min = (pSecond / 60).toFixed();
+            minA = +min;
+            seg = Math.round((((pSecond / 60) - minA) * 60));
+            console.log(minA + " : " + seg);
         }
     };
     return MTC;

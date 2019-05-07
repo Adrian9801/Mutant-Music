@@ -33,4 +33,5 @@ export declare class MTC {
     getZone(zone: number): (number[][]);
     gps(point: number): number;
     isRepit(point: number): boolean;
+    giveTime(pSecond: number): void;
 }

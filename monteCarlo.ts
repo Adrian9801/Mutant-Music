@@ -26,7 +26,7 @@ export class MTC {
     private zonesPointsS2: number[];
     private zonesAreaS2: number[];
     private totalAreasS2: number[];
-    private totalAreaOrg:number[];
+    private totalAreaOrg: number[];
     ////////////////////////////////////////////////// 
 
     ////////////////form Song////////////////////////// 
@@ -51,7 +51,7 @@ export class MTC {
         this.NumPrmArea = 0;
         this.NumPrmSector = 0;
         ////////////////form S2////////////////////////// 
-        this.totalAreaOrg=[];
+        this.totalAreaOrg = [];
         this.pointsAndTimesS2 = [];
         this.pointPositionS2 = [];
         this.zonesPointsS2 = [];
@@ -81,7 +81,7 @@ export class MTC {
     }
 
     public setDataS2(pPointsAndTimesS2: number[], pPointPositionS2: number[],
-        pZonesPointsS2: number[], pZonesAreaS2: number[], pTotalAreasS2: number[],pTotalAreaor: number[]) {
+        pZonesPointsS2: number[], pZonesAreaS2: number[], pTotalAreasS2: number[], pTotalAreaor: number[]) {
 
         this.pointsAndTimesS2 = pPointsAndTimesS2;
         this.pointPositionS2 = pPointPositionS2;
@@ -93,7 +93,7 @@ export class MTC {
 
         // console.log(this.pointsAndTimesS2);//puntos y tiempos 
         // console.log(this.pointPositionS2);//posiciones de los puntos
-         //console.log(this.zonesPointsS2);// zonas de cada punto
+        //console.log(this.zonesPointsS2);// zonas de cada punto
         // console.log(this.zonesAreaS2);// areas de cada zona
         // console.log(this.totalAreasS2);// area total de todas las zonas 
         // console.log( this.totalAreaOrg);// area total de todas las zonas 
@@ -128,7 +128,7 @@ export class MTC {
     }
 
 
-    public makeMT(pmasterArea:number) {
+    public makeMT(pmasterArea: number) {
 
         this.masterMTC = pmasterArea;
         this.masterMC(this.getZone(this.zonesPointsS2[0]), this.getZone(this.zonesPointsS2[this.zonesPointsS2.length - 1]));
@@ -160,7 +160,7 @@ export class MTC {
         lenZoneTwo = this.auxPZoneB.length - 1;
 
 
-        for (var i = 0; i < 2000; i++) {
+        for (var i = 0; i < 5000; i++) {
 
             // random de entre los conjuntos de la zona 1 y 2//
             randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0);
@@ -174,40 +174,41 @@ export class MTC {
             subRandomB = ((Math.floor(Math.random() * (lenSubZoneTwo - 1 + 1)) + 1) * 2) - 1;//aseguramos num par
             //-----------------------------------------------------------------------------------------------------//
             if ( //(!(this.isRepit((this.auxPZoneA[randomA][subRandomA])))) &&// que el segundo(tiempo) no sea repetido
-            (this.auxPZoneB[randomB][subRandomB]) - (this.auxPZoneA[randomA][subRandomA])
-            == this.lastSeconS2 //que cumpla los n segundos requeridos
-        ) {
-            areaSong = clasSplitMaster.splitPeak(0,this.audioData,this.auxPZoneA[randomA][subRandomA]*44100
-                ,this.auxPZoneB[randomB][subRandomB]*44100);
-          
+                (this.auxPZoneB[randomB][subRandomB]) - (this.auxPZoneA[randomA][subRandomA])
+                == this.lastSeconS2 //que cumpla los n segundos requeridos
+            ) {
+                areaSong = clasSplitMaster.splitPeak(0, this.audioData, this.auxPZoneA[randomA][subRandomA] * 44100
+                    , this.auxPZoneB[randomB][subRandomB] * 44100);
 
-                //90 98
-            if ( (Math.round((this.masterMTC / 100) * 90) <= areaSong)
-            // ||
-            // ((this.masterMTC+Math.round((this.masterMTC / 100) * 70) >= areaSong))
-            )
-             {//si el area total cumple con 70% 
+
+                //95 15
+                if ((areaSong >= (Math.round((this.masterMTC / 100) * 95)))
+                    &&
+                    ((areaSong <= (this.masterMTC + (Math.round((this.masterMTC / 100) * 10)))))
+                ) {//si el area total cumple con 70% 
 
                     console.log("///////////////////////////");
-                    console.log(( this.masterMTC / 100) * 70 + "70%");
-                    console.log( this.masterMTC  + "org");
-                    console.log((areaSong) + "areaSong i")
-                    console.log(this.lastSeconS2);
-                    console.log(this.auxPZoneA[randomA][subRandomA]);
-                    console.log(this.auxPZoneB[randomB][subRandomB]);
-                    console.log(this.auxPZoneA[randomA][subRandomA] * 44100);
-                    console.log(this.auxPZoneB[randomB][subRandomB] * 44100);
+                    console.log( "Area Original:  " + this.masterMTC );
+                    console.log( "Area Calculada:  "+ (areaSong) )
+                    console.log("Duracion "+this.lastSeconS2  );
+                    var segI = this.auxPZoneA[randomA][subRandomA];
+                    var segF = this.auxPZoneB[randomB][subRandomB];
+                    console.log("segundos i y f " +segI +  "---- "+ segF);
+                    console.log ("Tiempo Inicial" + this.giveTime(segI));
+                    console.log ("Tiempo Final" + this.giveTime(segF));
+                    console.log("posicion inicial en cancnion Original " +this.auxPZoneA[randomA][subRandomA] * 44100);
+                    console.log("posicion final en cancnion Original "+this.auxPZoneB[randomB][subRandomB] * 44100);
                     console.log("///////////////////////////");
                     resp.push(this.zonesAreaSong);
                     // console.log(this.auxPZoneA[randomA][subRandomA] + " rep");
                     this.reptit.push(this.auxPZoneA[randomA][subRandomA]);
                     this.zonesAreaSong = [];
-                
-            }
 
+                }
+
+            }
         }
-    }
-    //console.log((this.zonesAreaS2));
+        //console.log((this.zonesAreaS2));
 
     }
 
@@ -249,7 +250,7 @@ export class MTC {
 
             subRandomA = ((Math.floor(Math.random() * (lenSubZoneOne - 1 + 1)) + 1) * 2) - 1;//aseguramos num par
             subRandomB = ((Math.floor(Math.random() * (lenSubZoneTwo - 1 + 1)) + 1) * 2) - 1;//aseguramos num par
-           // console.log( subRandomA +"////////"+ subRandomB);
+            // console.log( subRandomA +"////////"+ subRandomB);
             //-----------------------------------------------------------------------------------------------------//
 
 
@@ -320,7 +321,7 @@ export class MTC {
 
 
                     if (this.zonesAreaSong.length == this.zonesAreaS2.length &&
-                         this.NumPrmArea>=  Math.round((this.totalAreaOrg[0]/100)*80)
+                        this.NumPrmArea >= Math.round((this.totalAreaOrg[0] / 100) * 80)
                         //&& this.NumPrmSector+2 >= Math.round((32/100)*80) 
                     ) {
                         // pZoneA[randomA][subRandomA] = -1;
@@ -417,7 +418,26 @@ export class MTC {
         }
     }
 
+
+    public giveTime(pSecond:number){
+        var min:string = "";
+        var minA:number =0;
+        var seg :number=0;
+        if(pSecond<60){
+            console.log(minA +" : "+pSecond);
+        }else{
+            min = (pSecond/60).toFixed();
+            minA = +min;
+            seg = Math.round((((pSecond/60) - minA)*60));
+            console.log(minA +" : "+seg);
+        }
+       
+    }
+
 }
+
+
+
 
 // if (this.zonesAreaSong.length == this.zonesAreaS2.length) {
 //     // pZoneA[randomA][subRandomA] = -1;

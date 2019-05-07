@@ -43,7 +43,7 @@ readFile("./Sound/s22.wav").then((buffer) => {
 });
 
 console.log('');
-readFile("./Sound/W.wav").then((buffer) => {
+readFile("./Sound/Dua.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
 

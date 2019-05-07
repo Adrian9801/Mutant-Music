@@ -173,7 +173,7 @@ export class MTC {
             subRandomA = ((Math.floor(Math.random() * (lenSubZoneOne - 1 + 1)) + 1) * 2) - 1;//aseguramos num par
             subRandomB = ((Math.floor(Math.random() * (lenSubZoneTwo - 1 + 1)) + 1) * 2) - 1;//aseguramos num par
             //-----------------------------------------------------------------------------------------------------//
-            if ((!(this.isRepit((this.auxPZoneA[randomA][subRandomA])))) &&// que el segundo(tiempo) no sea repetido
+            if ( //(!(this.isRepit((this.auxPZoneA[randomA][subRandomA])))) &&// que el segundo(tiempo) no sea repetido
             (this.auxPZoneB[randomB][subRandomB]) - (this.auxPZoneA[randomA][subRandomA])
             == this.lastSeconS2 //que cumpla los n segundos requeridos
         ) {
@@ -181,11 +181,16 @@ export class MTC {
                 ,this.auxPZoneB[randomB][subRandomB]*44100);
           
 
-            if (Math.round((this.masterMTC / 100) * 70) <= areaSong) {//si el area total cumple con 70% 
+            if ( (Math.round((this.masterMTC / 100) * 95) <= areaSong)
+            // ||
+            // ((this.masterMTC+Math.round((this.masterMTC / 100) * 95) >= areaSong))
+            )
+             {//si el area total cumple con 70% 
 
                     console.log("///////////////////////////");
-                    console.log((this.totalAreaOrg[0] / 100) * 70 + "70%");
-                    console.log((this.totalAreaOrg) + "org")
+                    console.log(( this.masterMTC / 100) * 70 + "70%");
+                    console.log( this.masterMTC  + "org");
+                    console.log((areaSong) + "areaSong i")
                     console.log(this.lastSeconS2);
                     console.log(this.auxPZoneA[randomA][subRandomA]);
                     console.log(this.auxPZoneB[randomB][subRandomB]);

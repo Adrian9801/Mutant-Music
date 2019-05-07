@@ -28,14 +28,14 @@ var readFile = function (filepath) {
         });
     });
 };
-readFile("./Sound/ese2.wav").then(function (buffer) {
+readFile("./Sound/s22.wav").then(function (buffer) {
     return WavDecoder.decode(buffer);
 }).then(function (audioData) {
     console.log("ampliando 30%");
     var size = 20000;
     var clasSplitMaster = new splitMaster_1.splitMaster();
     //canal estudiado,audioa estudiar,inicio,final
-    clasSplitMaster.splitPeak(0, audioData, 0, audioData.channelData[0].length - 1);
+    masterArea = clasSplitMaster.splitPeak(0, audioData, 0, audioData.channelData[0].length - 1);
     var clasesplit = new split_1.splits(audioData);
     clasesplit.splitSong(true);
     claseMTC.setDataS2(clasesplit.getDataS2(1), clasesplit.getDataS2(2), clasesplit.getDataS2(3), clasesplit.getDataS2(4), clasesplit.getDataS2(5), clasesplit.getDataS2(6));

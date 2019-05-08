@@ -55,7 +55,7 @@ export class splits {
     }
 
     // true para estudiar S2 false para la cancion 
-    public splitSong(dataSong: boolean) {
+    public splitSong(dataSong: boolean, pChanel:number) {
         var audioLength = this.audioData.channelData[0].length - 1;// largo del audio
         var firstTime: boolean = true;
         var lastZone: number = 0;//ultima zona
@@ -69,7 +69,7 @@ export class splits {
 
         for (var i = 0; i < audioLength; i++) {
 
-            point = this.audioData.channelData[0][i];//punto 
+            point = this.audioData.channelData[pChanel][i];//punto 
 
             if (!firstTime) {// sino es la primera vez
 

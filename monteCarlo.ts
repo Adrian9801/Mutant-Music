@@ -97,14 +97,12 @@ export class MTC {
         this.totalAreasS2 = pTotalAreasS2;
         this.lastSeconS2 = this.pointsAndTimesS2[this.pointsAndTimesS2.length - 1];
         this.totalAreaOrg = pTotalAreaor;
-
         // console.log(this.pointsAndTimesS2);//puntos y tiempos 
         // console.log(this.pointPositionS2);//posiciones de los puntos
         //console.log(this.zonesPointsS2);// zonas de cada punto
         // console.log(this.zonesAreaS2);// areas de cada zona
         // console.log(this.totalAreasS2);// area total de todas las zonas 
         // console.log( this.totalAreaOrg);// area total de todas las zonas 
-
     }
 
 
@@ -119,7 +117,6 @@ export class MTC {
         this.zone6 = pZ6;
         this.zone7 = pZ7;
         this.zone8 = pZ8;
-
         // console.log("///////////////////////////////////////////////////")
         // console.log("cantidad de secciones de la zona A 1" +  this.zone1.length);
         // console.log("cantidad de secciones de la zona B 2" +  this.zone2.length);
@@ -131,7 +128,6 @@ export class MTC {
         // console.log("cantidad de secciones de la zona G 7" +  this.zone7.length);
         // console.log("cantidad de secciones de la zona H 8" +  this.zone8.length);
         // console.log("///////////////////////////////////////////////////");
-
     }
 
 
@@ -217,17 +213,11 @@ export class MTC {
                     this.saveDataMatch.push(setDataMatch);
                     setDataMatch = [];
 
-
-                    //resp.push(this.zonesAreaSong);
-                    //this.zonesAreaSong = [];
-
                 }
 
             }
         }
-        //console.log((this.reptit.length + "  "+this.saveDataMatch.length));
-
-
+       
     }
 
     public getZone(zone: number): (number[][]) {
@@ -308,8 +298,13 @@ export class MTC {
 
     }
 
-    public GetMatch() {
+    public GetMatchOne() {
+        return  this.chanelOne;
 
+    }
+
+    public GetMatchTwo() {
+        return  this.chanelTwo;
     }
 
     public buildMatch(pChanel: number, pAudioData: any, pStart: number, pFinal: number) {

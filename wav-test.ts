@@ -9,7 +9,8 @@ import { splits } from "./split";
 import { MTC } from "./monteCarlo";
 import { splitMaster } from "./splitMaster";
 
-var claseMTC = new MTC();
+var claseMTCOne = new MTC();
+var claseMTCTwo = new MTC();
 var audioAux: number[];
 var masterArea: number;
 
@@ -28,48 +29,62 @@ const readFile = (filepath: string) => {
 readFile("./Sound/s22.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
-  console.log("ampliando 30%");
-  const size = 20000;
-  var clasSplitMaster = new splitMaster();
-  //canal estudiado,audioa estudiar,inicio,final
-  masterArea = clasSplitMaster.splitPeak(0, audioData, 0, audioData.channelData[0].length - 1);
+ 
 
-  var clasesplit = new splits(audioData);
-  clasesplit.splitSong(true);
 
-  claseMTC.setDataS2(clasesplit.getDataS2(1),
-    clasesplit.getDataS2(2), clasesplit.getDataS2(3), clasesplit.getDataS2(4), clasesplit.getDataS2(5), clasesplit.getDataS2(6));
+  // splitMaster a one
+  var clasSplitMasterOne = new splitMaster(); //canal estudiado,audioa estudiar,inicio,final
+  masterArea = clasSplitMasterOne.splitPeak(0, audioData, 0, audioData.channelData[0].length - 1);
+  
+  // splitMaster a two
+  var clasSplitMasterTwo = new splitMaster();//canal estudiado,audioa estudiar,inicio,final
+  masterArea = clasSplitMasterTwo.splitPeak(1, audioData, 0, audioData.channelData[1].length - 1);
+
+  //split a one
+  var clasesplitOne = new splits(audioData);
+  clasesplitOne.splitSong(true,0);
+
+  //split a one
+  var clasesplitTwo = new splits(audioData);
+  clasesplitTwo.splitSong(true,1);
+
+  //MTC a one
+  claseMTCOne.setDataS2(clasesplitOne.getDataS2(1),clasesplitOne.getDataS2(2),
+  clasesplitOne.getDataS2(3), clasesplitOne.getDataS2(4), 
+  clasesplitOne.getDataS2(5), clasesplitOne.getDataS2(6));
+ 
+  //MTC a Two
+  claseMTCTwo.setDataS2(clasesplitTwo.getDataS2(1),clasesplitTwo.getDataS2(2), 
+  clasesplitTwo.getDataS2(3), clasesplitTwo.getDataS2(4), 
+  clasesplitTwo.getDataS2(5), clasesplitTwo.getDataS2(6));
+
 
 });
 
-// console.log('');
-// readFile("./Sound/Dua.wav").then((buffer) => {
-//   return WavDecoder.decode(buffer);
-// }).then(function (audioData) {
+console.log('');
+readFile("./Sound/Dua.wav").then((buffer) => {
+  return WavDecoder.decode(buffer);
+}).then(function (audioData) {
 
-//   var clasesplit = new splits(audioData);
-//   clasesplit.splitSong(false);
+  //------------------- for son in  One----------------------------//
 
-//   claseMTC.setDataSong(clasesplit.getZone(1), clasesplit.getZone(2), clasesplit.getZone(3), clasesplit.getZone(4),
-//     clasesplit.getZone(5), clasesplit.getZone(6), clasesplit.getZone(7), clasesplit.getZone(8));
+  var clasesplitOneSong = new splits(audioData);
+  //split song one 
+  clasesplitOneSong.splitSong(false,0);
 
+  //set data mtc one
+  claseMTCOne.setDataSong(clasesplitOneSong.getZone(1), clasesplitOneSong.getZone(2), 
+  clasesplitOneSong.getZone(3), clasesplitOneSong.getZone(4),
+  clasesplitOneSong.getZone(5), clasesplitOneSong.getZone(6), 
+  clasesplitOneSong.getZone(7), clasesplitOneSong.getZone(8));
+  claseMTCOne.setAudioData(audioData);
+  // make match insong for one 
+  claseMTCOne.makeMT(masterArea,0);
+  //----------------------------------------------------------------//
 
-//   claseMTC.setAudioData(audioData);
-//   claseMTC.makeMT(masterArea,0);
-
-//   // for (var i = 44100 * 5; i < 44100 * 10; i++) {
-//   //   audioData.channelData[0][i - 44100 * 5] = audioData.channelData[0][i];
-//   // }
-
-//   // for (var i = 44100 * 11; i < 44100 * 16; i++) {
-//   //   audioData.channelData[0][i + 44100 * 6] = audioData.channelData[0][i];
-//   // }
-
-//   // console.log("writing...");
-//   // WavEncoder.encode( audioAux).then((buffer: any) => {
-//   //   fs.writeFileSync("C:\\Users\\USER\\Desktop\\pp.wav", new Buffer(buffer));
+  
 
 
-// });
+});
 
 

@@ -2,6 +2,7 @@ export declare class MTC {
     private masterMTC;
     private NumPrmSector;
     private NumPrmArea;
+    private saveDataMatch;
     private dumppi;
     private reptit;
     private lastSeconS2;
@@ -29,7 +30,6 @@ export declare class MTC {
     setDataSong(pZ1: number[][], pZ2: number[][], pZ3: number[][], pZ4: number[][], pZ5: number[][], pZ6: number[][], pZ7: number[][], pZ8: number[][]): void;
     makeMT(pmasterArea: number): void;
     masterMC(pZoneA: number[][], pZoneB: number[][]): void;
-    MC(pZoneA: number[][], pZoneB: number[][]): void;
     getZone(zone: number): (number[][]);
     gps(point: number): number;
     isRepit(point: number): boolean;

@@ -12,9 +12,13 @@ export class MTC {
 
 
 
+    private chanelOne: number[];
+    private chanelTwo: number[];
+
     private masterMTC: number
     private NumPrmSector: number
     private NumPrmArea: number
+    private saveDataMatch: number[][];
     private dumppi: number[][];
     private reptit: number[];
     private lastSeconS2: number;
@@ -45,6 +49,9 @@ export class MTC {
 
 
     public constructor() {
+        this.saveDataMatch = [];
+        this.chanelOne = [];
+        this.chanelTwo = [];
         this.masterMTC = 0;
         this.audioData = 0;
         this.reptit = [];
@@ -128,14 +135,14 @@ export class MTC {
     }
 
 
-    public makeMT(pmasterArea: number) {
+    public makeMT(pmasterArea: number,pChanel:number) {
 
         this.masterMTC = pmasterArea;
-        this.masterMC(this.getZone(this.zonesPointsS2[0]), this.getZone(this.zonesPointsS2[this.zonesPointsS2.length - 1]));
+        this.masterMC(this.getZone(this.zonesPointsS2[0]), this.getZone(this.zonesPointsS2[this.zonesPointsS2.length - 1]),pChanel);
 
     }
 
-    public masterMC(pZoneA: number[][], pZoneB: number[][]) {
+    public masterMC(pZoneA: number[][], pZoneB: number[][],pChanel:number) {
         this.auxPZoneA = pZoneA;
         this.auxPZoneB = pZoneB;
 
@@ -173,11 +180,11 @@ export class MTC {
             subRandomA = ((Math.floor(Math.random() * (lenSubZoneOne - 1 + 1)) + 1) * 2) - 1;//aseguramos num par
             subRandomB = ((Math.floor(Math.random() * (lenSubZoneTwo - 1 + 1)) + 1) * 2) - 1;//aseguramos num par
             //-----------------------------------------------------------------------------------------------------//
-            if ( //(!(this.isRepit((this.auxPZoneA[randomA][subRandomA])))) &&// que el segundo(tiempo) no sea repetido
+            if ((!(this.isRepit((this.auxPZoneA[randomA][subRandomA])))) &&// que el segundo(tiempo) no sea repetido
                 ((this.auxPZoneB[randomB][subRandomB]) - (this.auxPZoneA[randomA][subRandomA]))
                 == this.lastSeconS2 //que cumpla los n segundos requeridos
             ) {
-                areaSong = clasSplitMaster.splitPeak(0, this.audioData,( (this.auxPZoneA[randomA][subRandomA]) * 44100)
+                areaSong = clasSplitMaster.splitPeak(0, this.audioData, ((this.auxPZoneA[randomA][subRandomA]) * 44100)
                     , ((this.auxPZoneB[randomB][subRandomB]) * 44100));
 
 
@@ -187,173 +194,38 @@ export class MTC {
                     ((areaSong <= (this.masterMTC + (Math.round((this.masterMTC / 100) * 5)))))
                 ) {//si el area total cumple con 70% 
 
+                    var setDataMatch = [];
+                    this.reptit.push(this.auxPZoneA[randomA][subRandomA]);
                     console.log(" ");
                     console.log(" ");
                     console.log("///////////////////////////");
-                    console.log( "Area Original:  " + this.masterMTC );
-                    console.log( "Area Calculada:  "+ (areaSong) )
-                    console.log("Duracion "+this.lastSeconS2  );
+                    console.log("Area Original:  " + this.masterMTC);
+                    console.log("Area Calculada:  " + (areaSong))
+                    console.log("Duracion " + this.lastSeconS2);
                     var segI = this.auxPZoneA[randomA][subRandomA];
                     var segF = this.auxPZoneB[randomB][subRandomB];
-                    console.log("segundos i y f " +segI +  "---- "+ segF);
-                    console.log ("Tiempo Inicial" + this.giveTime(segI));
-                    console.log ("Tiempo Final" + this.giveTime(segF));
-                    console.log("posicion inicial en cancnion Original " +this.auxPZoneA[randomA][subRandomA] * 44100);
-                    console.log("posicion final en cancnion Original "+this.auxPZoneB[randomB][subRandomB] * 44100);
+                    setDataMatch.push(segI);
+                    setDataMatch.push(segF);
+                    //cannal audio inicio final 
+                    this.buildMatch(pChanel,this.audioData,segI*44100,segF*44100);
+                    console.log("segundos i y f " + segI + "---- " + segF);
+                    console.log("Tiempo Inicial" + this.giveTime(segI));
+                    console.log("Tiempo Final" + this.giveTime(segF));
+                    console.log("posicion inicial en cancnion Original " + this.auxPZoneA[randomA][subRandomA] * 44100);
+                    console.log("posicion final en cancnion Original " + this.auxPZoneB[randomB][subRandomB] * 44100);
                     console.log("///////////////////////////");
-                    resp.push(this.zonesAreaSong);
-                    // console.log(this.auxPZoneA[randomA][subRandomA] + " rep");
-                    this.reptit.push(this.auxPZoneA[randomA][subRandomA]);
-                    this.zonesAreaSong = [];
+                    this.saveDataMatch.push(setDataMatch);
+                    setDataMatch = [];
+
+
+                    //resp.push(this.zonesAreaSong);
+                    //this.zonesAreaSong = [];
 
                 }
 
             }
         }
-        //console.log((this.zonesAreaS2));
-
-    }
-
-    public MC(pZoneA: number[][], pZoneB: number[][]) {
-
-        this.auxPZoneA = pZoneA;
-        this.auxPZoneB = pZoneB;
-
-        var lenZoneOne: number;
-        var lenZoneTwo: number;
-
-        var lenSubZoneOne: number;
-        var lenSubZoneTwo: number;
-
-        var randomA: number;
-        var randomB: number;
-        var subRandomA: number;
-        var subRandomB: number;
-
-        var areaSong: number;
-        var resp: number[][];
-        var postA: number;
-        var auxArea: number = 0;
-
-        resp = [];
-        lenZoneOne = this.auxPZoneA.length - 1;
-        lenZoneTwo = this.auxPZoneB.length - 1;
-
-
-        for (var i = 0; i < 2000; i++) {
-
-            // random de entre los conjuntos de la zona 1 y 2//
-            randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0);
-            randomB = (Math.floor(Math.random() * (lenZoneTwo - 0 + 1)) + 0);
-
-            //randon dentro del conjunto seleccionado//
-            lenSubZoneOne = ((Math.round((this.auxPZoneA[randomA].length) / 2)));
-            lenSubZoneTwo = ((Math.round((this.auxPZoneB[randomB].length) / 2)));
-
-            subRandomA = ((Math.floor(Math.random() * (lenSubZoneOne - 1 + 1)) + 1) * 2) - 1;//aseguramos num par
-            subRandomB = ((Math.floor(Math.random() * (lenSubZoneTwo - 1 + 1)) + 1) * 2) - 1;//aseguramos num par
-            // console.log( subRandomA +"////////"+ subRandomB);
-            //-----------------------------------------------------------------------------------------------------//
-
-
-
-
-            if ((!(this.isRepit((this.auxPZoneA[randomA][subRandomA])))) &&// que el segundo(tiempo) no sea repetido
-                (this.auxPZoneB[randomB][subRandomB]) - (this.auxPZoneA[randomA][subRandomA])
-                == this.lastSeconS2 //que cumpla los n segundos requeridos
-            ) {
-
-                areaSong = claseArea.waveArea(this.auxPZoneA[randomA][subRandomA],
-                    this.auxPZoneB[randomB][subRandomB], this.auxPZoneA[randomA][subRandomA - 1], this.auxPZoneB[randomB][subRandomB - 1]);//calculo del area total
-
-                if (Math.round((this.totalAreaOrg[0] / 100) * 70) <= areaSong) {//si el area total cumple con 70% 
-
-                    postA = this.auxPZoneA[randomA][subRandomA];// posicion en la  cancion 
-
-
-
-                    for (var i = 1; i <= this.zonesAreaS2.length; i++) { // analisis de las sub areas
-
-                        //tiempo de inicio , tiempo final , punto de inicio punto final, caluclo de cada sub area
-                        auxArea = claseArea.waveArea(this.auxPZoneA[randomA][subRandomA] + i - 1//segundo
-                            , this.auxPZoneA[randomA][subRandomA] + i,//segundo
-                            this.audioData.channelData[0][postA + ((44100) * (i))],//punto
-                            this.audioData.channelData[0][postA + ((44100) * (i + 1))]);//punto
-
-                        this.NumPrmArea = this.NumPrmArea + auxArea;
-                        this.NumPrmSector = this.NumPrmSector + this.gps(this.audioData.channelData[0][postA + ((44100) * (i))]);;
-
-                        // if ((this.auxPZoneA[randomA][subRandomA]) == 180) {//36
-                        //     this.NumPrm = this.NumPrm + auxArea;//this.NumPrm +this.gps( this.audioData.channelData[0][postA + ((44100) * (i))]);
-                        //      // console.log(auxArea + "area");
-                        // //     // console.log( "//////////////////// "+ i +" //////////////////////////");   
-                        // //     // console.log("//////////////////////////////////////////////////////////////");   
-                        // //     // console.log(this.gps(this.audioData.channelData[0][postA + ((44100) * (i))])+" la calculada");
-                        // //     // console.log(this.zonesPointsS2[i - 1]+" la que debe ser");
-                        // //     // console.log(this.gps(this.audioData.channelData[0][postA + ((44100) * (i + 1))])+" la calculada");
-                        // //     // console.log(this.zonesPointsS2[i]+" la que debe ser");
-                        // //     // console.log("//////////////////////////////////////////////////////////////");
-                        // }
-
-                        // console.log( "//////////////////// "+ i +" //////////////////////////");   
-                        // console.log("//////////////////////////////////////////////////////////////");   
-                        // console.log(this.gps(this.audioData.channelData[0][postA + ((44100) * (i))])+" la calculada");
-                        // console.log(this.zonesPointsS2[i - 1]+" la que debe ser");
-                        // console.log(this.gps(this.audioData.channelData[0][postA + ((44100) * (i + 1))])+" la calculada");
-                        // console.log(this.zonesPointsS2[i]+" la que debe ser");
-                        // console.log("//////////////////////////////////////////////////////////////");   
-
-
-                        if ( //yaMath.round((this.zonesAreaS2[i - 1] / 100) * 70) <= auxArea &&
-                            (Math.round((this.gps(this.audioData.channelData[0][postA + ((44100) * (i))]) / 100) * 80) <= this.zonesPointsS2[i - 1])//cumplen con el adn
-                            ||
-                            (Math.round((this.gps(this.audioData.channelData[0][postA + ((44100) * (i + 1))] / 100) * 75)) <= this.zonesPointsS2[i])//cumplen con el adn
-                        ) {
-                            //console.log(this.gps(this.audioData.channelData[0][postA + ((44100) * (i))]));
-                            this.zonesAreaSong.push(auxArea);
-
-                        } else {
-                            this.zonesAreaSong = [];
-                            break;
-                        }
-
-                    }//for de cada sub area 
-                    // console.log((this.NumPrm));
-
-
-
-                    if (this.zonesAreaSong.length == this.zonesAreaS2.length &&
-                        this.NumPrmArea >= Math.round((this.totalAreaOrg[0] / 100) * 80)
-                        //&& this.NumPrmSector+2 >= Math.round((32/100)*80) 
-                    ) {
-                        // pZoneA[randomA][subRandomA] = -1;
-                        // pZoneB[randomB][subRandomB] = -1
-                        console.log("///////////////////////////");
-                        console.log((this.totalAreaOrg[0] / 100) * 70 + "70%");
-                        console.log((this.totalAreaOrg) + "org")
-                        console.log(this.lastSeconS2);
-                        console.log(this.auxPZoneA[randomA][subRandomA] + "s o p");
-                        console.log(this.auxPZoneB[randomB][subRandomB]);
-                        console.log(this.auxPZoneA[randomA][subRandomA] * 44100 + "seg");
-                        console.log(this.auxPZoneB[randomB][subRandomB] * 44100);
-                        console.log("///////////////////////////");
-                        resp.push(this.zonesAreaSong);
-                        // console.log(this.auxPZoneA[randomA][subRandomA] + " rep");
-                        this.reptit.push(this.auxPZoneA[randomA][subRandomA]);
-                        this.zonesAreaSong = [];
-                    }
-                    if (this.NumPrmArea !== 0) {
-                        this.NumPrmArea = 0;
-                    }
-                    if (this.NumPrmSector !== 0) {
-                        this.NumPrmSector = 0;
-                    }
-
-                }
-
-            }
-        }
-        //console.log((this.zonesAreaS2));
+        //console.log((this.reptit.length + "  "+this.saveDataMatch.length));
 
 
     }
@@ -404,10 +276,10 @@ export class MTC {
 
     public isRepit(point: number): boolean {
         var datarepit: boolean = false;
-        if (this.isRepit.length == 0) {
+        if (this.reptit.length == 0) {
             return datarepit;
         } else {
-            for (var i = 0; i <= this.isRepit.length - 1; i++) {
+            for (var i = 0; i <= this.reptit.length - 1; i++) {
                 if (this.reptit[i] == point) {
                     datarepit = true;
                     break;
@@ -421,19 +293,39 @@ export class MTC {
     }
 
 
-    public giveTime(pSecond:number){
-        var min:string = "";
-        var minA:number =0;
-        var seg :number=0;
-        if(pSecond<60){
-            console.log(minA +" : "+pSecond);
-        }else{
-            min = (pSecond/60).toFixed();
+    public giveTime(pSecond: number) {
+        var min: string = "";
+        var minA: number = 0;
+        var seg: number = 0;
+        if (pSecond < 60) {
+            console.log(minA + " : " + pSecond);
+        } else {
+            min = (pSecond / 60).toFixed();
             minA = +min;
-            seg = Math.round((((pSecond/60) - minA)*60));
-            console.log(minA +" : "+seg);
+            seg = Math.round((((pSecond / 60) - minA) * 60));
+            console.log(minA + " : " + seg);
         }
-       
+
+    }
+
+    public GetMatch() {
+
+    }
+
+    public buildMatch(pChanel: number, pAudioData: any, pStart: number, pFinal: number) {
+
+        var point: number;
+        for (var i = pStart; i < pFinal-pStart; i++) {
+
+            point = pAudioData.channelData[pChanel][i];//punto 
+            if (pChanel == 0) {
+                this.chanelOne.push(point);
+            } else {
+                this.chanelTwo.push(point);
+
+            }
+        }
+
     }
 
 }
@@ -441,121 +333,3 @@ export class MTC {
 
 
 
-// if (this.zonesAreaSong.length == this.zonesAreaS2.length) {
-//     // pZoneA[randomA][subRandomA] = -1;
-//     // pZoneB[randomB][subRandomB] = -1;
-//     console.log("///////////////////////////");
-//     console.log((this.totalAreasS2[0] / 100) * 70 + "70%");
-//     console.log((this.totalAreasS2[0]) + "org")
-//     console.log(this.lastSeconS2);
-//     console.log(pZoneA[randomA][subRandomA]);
-//     console.log(pZoneB[randomB][subRandomB]);
-//     console.log(pZoneA[randomA][subRandomA] * 44100);
-//     console.log(pZoneB[randomB][subRandomB] * 44100);
-//     console.log("///////////////////////////");
-//     resp.push(this.zonesAreaSong);
-//     pZoneA[randomA][subRandomA] = -1;
-//     pZoneB[randomB][subRandomB] = -1;
-//     this.zonesAreaSong = [];
-
-// }
-
-// console.log( "//////////////////// "+ i +" //////////////////////////");   
-                        // console.log("//////////////////////////////////////////////////////////////");   
-                        // console.log(this.gps(this.audioData.channelData[0][postA + ((44100) * (i))])+" la calculada");
-                        // console.log(this.zonesPointsS2[i - 1]+" la que debe ser");
-                        // console.log(this.gps(this.audioData.channelData[0][postA + ((44100) * (i + 1))])+" la calculada");
-                        // console.log(this.zonesPointsS2[i]+" la que debe ser");
-                        // console.log("//////////////////////////////////////////////////////////////");   
-
-
-
-
-
-// public monteCarlo(pZoneA: number[][], pZoneB: number[][], psameZone: boolean, pAterior: number) {
-
-//     var zoneA: number;
-//     var zoneB: number;
-
-//     var randomA: number;
-//     var randomB: number;
-
-//     var lenZoneOne: number = pZoneA.length - 1;
-//     var lenZoneTwo: number = pZoneB.length - 1;
-
-//     var lenSubZoneOne: number;
-//     var lenSubZoneTwo: number;
-
-//     var subRandomA: number;
-//     var subRandomB: number;
-
-
-//     for (var i = 0; i < 7000; i++) {
-
-//         if (psameZone) {
-
-//             randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0);// random de las secciones 
-//             lenSubZoneOne = ((Math.round((pZoneA[randomA].length) / 2)));// len intercalado
-//             subRandomA = ((Math.floor(Math.random() * (lenSubZoneOne - 1 + 1)) + 1) * 2) - 1;//aseguramos num par
-
-//             // console.log("xxxxxxxxxxxxxxxxxxxX");
-//             // console.log( pZoneA[randomA][subRandomA]);
-//             // console.log( pZoneA[randomA][subRandomA+2]);
-//             // console.log("///////////");
-//             var auxJ = 0;
-//             for (var j = subRandomA; j < pZoneA[randomA].length - 1; j++) {
-//                 //subRandomB = pZoneA[randomA][j+2];
-
-//                 auxJ = j + 2;
-//                 // console.log("///////////" + auxJ);
-//                 // console.log(pZoneA[randomA][j]);
-//                 // console.log(pZoneA[randomA][auxJ]);
-//                 // console.log("///////////");
-//                 // console.log("///////////  " + j);
-//                 if (pZoneA[randomA][j] < pZoneA[randomA][auxJ]) {
-//                     console.log("///////SIIIIII////  ");
-//                     console.log(pZoneA[randomA][j]);
-//                     console.log(pZoneA[randomA][auxJ]);
-//                     console.log("//////////////////");
-
-//                     break;
-
-//                 }
-//                 j++;
-//             }
-
-
-//         }
-//     }
-
-
-//   // for (var i = 0; i < zonesSS2.length - 1; i++) {
-    //   //   zoneA = clasesplit.getZone(zonesSS2[i]);
-    //   //   zoneB = clasesplit.getZone(zonesSS2[i + 1]);
-    //   //   if (i == i + 1) {
-    //   //     sameZone = true;
-    //   //   } else {
-    //   //     sameZone = false;
-    //   //   }
-
-    //   //   claseMTC.monteCarlo(zoneA,zoneB,sameZone); 
-
-
-
-    // break;
-                    // console.log( claseArea.waveArea(pZoneA[randomA][subRandomA]
-                    //                                 ,pZoneA[randomA][subRandomA]+1,
-                    //                                 this.audioData.channelData[0][postA+(44100)], 
-                    //                                 this.audioData.channelData[0][postA+((44100)*2)]));
-
-
-                    //  var areaA = claseArea.waveArea(pZoneA[randomA][subRandomA]
-                    //     ,pZoneA[randomA][subRandomA]+1,
-                    //     this.audioData.channelData[0][postA], 
-                    //     this.audioData.channelData[0][postA*(44100)]);                               
-
-                    //  console.log( (this.zonesAreaS2));
-                    //  console.log( ( this.zonesAreaSong));
-
-
-                    // console.log(areaSong)

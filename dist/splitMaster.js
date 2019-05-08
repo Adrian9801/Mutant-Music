@@ -21,8 +21,8 @@ var splitMaster = /** @class */ (function () {
         for (var i = pI; i < pLastI; i++) {
             point = pAudioData.channelData[pSide][i]; //punto 
             //1105
-            nowseg = Math.round(i / 22050);
-            if (point > 0.4) {
+            nowseg = Math.round(i / 22050); //aca
+            if (point > 0.4) { //aca 
                 if ((point >= pAudioData.channelData[pSide][i + 1]) && down) {
                     if (auxPoint < point) {
                         auxPoint = point;

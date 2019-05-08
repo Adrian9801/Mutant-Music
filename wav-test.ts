@@ -42,46 +42,20 @@ readFile("./Sound/s22.wav").then((buffer) => {
 
 });
 
-console.log('');
-readFile("./Sound/Dua.wav").then((buffer) => {
-  return WavDecoder.decode(buffer);
-}).then(function (audioData) {
+// console.log('');
+// readFile("./Sound/Dua.wav").then((buffer) => {
+//   return WavDecoder.decode(buffer);
+// }).then(function (audioData) {
 
-  var clasesplit = new splits(audioData);
-  clasesplit.splitSong(false);
+//   var clasesplit = new splits(audioData);
+//   clasesplit.splitSong(false);
 
-  claseMTC.setDataSong(clasesplit.getZone(1), clasesplit.getZone(2), clasesplit.getZone(3), clasesplit.getZone(4),
-    clasesplit.getZone(5), clasesplit.getZone(6), clasesplit.getZone(7), clasesplit.getZone(8));
-
-
-  claseMTC.setAudioData(audioData);
-  claseMTC.makeMT(masterArea);
-
-  // for (var i = 44100 * 5; i < 44100 * 10; i++) {
-  //   audioData.channelData[0][i - 44100 * 5] = audioData.channelData[0][i];
-  // }
-
-  // for (var i = 44100 * 11; i < 44100 * 16; i++) {
-  //   audioData.channelData[0][i + 44100 * 6] = audioData.channelData[0][i];
-  // }
-
-  // console.log("writing...");
-  // WavEncoder.encode( audioAux).then((buffer: any) => {
-  //   fs.writeFileSync("C:\\Users\\USER\\Desktop\\pp.wav", new Buffer(buffer));
+//   claseMTC.setDataSong(clasesplit.getZone(1), clasesplit.getZone(2), clasesplit.getZone(3), clasesplit.getZone(4),
+//     clasesplit.getZone(5), clasesplit.getZone(6), clasesplit.getZone(7), clasesplit.getZone(8));
 
 
-});
-
-
-// //  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// //  //-----------------------------------------------------RODRI------------------------------------------------//
-// //  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//   // for (var i = 0; i < 5; i++) {
-//   //   console.log(audioData.channelData[0][i]);//IZQ
-//   //   console.log(audioData.channelData[1][i]);//DER
-//   //   console.log('*******************');
-//   // }
+//   claseMTC.setAudioData(audioData);
+//   claseMTC.makeMT(masterArea,0);
 
 //   // for (var i = 44100 * 5; i < 44100 * 10; i++) {
 //   //   audioData.channelData[0][i - 44100 * 5] = audioData.channelData[0][i];
@@ -91,9 +65,11 @@ readFile("./Sound/Dua.wav").then((buffer) => {
 //   //   audioData.channelData[0][i + 44100 * 6] = audioData.channelData[0][i];
 //   // }
 
-// //   console.log("writing...");
-// //   WavEncoder.encode(audioData).then((buffer: any) => {
-// //     fs.writeFileSync("C:\\Users\\USER\\Desktop\\newsulky.wav", new Buffer(buffer));
-// //   });
+//   // console.log("writing...");
+//   // WavEncoder.encode( audioAux).then((buffer: any) => {
+//   //   fs.writeFileSync("C:\\Users\\USER\\Desktop\\pp.wav", new Buffer(buffer));
+
+
+// });
 
 

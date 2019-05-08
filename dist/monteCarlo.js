@@ -124,7 +124,7 @@ var MTC = /** @class */ (function () {
                     this.reptit.push(this.auxPZoneA[randomA][subRandomA]);
                     // console.log(" ");
                     // console.log(" ");
-                    console.log("///////////////////////////");
+                    //q console.log("///////////////////////////");
                     // console.log("Area Original:  " + this.masterMTC);
                     // console.log("Area Calculada:  " + (areaSong))
                     // console.log("Duracion " + this.lastSeconS2);
@@ -141,6 +141,7 @@ var MTC = /** @class */ (function () {
                 }
             }
         }
+        //console.log(this.chanelOne.length);
     };
     MTC.prototype.getZone = function (zone) {
         switch (zone) {
@@ -239,11 +240,8 @@ var MTC = /** @class */ (function () {
         return this.chanelTwo;
     };
     MTC.prototype.buildMatch = function (pChanel, pAudioData, pStart, pFinal) {
-        console.log(pStart + "////////" + pFinal);
-        console.log(pFinal - pStart);
         var point;
         for (var i = pStart; i < (pFinal); i++) {
-            console.log("/////////////////////////////////////////////////////////////////////////////////////////////");
             point = pAudioData.channelData[pChanel][i]; //punto 
             if (pChanel == 0) {
                 this.chanelOne.push(point);

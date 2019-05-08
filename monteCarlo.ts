@@ -197,7 +197,7 @@ export class MTC {
                     this.reptit.push(this.auxPZoneA[randomA][subRandomA]);
                     // console.log(" ");
                     // console.log(" ");
-                     console.log("///////////////////////////");
+                    //q console.log("///////////////////////////");
                     // console.log("Area Original:  " + this.masterMTC);
                     // console.log("Area Calculada:  " + (areaSong))
                     // console.log("Duracion " + this.lastSeconS2);
@@ -218,9 +218,8 @@ export class MTC {
 
             }
         }
-        console.log(this.GetMatchOne.length);
-       
-       
+        //console.log(this.chanelOne.length);
+         
     }
 
     public getZone(zone: number): (number[][]) {
@@ -312,6 +311,7 @@ export class MTC {
 
     public buildMatch(pChanel: number, pAudioData: any, pStart: number, pFinal: number) { 
         var point: number;
+        
         for (var i = pStart; i < (pFinal); i++) {
             point = pAudioData.channelData[pChanel][i];//punto 
             if (pChanel == 0) {

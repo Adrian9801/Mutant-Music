@@ -88,6 +88,7 @@ export class MTC {
 
     public setAudioData(pAudioData: any) {
         this.audioData = pAudioData;
+        this.audioDataAux = pAudioData;
     }
 
     public setDataS2(pPointsAndTimesS2: number[], pPointPositionS2: number[],

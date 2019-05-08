@@ -44,6 +44,7 @@ var MTC = /** @class */ (function () {
     }
     MTC.prototype.setAudioData = function (pAudioData) {
         this.audioData = pAudioData;
+        this.audioDataAux = pAudioData;
     };
     MTC.prototype.setDataS2 = function (pPointsAndTimesS2, pPointPositionS2, pZonesPointsS2, pZonesAreaS2, pTotalAreasS2, pTotalAreaor) {
         this.pointsAndTimesS2 = pPointsAndTimesS2;

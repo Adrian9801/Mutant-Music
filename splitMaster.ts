@@ -80,7 +80,7 @@ export class splitMaster {
         // console.log(this.peakArea.length);
         // //console.log(musicalFootprint + "area total");
         // console.log("AAAAAAAAAAAAAAAAAAAAA");
-         console.log(auxData);
+         //console.log(auxData);
         // console.log("AAAAAAAAAAAAAAAAAAAAA");
         this.peak=[];
         this.peakArea=[];

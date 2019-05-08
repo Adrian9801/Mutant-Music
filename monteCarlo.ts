@@ -134,9 +134,10 @@ export class MTC {
     public makeMT(pmasterArea: number,pChanel:number) {
 
         this.masterMTC = pmasterArea;
-        console.log(this.zonesPointsS2[0]);
-        // this.masterMC(this.getZone(this.zonesPointsS2[0]), 
-        // this.getZone(this.zonesPointsS2[this.zonesPointsS2.length - 1]),pChanel);
+       
+        this.masterMC(this.getZone(this.zonesPointsS2[0]), 
+        this.getZone(this.zonesPointsS2[this.zonesPointsS2.length - 1]),
+        pChanel);
 
     }
 
@@ -192,33 +193,33 @@ export class MTC {
                     ((areaSong <= (this.masterMTC + (Math.round((this.masterMTC / 100) * 5)))))
                 ) {//si el area total cumple con 70% 
 
-                    var setDataMatch = [];
+                    
                     this.reptit.push(this.auxPZoneA[randomA][subRandomA]);
-                    console.log(" ");
-                    console.log(" ");
-                    console.log("///////////////////////////");
-                    console.log("Area Original:  " + this.masterMTC);
-                    console.log("Area Calculada:  " + (areaSong))
-                    console.log("Duracion " + this.lastSeconS2);
+                    // console.log(" ");
+                    // console.log(" ");
+                     console.log("///////////////////////////");
+                    // console.log("Area Original:  " + this.masterMTC);
+                    // console.log("Area Calculada:  " + (areaSong))
+                    // console.log("Duracion " + this.lastSeconS2);
                     var segI = this.auxPZoneA[randomA][subRandomA];
                     var segF = this.auxPZoneB[randomB][subRandomB];
-                    setDataMatch.push(segI);
-                    setDataMatch.push(segF);
+    
                     //cannal audio inicio final 
-                    //this.buildMatch(pChanel,this.audioData,segI*44100,segF*44100);
-                    console.log("segundos i y f " + segI + "---- " + segF);
-                    console.log("Tiempo Inicial" + this.giveTime(segI));
-                    console.log("Tiempo Final" + this.giveTime(segF));
-                    console.log("posicion inicial en cancnion Original " + this.auxPZoneA[randomA][subRandomA] * 44100);
-                    console.log("posicion final en cancnion Original " + this.auxPZoneB[randomB][subRandomB] * 44100);
-                    console.log("///////////////////////////");
-                    this.saveDataMatch.push(setDataMatch);
-                    setDataMatch = [];
+                    this.buildMatch(pChanel,this.audioData, (segI*44100),(segF*44100));
+                    // console.log("segundos i y f " + segI + "---- " + segF);
+                    // console.log("Tiempo Inicial" + this.giveTime(segI));
+                    // console.log("Tiempo Final" + this.giveTime(segF));
+                    // console.log("posicion inicial en cancnion Original " + this.auxPZoneA[randomA][subRandomA] * 44100);
+                    // console.log("posicion final en cancnion Original " + this.auxPZoneB[randomB][subRandomB] * 44100);
+                    // console.log("///////////////////////////");
+                    
 
                 }
 
             }
         }
+        console.log(this.GetMatchOne.length);
+       
        
     }
 
@@ -309,17 +310,14 @@ export class MTC {
         return  this.chanelTwo;
     }
 
-    public buildMatch(pChanel: number, pAudioData: any, pStart: number, pFinal: number) {
-
+    public buildMatch(pChanel: number, pAudioData: any, pStart: number, pFinal: number) { 
         var point: number;
-        for (var i = pStart; i < pFinal-pStart; i++) {
-
+        for (var i = pStart; i < (pFinal); i++) {
             point = pAudioData.channelData[pChanel][i];//punto 
             if (pChanel == 0) {
                 this.chanelOne.push(point);
             } else {
                 this.chanelTwo.push(point);
-
             }
         }
 

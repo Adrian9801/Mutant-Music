@@ -17,6 +17,8 @@ export declare class splits {
     private audioData;
     constructor(pAudioData: any);
     splitSong(dataSong: boolean, pChanel: number): void;
+    loadZoneS2(pChanel: number): void;
+    areaS2(): void;
     private insertZone;
     getZone(zone: number): (number[][]);
     getDataS2(zone: number): (number[]);

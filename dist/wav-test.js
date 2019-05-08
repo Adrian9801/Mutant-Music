@@ -65,7 +65,7 @@ readFile("./Sound/Dua.wav").then(function (buffer) {
     claseMTCOne.setAudioData(audioData);
     // make match insong for one 
     claseMTCOne.makeMT(masterAreaOne, 0);
-    // console.log(claseMTCTwo.GetMatchOne().length+" este de aca");
+    // console.log(claseMTCOne.GetMatchOne().length+" este de aca");
     //----------------------------------------------------------------//
     // //------------------- for son in  Two----------------------------//
     // var clasesplitTwoSong = new splits(audioData);

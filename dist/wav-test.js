@@ -31,7 +31,7 @@ var readFile = function (filepath) {
         });
     });
 };
-readFile("./Sound/s22.wav").then(function (buffer) {
+readFile("./Sound/p33m.wav").then(function (buffer) {
     return WavDecoder.decode(buffer);
 }).then(function (audioData) {
     // splitMaster a one

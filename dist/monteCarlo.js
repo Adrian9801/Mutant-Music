@@ -110,14 +110,16 @@ var MTC = /** @class */ (function () {
             subRandomB = ((Math.floor(Math.random() * (lenSubZoneTwo - 1 + 1)) + 1) * 2) - 1; //aseguramos num par
             //-----------------------------------------------------------------------------------------------------//
             if ( //(!(this.isRepit((this.auxPZoneA[randomA][subRandomA])))) &&// que el segundo(tiempo) no sea repetido
-            (this.auxPZoneB[randomB][subRandomB]) - (this.auxPZoneA[randomA][subRandomA])
+            ((this.auxPZoneB[randomB][subRandomB]) - (this.auxPZoneA[randomA][subRandomA]))
                 == this.lastSeconS2 //que cumpla los n segundos requeridos
             ) {
-                areaSong = clasSplitMaster.splitPeak(0, this.audioData, this.auxPZoneA[randomA][subRandomA] * 44100, this.auxPZoneB[randomB][subRandomB] * 44100);
-                //95 15
-                if ((areaSong >= (Math.round((this.masterMTC / 100) * 95)))
+                areaSong = clasSplitMaster.splitPeak(0, this.audioData, ((this.auxPZoneA[randomA][subRandomA]) * 44100), ((this.auxPZoneB[randomB][subRandomB]) * 44100));
+                //95 5 y 50 
+                if ((areaSong >= (Math.round((this.masterMTC / 100) * 97)))
                     &&
-                        ((areaSong <= (this.masterMTC + (Math.round((this.masterMTC / 100) * 10)))))) { //si el area total cumple con 70% 
+                        ((areaSong <= (this.masterMTC + (Math.round((this.masterMTC / 100) * 5)))))) { //si el area total cumple con 70% 
+                    console.log(" ");
+                    console.log(" ");
                     console.log("///////////////////////////");
                     console.log("Area Original:  " + this.masterMTC);
                     console.log("Area Calculada:  " + (areaSong));

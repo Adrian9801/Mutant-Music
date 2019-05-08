@@ -29,12 +29,15 @@ export class splitMaster {
 
         var auxData: number = 0;
 
+        //console.log("razon de cambio " + (pLastI - pI) );
+
         for (var i = pI; i < pLastI; i++) {
 
             point = pAudioData.channelData[pSide][i];//punto 
-            nowseg = Math.round(i / 44100);
+            //1105
+            nowseg = Math.round(i / 22050);//aca
 
-             if (point > 0.5) {
+             if (point > 0.4) {//aca 
 
                  if ((point >= pAudioData.channelData[pSide][i + 1]) && down) {
                     if (auxPoint < point) {
@@ -42,18 +45,21 @@ export class splitMaster {
                     }
 
                     /// else if (i >= ((pLastI - pI)/ 90) * grow) {
-                    else if (i >= ((pLastI - pI)/ 8) * grow
-                             && (nowseg != lastSeg)) {
-                                auxData = auxData + auxPoint;
-                        
-                        // console.log(Math.round(i / 44100));.
-                        lastSeg = Math.round(i / 44100);
+                    else if (//i >= ((pLastI - pI)/ 50) * grow
+                             //&& 
+                             (nowseg != lastSeg)// toma de 4 a 3 muestras por seg 
+                             ) {
+                        auxData = auxData + auxPoint;
+                    
+                        // console.log(auxPoint);
+                        // console.log(Math.round(i / 44100));
+                        lastSeg = nowseg;
                         this.peak.push(auxPoint);//punto
                         this.peak.push(Math.round(i / 44100));//tiempo
                         down = false;
                         i++;
                         grow++;
-                        //auxPoint=0;
+                        auxPoint=0;
                     }
 
                 }
@@ -70,12 +76,12 @@ export class splitMaster {
         }
 
        
-        // console.log(this.peak);
+        // console.log(this.peak.length);
         // console.log(this.peakArea.length);
-        //console.log(musicalFootprint + "area total");
-        console.log("AAAAAAAAAAAAAAAAAAAAA");
-        console.log(auxData);
-        console.log("AAAAAAAAAAAAAAAAAAAAA");
+        // //console.log(musicalFootprint + "area total");
+        // console.log("AAAAAAAAAAAAAAAAAAAAA");
+         console.log(auxData);
+        // console.log("AAAAAAAAAAAAAAAAAAAAA");
         this.peak=[];
         this.peakArea=[];
         return musicalFootprint;

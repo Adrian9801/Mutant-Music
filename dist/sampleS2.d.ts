@@ -1,11 +1,21 @@
-export declare class s2 {
-    zonesStr: string[];
+export declare class samples {
+    timesS2: number[];
+    zonesStr: number[];
+    pointZonesStr: number[];
     zones: number[];
-    private BeginZone;
-    private FinalZone;
-    private BeginPoint;
-    private FinalPoint;
+    zonesTime: number;
+    timeLen: number;
+    beginZone: number;
+    finalZone: number;
+    audioLength: number;
+    areaWave: number;
+    areas: number[];
     private audioData;
+    S2: number[];
     constructor(pAudioData: any);
-    mainComponent(): void;
+    dataS2(): void;
+    areaS2(): void;
+    allAreaS2(): void;
+    setPoints(pCantPoint: number): void;
+    mainComponent(pCantCod: number): void;
 }

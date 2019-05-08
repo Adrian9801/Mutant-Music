@@ -9,12 +9,15 @@ var splitMaster_1 = require("./splitMaster");
 var clasSplitMaster = new splitMaster_1.splitMaster();
 var MTC = /** @class */ (function () {
     function MTC() {
+        this.chanelOneUnMatch = [];
+        this.chanelTwoUnMatch = [];
         this.saveDataUnMatchOne = [];
         this.saveDataUnMatchTwo = [];
         this.chanelOne = [];
         this.chanelTwo = [];
         this.masterMTC = 0;
         this.audioData = 0;
+        this.audioDataAux = 0;
         this.reptit = [];
         this.NumPrmArea = 0;
         this.NumPrmSector = 0;
@@ -236,11 +239,11 @@ var MTC = /** @class */ (function () {
             console.log(minA + " : " + seg);
         }
     };
-    MTC.prototype.GetMatchUnOne = function () {
-        return this.saveDataUnMatchOne;
-    };
     MTC.prototype.getAudioDataUnMatch = function () {
         return this.audioDataAux;
+    };
+    MTC.prototype.GetMatchUnOne = function () {
+        return this.saveDataUnMatchOne;
     };
     MTC.prototype.GetMatchUnTwo = function () {
         return this.saveDataUnMatchTwo;
@@ -273,6 +276,26 @@ var MTC = /** @class */ (function () {
             this.audioDataAux.channelData[pChanel][i] = -7;
         }
         savePoint = [];
+    };
+    MTC.prototype.MakeUnMacht = function (pChanel) {
+        var point; //temp para guardar los datos de una zona 
+        for (var i = 0; i < this.audioData.channelData[pChanel].length - 1; i++) {
+            point = this.audioData.channelData[pChanel][i]; //punto 
+            if (point !== -7) {
+                if (pChanel == 0) {
+                    this.chanelOneUnMatch.push(point);
+                }
+                else {
+                    this.chanelTwoUnMatch.push(point);
+                }
+            }
+        }
+    };
+    MTC.prototype.GetUnMatchOne = function () {
+        return this.chanelOneUnMatch;
+    };
+    MTC.prototype.GetUnMatchTwo = function () {
+        return this.chanelTwoUnMatch;
     };
     return MTC;
 }());

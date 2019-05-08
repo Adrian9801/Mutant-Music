@@ -34,7 +34,7 @@ const readFile = (filepath: string) => {
 };
 
 //for s2
-readFile("./Sound/s22.wav").then((buffer) => {
+readFile("./Sound/DBase.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
 
@@ -72,7 +72,7 @@ readFile("./Sound/s22.wav").then((buffer) => {
 
 // for MTC ,matc and get data un match dj
 console.log('');
-readFile("./Sound/Dua.wav").then((buffer) => {
+readFile("./Sound/DSong.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
 
@@ -82,7 +82,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   var audioMix: number[][]= mix.getDominantSection();
  
   //------------------------------------------------------//
-  audioDataUnMatch = audioData;
+   
 
   //------------------- for son in  One----------------------------//
 
@@ -98,7 +98,8 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   claseMTCOne.setAudioData(audioData);
   // make match insong for one 
   claseMTCOne.makeMT(masterAreaOne, 0);
-  console.log(claseMTCOne.GetMatchOne().length + " este de aca");
+  claseMTCOne.MakeUnMacht(0);//un match
+ // console.log(claseMTCOne.GetMatchOne().length + " este de aca");
   //----------------------------------------------------------------//
 
 
@@ -116,33 +117,30 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   claseMTCTwo.setAudioData(audioData);
   // make match insong for one 
   claseMTCTwo.makeMT(masterAreaTwo, 1);
-
-  console.log(claseMTCTwo.GetMatchTwo().length + " este de aca");
-  //----------------------------------------------------------------//
+  claseMTCTwo.MakeUnMacht(1);//.un match
+ //----------------------------------------------------------------//
 
   audioData.channelData[0] = new Float32Array(claseMTCOne.GetMatchOne());
   audioData.channelData[1] = new Float32Array(claseMTCTwo.GetMatchTwo());
 
 
-  audioDataUnMatch = claseMTCOne.getAudioDataUnMatch();
-
-
-  console.log("writing...");
+  console.log("writing  Match...");
   WavEncoder.encode(audioData).then((buffer: any) => {
     fs.writeFileSync("./Sound/Match.wav", new Buffer(buffer));
   });
-
-  claseUnMatch.setAudio(audioDataUnMatch);
-  claseUnMatch.MakeUnMacht(0);
-  claseUnMatch.MakeUnMacht(1);
-
-
-  audioData.channelData[0] = new Float32Array(claseUnMatch.GetMatchUnOne());
-  audioData.channelData[1] = new Float32Array(claseUnMatch.GetMatchUnTwo());
+ 
+  //audioDataUnMatch = claseMTCOne.getAudioDataUnMatch();
+  // claseUnMatch.setAudio(audioDataUnMatch);
+  // claseUnMatch.MakeUnMacht(0);
+  // claseUnMatch.MakeUnMacht(1);
 
 
+  audioData.channelData[0] = new Float32Array(claseMTCOne.GetUnMatchOne());
+  audioData.channelData[1] = new Float32Array(claseMTCTwo.GetUnMatchTwo());
 
-  console.log("writing...");
+
+
+  console.log("writing  UnMatch...");
   WavEncoder.encode(audioData).then((buffer: any) => {
     fs.writeFileSync("./Sound/Unmatch.wav", new Buffer(buffer));
   });
@@ -154,10 +152,11 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   audioData.channelData[1] = new Float32Array(audioMix[1]);
   
 
-  console.log("writing...");
+  console.log("writing  Mix...");
   WavEncoder.encode(audioData).then((buffer: any) => {
-    fs.writeFileSync("./Sound/Dj.wav", new Buffer(buffer));
+    fs.writeFileSync("./Sound/Mix.wav", new Buffer(buffer));
   });
+  
 });
 
 

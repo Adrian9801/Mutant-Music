@@ -15,6 +15,9 @@ export class MTC {
     private chanelOne: number[];
     private chanelTwo: number[];
 
+    private chanelOneUnMatch:number[];
+    private chanelTwoUnMatch:number[];
+
     private masterMTC: number
     private NumPrmSector: number
     private NumPrmArea: number
@@ -51,12 +54,15 @@ export class MTC {
 
 
     public constructor() {
+        this.chanelOneUnMatch =[];
+        this.chanelTwoUnMatch =[];
         this.saveDataUnMatchOne = [];
         this.saveDataUnMatchTwo = [];
         this.chanelOne = [];
         this.chanelTwo = [];
         this.masterMTC = 0;
         this.audioData = 0;
+        this.audioDataAux =0;
         this.reptit = [];
         this.NumPrmArea = 0;
         this.NumPrmSector = 0;
@@ -307,13 +313,17 @@ export class MTC {
 
     }
 
+
+
+    public getAudioDataUnMatch(){
+        return this.audioDataAux;
+    }
+
     public GetMatchUnOne() {
         return this.saveDataUnMatchOne;
 
     }
-    public getAudioDataUnMatch(){
-        return this.audioDataAux;
-    }
+   
 
     public GetMatchUnTwo() {
         return this.saveDataUnMatchTwo;
@@ -352,6 +362,34 @@ export class MTC {
             this.audioDataAux.channelData[pChanel][i] = -7;
         }
         savePoint = []
+    }
+
+
+    public MakeUnMacht(pChanel:number){
+        var point: number;//temp para guardar los datos de una zona 
+         
+
+        for (var i = 0; i < this.audioData.channelData[pChanel].length - 1; i++) {
+            point = this.audioData.channelData[pChanel][i];//punto 
+            if(point!==-7){
+                if (pChanel == 0) {
+                    this.chanelOneUnMatch.push(point);
+                } else {
+                    this.chanelTwoUnMatch.push(point);
+                }
+            }
+           
+       }
+
+    }
+
+    public GetUnMatchOne() {
+        return this.chanelOneUnMatch;
+
+    }
+
+    public GetUnMatchTwo() {
+        return this.chanelTwoUnMatch;
     }
 
 }

@@ -1,6 +1,8 @@
 export declare class MTC {
     private chanelOne;
     private chanelTwo;
+    private chanelOneUnMatch;
+    private chanelTwoUnMatch;
     private masterMTC;
     private NumPrmSector;
     private NumPrmArea;
@@ -38,10 +40,13 @@ export declare class MTC {
     gps(point: number): number;
     isRepit(point: number): boolean;
     giveTime(pSecond: number): void;
-    GetMatchUnOne(): number[][];
     getAudioDataUnMatch(): any;
+    GetMatchUnOne(): number[][];
     GetMatchUnTwo(): number[][];
     GetMatchOne(): number[];
     GetMatchTwo(): number[];
     buildMatch(pChanel: number, pAudioData: any, pStart: number, pFinal: number): void;
+    MakeUnMacht(pChanel: number): void;
+    GetUnMatchOne(): number[];
+    GetUnMatchTwo(): number[];
 }

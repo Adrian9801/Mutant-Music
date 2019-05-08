@@ -102,7 +102,7 @@ var MTC = /** @class */ (function () {
         resp = [];
         lenZoneOne = this.auxPZoneA.length - 1;
         lenZoneTwo = this.auxPZoneB.length - 1;
-        for (var i = 0; i < 5000; i++) {
+        for (var i = 0; i < 10000; i++) {
             // random de entre los conjuntos de la zona 1 y 2//
             randomA = (Math.floor(Math.random() * (lenZoneOne - 0 + 1)) + 0);
             randomB = (Math.floor(Math.random() * (lenZoneTwo - 0 + 1)) + 0);
@@ -117,27 +117,27 @@ var MTC = /** @class */ (function () {
                     == this.lastSeconS2 //que cumpla los n segundos requeridos
             ) {
                 areaSong = clasSplitMaster.splitPeak(pChanel, this.audioData, ((this.auxPZoneA[randomA][subRandomA]) * 44100), ((this.auxPZoneB[randomB][subRandomB]) * 44100));
-                //95 5 y 50 
-                if ((areaSong >= (Math.round((this.masterMTC / 100) * 97)))
+                //97 5 promete
+                if ((areaSong >= (Math.round((this.masterMTC / 100) * 70)))
                     &&
-                        ((areaSong <= (this.masterMTC + (Math.round((this.masterMTC / 100) * 5)))))) { //si el area total cumple con 70% 
+                        ((areaSong <= (this.masterMTC + (Math.round((this.masterMTC / 100) * 20)))))) { //si el area total cumple con 70% 
                     this.reptit.push(this.auxPZoneA[randomA][subRandomA]);
-                    // console.log(" ");
-                    // console.log(" ");
-                    //q console.log("///////////////////////////");
-                    // console.log("Area Original:  " + this.masterMTC);
-                    // console.log("Area Calculada:  " + (areaSong))
-                    // console.log("Duracion " + this.lastSeconS2);
+                    console.log(" ");
+                    console.log(" ");
+                    console.log("///////////////////////////");
+                    console.log("Area Original:  " + this.masterMTC);
+                    console.log("Area Calculada:  " + (areaSong));
+                    console.log("Duracion " + this.lastSeconS2);
                     var segI = this.auxPZoneA[randomA][subRandomA];
                     var segF = this.auxPZoneB[randomB][subRandomB];
                     //cannal audio inicio final 
                     this.buildMatch(pChanel, this.audioData, (segI * 44100), (segF * 44100));
-                    // console.log("segundos i y f " + segI + "---- " + segF);
-                    // console.log("Tiempo Inicial" + this.giveTime(segI));
-                    // console.log("Tiempo Final" + this.giveTime(segF));
-                    // console.log("posicion inicial en cancnion Original " + this.auxPZoneA[randomA][subRandomA] * 44100);
-                    // console.log("posicion final en cancnion Original " + this.auxPZoneB[randomB][subRandomB] * 44100);
-                    // console.log("///////////////////////////");
+                    console.log("segundos i y f " + segI + "---- " + segF);
+                    console.log("Tiempo Inicial" + this.giveTime(segI));
+                    console.log("Tiempo Final" + this.giveTime(segF));
+                    console.log("posicion inicial en cancnion Original " + this.auxPZoneA[randomA][subRandomA] * 44100);
+                    console.log("posicion final en cancnion Original " + this.auxPZoneB[randomB][subRandomB] * 44100);
+                    console.log("///////////////////////////");
                 }
             }
         }

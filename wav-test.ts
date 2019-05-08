@@ -26,7 +26,7 @@ const readFile = (filepath: string) => {
 };
 
 
-readFile("./Sound/s22.wav").then((buffer) => {
+readFile("./Sound/s22l.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
  
@@ -67,7 +67,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
 }).then(function (audioData) {
 
   //------------------- for son in  One----------------------------//
-console.log ("acaaaaaaaa");
+
   var clasesplitOneSong = new splits(audioData);
   //split song one 
   clasesplitOneSong.splitSong(false,0);
@@ -102,7 +102,14 @@ console.log ("acaaaaaaaa");
   console.log(claseMTCTwo.GetMatchTwo().length+" este de aca");
   //----------------------------------------------------------------//
 
+  audioData.channelData[0] = new Float32Array(claseMTCOne.GetMatchOne());
   
+  audioData.channelData[1] = new Float32Array(claseMTCTwo.GetMatchTwo());
+
+  console.log("writing...");
+  WavEncoder.encode(audioData).then((buffer: any) => {
+    fs.writeFileSync("./Sound/WaVl.wav", new Buffer(buffer));
+  });
 
 
 });

@@ -37,7 +37,7 @@ export class splitMaster {
             //1105
             nowseg = Math.round(i / 22050);//aca
 
-             if (point > 0.4) {//aca 
+             if (point > 0.3) {//aca 
 
                  if ((point >= pAudioData.channelData[pSide][i + 1]) && down) {
                     if (auxPoint < point) {

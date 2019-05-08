@@ -121,15 +121,6 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   WavEncoder.encode(audioData).then((buffer: any) => {
     fs.writeFileSync("./Sound/WaV.wav", new Buffer(buffer));
   });
-});
-
-
-
-// for  Unmatch
-console.log('');
-readFile("./Sound/Dua.wav").then((buffer) => {
-  return WavDecoder.decode(buffer);
-}).then(function (audioData) {
 
   claseUnMatch.setAudio(audioDataUnMatch);
   claseUnMatch.MakeUnMacht(0);
@@ -140,12 +131,36 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   audioDataUnMatch.channelData[1] = new Float32Array(claseUnMatch.GetMatchUnTwo());
 
 
-
+//
   console.log("writing...");
   WavEncoder.encode(audioDataUnMatch).then((buffer: any) => {
     fs.writeFileSync("./Sound/Unmatch.wav", new Buffer(buffer));
   });
 });
+
+
+
+// // for  Unmatch
+// console.log('');
+// readFile("./Sound/Dua.wav").then((buffer) => {
+//   return WavDecoder.decode(buffer);
+// }).then(function (audioData) {
+
+//   claseUnMatch.setAudio(audioDataUnMatch);
+//   claseUnMatch.MakeUnMacht(0);
+//   claseUnMatch.MakeUnMacht(1);
+
+
+//   audioDataUnMatch.channelData[0] = new Float32Array(claseUnMatch.GetMatchUnOne());
+//   audioDataUnMatch.channelData[1] = new Float32Array(claseUnMatch.GetMatchUnTwo());
+
+
+// //
+//   console.log("writing...");
+//   WavEncoder.encode(audioDataUnMatch).then((buffer: any) => {
+//     fs.writeFileSync("./Sound/Unmatch.wav", new Buffer(buffer));
+//   });
+// });
 
 
 

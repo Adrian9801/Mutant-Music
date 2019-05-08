@@ -9,6 +9,8 @@ import { splits } from "./split";
 import { MTC } from "./monteCarlo";
 import { splitMaster } from "./splitMaster";
 import { unmatchs } from "./unMatch";
+import { Djs } from "./Dj";
+import { Mix } from "./Mix";
 
 var claseMTCOne = new MTC();
 var claseMTCTwo = new MTC();
@@ -68,12 +70,20 @@ readFile("./Sound/s22.wav").then((buffer) => {
 });
 
 
-// for MTC ,matc and get data un match
+// for MTC ,matc and get data un match dj
 console.log('');
 readFile("./Sound/Dua.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
+
+ //------------------- for DJ----------------------------//
+  var dj = new Djs(audioData.channelData[0]);
+  var mix = new Mix(dj.getDominantS(), audioData.channelData);
+  var audioMix: number[][]= mix.getDominantSection();
+ 
+  //------------------------------------------------------//
   audioDataUnMatch = audioData;
+
   //------------------- for son in  One----------------------------//
 
   var clasesplitOneSong = new splits(audioData);
@@ -119,7 +129,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
 
   console.log("writing...");
   WavEncoder.encode(audioData).then((buffer: any) => {
-    fs.writeFileSync("./Sound/WaV.wav", new Buffer(buffer));
+    fs.writeFileSync("./Sound/Match.wav", new Buffer(buffer));
   });
 
   claseUnMatch.setAudio(audioDataUnMatch);
@@ -127,14 +137,26 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   claseUnMatch.MakeUnMacht(1);
 
 
-  audioDataUnMatch.channelData[0] = new Float32Array(claseUnMatch.GetMatchUnOne());
-  audioDataUnMatch.channelData[1] = new Float32Array(claseUnMatch.GetMatchUnTwo());
+  audioData.channelData[0] = new Float32Array(claseUnMatch.GetMatchUnOne());
+  audioData.channelData[1] = new Float32Array(claseUnMatch.GetMatchUnTwo());
 
 
-//
+
   console.log("writing...");
-  WavEncoder.encode(audioDataUnMatch).then((buffer: any) => {
+  WavEncoder.encode(audioData).then((buffer: any) => {
     fs.writeFileSync("./Sound/Unmatch.wav", new Buffer(buffer));
+  });
+
+
+
+  audioData.channelData[0] = new Float32Array(audioMix[0]);
+  
+  audioData.channelData[1] = new Float32Array(audioMix[1]);
+  
+
+  console.log("writing...");
+  WavEncoder.encode(audioData).then((buffer: any) => {
+    fs.writeFileSync("./Sound/Dj.wav", new Buffer(buffer));
   });
 });
 

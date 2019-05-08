@@ -1,4 +1,6 @@
 export declare class MTC {
+    private chanelOne;
+    private chanelTwo;
     private masterMTC;
     private NumPrmSector;
     private NumPrmArea;
@@ -28,10 +30,13 @@ export declare class MTC {
     setAudioData(pAudioData: any): void;
     setDataS2(pPointsAndTimesS2: number[], pPointPositionS2: number[], pZonesPointsS2: number[], pZonesAreaS2: number[], pTotalAreasS2: number[], pTotalAreaor: number[]): void;
     setDataSong(pZ1: number[][], pZ2: number[][], pZ3: number[][], pZ4: number[][], pZ5: number[][], pZ6: number[][], pZ7: number[][], pZ8: number[][]): void;
-    makeMT(pmasterArea: number): void;
-    masterMC(pZoneA: number[][], pZoneB: number[][]): void;
+    makeMT(pmasterArea: number, pChanel: number): void;
+    masterMC(pZoneA: number[][], pZoneB: number[][], pChanel: number): void;
     getZone(zone: number): (number[][]);
     gps(point: number): number;
     isRepit(point: number): boolean;
     giveTime(pSecond: number): void;
+    GetMatchOne(): number[];
+    GetMatchTwo(): number[];
+    buildMatch(pChanel: number, pAudioData: any, pStart: number, pFinal: number): void;
 }

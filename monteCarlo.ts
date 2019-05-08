@@ -134,7 +134,9 @@ export class MTC {
     public makeMT(pmasterArea: number,pChanel:number) {
 
         this.masterMTC = pmasterArea;
-        this.masterMC(this.getZone(this.zonesPointsS2[0]), this.getZone(this.zonesPointsS2[this.zonesPointsS2.length - 1]),pChanel);
+        console.log(this.zonesPointsS2[0]);
+        // this.masterMC(this.getZone(this.zonesPointsS2[0]), 
+        // this.getZone(this.zonesPointsS2[this.zonesPointsS2.length - 1]),pChanel);
 
     }
 
@@ -203,7 +205,7 @@ export class MTC {
                     setDataMatch.push(segI);
                     setDataMatch.push(segF);
                     //cannal audio inicio final 
-                    this.buildMatch(pChanel,this.audioData,segI*44100,segF*44100);
+                    //this.buildMatch(pChanel,this.audioData,segI*44100,segF*44100);
                     console.log("segundos i y f " + segI + "---- " + segF);
                     console.log("Tiempo Inicial" + this.giveTime(segI));
                     console.log("Tiempo Final" + this.giveTime(segF));

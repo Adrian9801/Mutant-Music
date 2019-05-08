@@ -10,6 +10,8 @@ var clasSplitMaster = new splitMaster_1.splitMaster();
 var MTC = /** @class */ (function () {
     function MTC() {
         this.saveDataMatch = [];
+        this.chanelOne = [];
+        this.chanelTwo = [];
         this.masterMTC = 0;
         this.audioData = 0;
         this.reptit = [];
@@ -78,11 +80,13 @@ var MTC = /** @class */ (function () {
         // console.log("cantidad de secciones de la zona H 8" +  this.zone8.length);
         // console.log("///////////////////////////////////////////////////");
     };
-    MTC.prototype.makeMT = function (pmasterArea) {
+    MTC.prototype.makeMT = function (pmasterArea, pChanel) {
         this.masterMTC = pmasterArea;
-        this.masterMC(this.getZone(this.zonesPointsS2[0]), this.getZone(this.zonesPointsS2[this.zonesPointsS2.length - 1]));
+        console.log(this.zonesPointsS2[0]);
+        // this.masterMC(this.getZone(this.zonesPointsS2[0]), 
+        // this.getZone(this.zonesPointsS2[this.zonesPointsS2.length - 1]),pChanel);
     };
-    MTC.prototype.masterMC = function (pZoneA, pZoneB) {
+    MTC.prototype.masterMC = function (pZoneA, pZoneB, pChanel) {
         this.auxPZoneA = pZoneA;
         this.auxPZoneB = pZoneB;
         var lenZoneOne;
@@ -114,7 +118,7 @@ var MTC = /** @class */ (function () {
                 ((this.auxPZoneB[randomB][subRandomB]) - (this.auxPZoneA[randomA][subRandomA]))
                     == this.lastSeconS2 //que cumpla los n segundos requeridos
             ) {
-                areaSong = clasSplitMaster.splitPeak(0, this.audioData, ((this.auxPZoneA[randomA][subRandomA]) * 44100), ((this.auxPZoneB[randomB][subRandomB]) * 44100));
+                areaSong = clasSplitMaster.splitPeak(pChanel, this.audioData, ((this.auxPZoneA[randomA][subRandomA]) * 44100), ((this.auxPZoneB[randomB][subRandomB]) * 44100));
                 //95 5 y 50 
                 if ((areaSong >= (Math.round((this.masterMTC / 100) * 97)))
                     &&
@@ -131,6 +135,8 @@ var MTC = /** @class */ (function () {
                     var segF = this.auxPZoneB[randomB][subRandomB];
                     setDataMatch.push(segI);
                     setDataMatch.push(segF);
+                    //cannal audio inicio final 
+                    //this.buildMatch(pChanel,this.audioData,segI*44100,segF*44100);
                     console.log("segundos i y f " + segI + "---- " + segF);
                     console.log("Tiempo Inicial" + this.giveTime(segI));
                     console.log("Tiempo Final" + this.giveTime(segF));
@@ -139,12 +145,9 @@ var MTC = /** @class */ (function () {
                     console.log("///////////////////////////");
                     this.saveDataMatch.push(setDataMatch);
                     setDataMatch = [];
-                    //resp.push(this.zonesAreaSong);
-                    //this.zonesAreaSong = [];
                 }
             }
         }
-        console.log((this.reptit.length + "  " + this.saveDataMatch.length));
     };
     MTC.prototype.getZone = function (zone) {
         switch (zone) {
@@ -234,6 +237,24 @@ var MTC = /** @class */ (function () {
             minA = +min;
             seg = Math.round((((pSecond / 60) - minA) * 60));
             console.log(minA + " : " + seg);
+        }
+    };
+    MTC.prototype.GetMatchOne = function () {
+        return this.chanelOne;
+    };
+    MTC.prototype.GetMatchTwo = function () {
+        return this.chanelTwo;
+    };
+    MTC.prototype.buildMatch = function (pChanel, pAudioData, pStart, pFinal) {
+        var point;
+        for (var i = pStart; i < pFinal - pStart; i++) {
+            point = pAudioData.channelData[pChanel][i]; //punto 
+            if (pChanel == 0) {
+                this.chanelOne.push(point);
+            }
+            else {
+                this.chanelTwo.push(point);
+            }
         }
     };
     return MTC;

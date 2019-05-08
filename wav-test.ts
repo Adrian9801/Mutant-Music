@@ -26,7 +26,7 @@ const readFile = (filepath: string) => {
 };
 
 
-readFile("./Sound/s22l.wav").then((buffer) => {
+readFile("./Sound/s22.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
  
@@ -108,7 +108,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
 
   console.log("writing...");
   WavEncoder.encode(audioData).then((buffer: any) => {
-    fs.writeFileSync("./Sound/WaVl.wav", new Buffer(buffer));
+    fs.writeFileSync("./Sound/WaV.wav", new Buffer(buffer));
   });
 
 

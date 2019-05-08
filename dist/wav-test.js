@@ -31,7 +31,7 @@ var readFile = function (filepath) {
         });
     });
 };
-readFile("./Sound/s22l.wav").then(function (buffer) {
+readFile("./Sound/s22.wav").then(function (buffer) {
     return WavDecoder.decode(buffer);
 }).then(function (audioData) {
     // splitMaster a one
@@ -81,7 +81,7 @@ readFile("./Sound/Dua.wav").then(function (buffer) {
     audioData.channelData[1] = new Float32Array(claseMTCTwo.GetMatchTwo());
     console.log("writing...");
     WavEncoder.encode(audioData).then(function (buffer) {
-        fs.writeFileSync("./Sound/WaVl.wav", new Buffer(buffer));
+        fs.writeFileSync("./Sound/WaV.wav", new Buffer(buffer));
     });
 });
 //# sourceMappingURL=wav-test.js.map

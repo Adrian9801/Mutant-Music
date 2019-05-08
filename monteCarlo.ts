@@ -188,6 +188,7 @@ export class MTC {
 
 
                 //97 5 promete
+                ////70 20
                 if ((areaSong >= (Math.round((this.masterMTC / 100) * 70
                 )))
                     &&

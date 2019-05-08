@@ -11,8 +11,8 @@ import { splitMaster } from "./splitMaster";
 
 var claseMTCOne = new MTC();
 var claseMTCTwo = new MTC();
-var audioAux: number[];
-var masterArea: number;
+var masterAreaOne: number;
+var masterAreaTwo:number;
 
 const readFile = (filepath: string) => {
   return new Promise((resolve, reject) => {
@@ -34,11 +34,11 @@ readFile("./Sound/s22.wav").then((buffer) => {
 
   // splitMaster a one
   var clasSplitMasterOne = new splitMaster(); //canal estudiado,audioa estudiar,inicio,final
-  masterArea = clasSplitMasterOne.splitPeak(0, audioData, 0, audioData.channelData[0].length - 1);
+  masterAreaOne = clasSplitMasterOne.splitPeak(0, audioData, 0, audioData.channelData[0].length - 1);
   
   // splitMaster a two
   var clasSplitMasterTwo = new splitMaster();//canal estudiado,audioa estudiar,inicio,final
-  masterArea = clasSplitMasterTwo.splitPeak(1, audioData, 0, audioData.channelData[1].length - 1);
+  masterAreaTwo = clasSplitMasterTwo.splitPeak(1, audioData, 0, audioData.channelData[1].length - 1);
 
   //split a one
   var clasesplitOne = new splits(audioData);
@@ -79,7 +79,26 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   clasesplitOneSong.getZone(7), clasesplitOneSong.getZone(8));
   claseMTCOne.setAudioData(audioData);
   // make match insong for one 
-  claseMTCOne.makeMT(masterArea,0);
+  claseMTCOne.makeMT( masterAreaOne,0);
+  claseMTCTwo.GetMatchOne();
+  //----------------------------------------------------------------//
+
+
+  //------------------- for son in  Two----------------------------//
+
+  var clasesplitTwoSong = new splits(audioData);
+  //split song one 
+  clasesplitTwoSong .splitSong(false,1);
+
+  //set data mtc one
+  claseMTCTwo.setDataSong(clasesplitTwoSong .getZone(1), clasesplitTwoSong .getZone(2), 
+  clasesplitTwoSong .getZone(3), clasesplitTwoSong .getZone(4),
+  clasesplitTwoSong .getZone(5), clasesplitTwoSong .getZone(6), 
+  clasesplitTwoSong .getZone(7), clasesplitTwoSong .getZone(8));
+  claseMTCTwo.setAudioData(audioData);
+  // make match insong for one 
+  claseMTCTwo.makeMT(masterAreaTwo,0);
+  claseMTCTwo.GetMatchTwo();
   //----------------------------------------------------------------//
 
   

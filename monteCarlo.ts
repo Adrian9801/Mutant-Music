@@ -180,7 +180,7 @@ export class MTC {
                 ((this.auxPZoneB[randomB][subRandomB]) - (this.auxPZoneA[randomA][subRandomA]))
                 == this.lastSeconS2 //que cumpla los n segundos requeridos
             ) {
-                areaSong = clasSplitMaster.splitPeak(0, this.audioData, ((this.auxPZoneA[randomA][subRandomA]) * 44100)
+                areaSong = clasSplitMaster.splitPeak(pChanel, this.audioData, ((this.auxPZoneA[randomA][subRandomA]) * 44100)
                     , ((this.auxPZoneB[randomB][subRandomB]) * 44100));
 
 

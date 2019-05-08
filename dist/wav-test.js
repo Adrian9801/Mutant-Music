@@ -17,10 +17,15 @@ var WavDecoder = __importStar(require("wav-decoder"));
 var split_1 = require("./split");
 var monteCarlo_1 = require("./monteCarlo");
 var splitMaster_1 = require("./splitMaster");
+var unMatch_1 = require("./unMatch");
 var claseMTCOne = new monteCarlo_1.MTC();
 var claseMTCTwo = new monteCarlo_1.MTC();
 var masterAreaOne;
 var masterAreaTwo;
+var claseUnMatch = new unMatch_1.unmatchs();
+var unMatchOne;
+var unMatchTwo;
+var audioDataUnMatch;
 var readFile = function (filepath) {
     return new Promise(function (resolve, reject) {
         fs.readFile(filepath, function (err, buffer) {
@@ -31,7 +36,8 @@ var readFile = function (filepath) {
         });
     });
 };
-readFile("./Sound/WS2.wav").then(function (buffer) {
+//for s2
+readFile("./Sound/s22.wav").then(function (buffer) {
     return WavDecoder.decode(buffer);
 }).then(function (audioData) {
     // splitMaster a one
@@ -51,10 +57,12 @@ readFile("./Sound/WS2.wav").then(function (buffer) {
     //MTC a Two
     claseMTCTwo.setDataS2(clasesplitTwo.getDataS2(1), clasesplitTwo.getDataS2(2), clasesplitTwo.getDataS2(3), clasesplitTwo.getDataS2(4), clasesplitTwo.getDataS2(5), clasesplitTwo.getDataS2(6));
 });
+// for MTC ,matc and get data un match
 console.log('');
 readFile("./Sound/Dua.wav").then(function (buffer) {
     return WavDecoder.decode(buffer);
 }).then(function (audioData) {
+    audioDataUnMatch = audioData;
     //------------------- for son in  One----------------------------//
     var clasesplitOneSong = new split_1.splits(audioData);
     //split song one 
@@ -77,11 +85,43 @@ readFile("./Sound/Dua.wav").then(function (buffer) {
     claseMTCTwo.makeMT(masterAreaTwo, 1);
     console.log(claseMTCTwo.GetMatchTwo().length + " este de aca");
     //----------------------------------------------------------------//
-    audioData.channelData[0] = new Float32Array(claseMTCOne.GetMatchOne());
-    audioData.channelData[1] = new Float32Array(claseMTCTwo.GetMatchTwo());
+    // audioData.channelData[0] = new Float32Array(claseMTCOne.GetMatchOne());
+    // audioData.channelData[1] = new Float32Array(claseMTCTwo.GetMatchTwo());
+    // unMatchOne = claseMTCOne.GetMatchUnOne();
+    // unMatchTwo = claseMTCOne.GetMatchUnTwo();
+    audioDataUnMatch = claseMTCOne.getAudioDataUnMatch;
+    claseUnMatch.setAudio(audioDataUnMatch);
+    claseUnMatch.MakeUnMacht(0);
+    // claseUnMatch.MakeUnMacht(1);
+    // audioData.channelData[0] = new Float32Array(claseUnMatch.GetMatchUnOne());
+    // audioData.channelData[1] = new Float32Array(claseUnMatch.GetMatchUnTwo());
     console.log("writing...");
     WavEncoder.encode(audioData).then(function (buffer) {
         fs.writeFileSync("./Sound/WaV.wav", new Buffer(buffer));
     });
+    // audioDataUnMatch = claseMTCOne.getAudioDataUnMatch;
+    // claseUnMatch.setAudio(audioDataUnMatch);
+    // claseUnMatch.MakeUnMacht(0);
+    // claseUnMatch.MakeUnMacht(1);
+    // audioData.channelData[0] = new Float32Array(claseUnMatch.GetMatchUnOne());
+    // audioData.channelData[1] = new Float32Array(claseUnMatch.GetMatchUnTwo());
+    // console.log("writing...");
+    // WavEncoder.encode(audioData).then((buffer: any) => {
+    //   fs.writeFileSync("./Sound/Unmatch.wav", new Buffer(buffer));
+    //});
 });
+// // for  Unmatch
+// console.log('');
+// readFile("./Sound/Dua.wav").then((buffer) => {
+//   return WavDecoder.decode(buffer);
+// }).then(function (audioData) {
+//   claseUnMatch.setAudio(audioDataUnMatch);
+//   claseUnMatch.MakeUnMacht(0);
+//   claseUnMatch.MakeUnMacht(1);
+//   audioData.channelData[0] = new Float32Array(claseUnMatch.GetMatchUnOne());
+//   audioData.channelData[1] = new Float32Array(claseUnMatch.GetMatchUnTwo());
+//   console.log("writing...");
+//   WavEncoder.encode(audioData).then((buffer: any) => {
+//     fs.writeFileSync("./Sound/Unmatch.wav", new Buffer(buffer));
+//   });
 //# sourceMappingURL=wav-test.js.map

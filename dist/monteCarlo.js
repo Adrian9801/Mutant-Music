@@ -9,7 +9,8 @@ var splitMaster_1 = require("./splitMaster");
 var clasSplitMaster = new splitMaster_1.splitMaster();
 var MTC = /** @class */ (function () {
     function MTC() {
-        this.saveDataMatch = [];
+        this.saveDataUnMatchOne = [];
+        this.saveDataUnMatchTwo = [];
         this.chanelOne = [];
         this.chanelTwo = [];
         this.masterMTC = 0;
@@ -234,6 +235,15 @@ var MTC = /** @class */ (function () {
             console.log(minA + " : " + seg);
         }
     };
+    MTC.prototype.GetMatchUnOne = function () {
+        return this.saveDataUnMatchOne;
+    };
+    MTC.prototype.getAudioDataUnMatch = function () {
+        return this.audioDataAux;
+    };
+    MTC.prototype.GetMatchUnTwo = function () {
+        return this.saveDataUnMatchTwo;
+    };
     MTC.prototype.GetMatchOne = function () {
         return this.chanelOne;
     };
@@ -242,6 +252,15 @@ var MTC = /** @class */ (function () {
     };
     MTC.prototype.buildMatch = function (pChanel, pAudioData, pStart, pFinal) {
         var point;
+        var savePoint = [];
+        savePoint.push(pStart);
+        savePoint.push(pFinal);
+        if (pChanel == 0) {
+            this.saveDataUnMatchOne.push();
+        }
+        else {
+            this.saveDataUnMatchTwo.push();
+        }
         for (var i = pStart; i < (pFinal); i++) {
             point = pAudioData.channelData[pChanel][i]; //punto 
             if (pChanel == 0) {
@@ -250,7 +269,9 @@ var MTC = /** @class */ (function () {
             else {
                 this.chanelTwo.push(point);
             }
+            this.audioDataAux.channelData[pChanel][i] = -7;
         }
+        savePoint = [];
     };
     return MTC;
 }());

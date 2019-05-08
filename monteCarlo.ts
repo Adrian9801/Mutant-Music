@@ -47,6 +47,7 @@ export class MTC {
     ////////////////////////////////////////////////// 
 
     private audioData: any;
+    private audioDataAux: any;
 
 
     public constructor() {
@@ -310,7 +311,7 @@ export class MTC {
 
     }
     public getAudioDataUnMatch(){
-        return this.audioData;
+        return this.audioDataAux;
     }
 
     public GetMatchUnTwo() {
@@ -347,7 +348,7 @@ export class MTC {
             } else {
                 this.chanelTwo.push(point);
             }
-            pAudioData.channelData[pChanel][i] = -7;
+            this.audioDataAux.channelData[pChanel][i] = -7;
         }
         savePoint = []
     }

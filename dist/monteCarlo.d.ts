@@ -4,7 +4,8 @@ export declare class MTC {
     private masterMTC;
     private NumPrmSector;
     private NumPrmArea;
-    private saveDataMatch;
+    private saveDataUnMatchOne;
+    private saveDataUnMatchTwo;
     private dumppi;
     private reptit;
     private lastSeconS2;
@@ -26,6 +27,7 @@ export declare class MTC {
     private zone7;
     private zone8;
     private audioData;
+    private audioDataAux;
     constructor();
     setAudioData(pAudioData: any): void;
     setDataS2(pPointsAndTimesS2: number[], pPointPositionS2: number[], pZonesPointsS2: number[], pZonesAreaS2: number[], pTotalAreasS2: number[], pTotalAreaor: number[]): void;
@@ -36,6 +38,9 @@ export declare class MTC {
     gps(point: number): number;
     isRepit(point: number): boolean;
     giveTime(pSecond: number): void;
+    GetMatchUnOne(): number[][];
+    getAudioDataUnMatch(): any;
+    GetMatchUnTwo(): number[][];
     GetMatchOne(): number[];
     GetMatchTwo(): number[];
     buildMatch(pChanel: number, pAudioData: any, pStart: number, pFinal: number): void;

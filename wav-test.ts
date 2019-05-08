@@ -4,10 +4,6 @@ import * as WavEncoder from 'wav-encoder';
 // import { default as ft } from 'fourier-transform';
 import * as WavDecoder from 'wav-decoder';
 
-import {mats} from "./match";
-
-import { splits } from "./split";
-
 import { Djs } from "./Dj";
 
 import { Mix } from "./Mix";
@@ -24,11 +20,11 @@ const readFile = (filepath: string) => {
   });
 };
 
-readFile("C:\\Users\\adri-\\OneDrive\\Escritorio\\Boku.wav").then((buffer) => {
+readFile("C:\\Users\\adri-\\OneDrive\\Escritorio\\SW.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function(audioData) {
 
-  var dj = new Djs(audioData.channelData[0]);
+  var dj = new Djs(audioData.channelData[0], true);
   var mix = new Mix(dj.getDominantS(), audioData.channelData);
 
   var audioMix: number[][]= mix.getDominantSection();

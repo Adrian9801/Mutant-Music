@@ -8,11 +8,17 @@ import * as WavDecoder from 'wav-decoder';
 import { splits } from "./split";
 import { MTC } from "./monteCarlo";
 import { splitMaster } from "./splitMaster";
+import { unmatchs } from "./unMatch";
 
 var claseMTCOne = new MTC();
 var claseMTCTwo = new MTC();
 var masterAreaOne: number;
 var masterAreaTwo:number;
+var claseUnMatch = new unmatchs();
+
+var unMatchOne;
+var unMatchTwo;
+var audioDataUnMatch: any;
 
 const readFile = (filepath: string) => {
   return new Promise((resolve, reject) => {
@@ -25,8 +31,8 @@ const readFile = (filepath: string) => {
   });
 };
 
-
-readFile("./Sound/p33m.wav").then((buffer) => {
+//for s2
+readFile("./Sound/s22.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
  
@@ -61,11 +67,13 @@ readFile("./Sound/p33m.wav").then((buffer) => {
 
 });
 
+
+// for MTC ,matc and get data un match
 console.log('');
 readFile("./Sound/Dua.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
-
+  audioDataUnMatch = audioData;
   //------------------- for son in  One----------------------------//
 
   var clasesplitOneSong = new splits(audioData);
@@ -103,13 +111,47 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   //----------------------------------------------------------------//
 
   audioData.channelData[0] = new Float32Array(claseMTCOne.GetMatchOne());
-  
   audioData.channelData[1] = new Float32Array(claseMTCTwo.GetMatchTwo());
+
+  unMatchOne = claseMTCOne.GetMatchUnOne();
+  unMatchTwo = claseMTCOne.GetMatchUnTwo();
 
   console.log("writing...");
   WavEncoder.encode(audioData).then((buffer: any) => {
     fs.writeFileSync("./Sound/WaV.wav", new Buffer(buffer));
   });
+  audioDataUnMatch = claseMTCOne.getAudioDataUnMatch;
+
+});
+
+
+
+// for  Unmatch
+console.log('');
+readFile("./Sound/Dua.wav").then((buffer) => {
+  return WavDecoder.decode(buffer);
+}).then(function (audioData) {
+
+  claseUnMatch.setAudio(audioDataUnMatch);
+  claseUnMatch.MakeUnMacht(0);
+  claseUnMatch.MakeUnMacht(1);
+
+
+  audioData.channelData[0] = new Float32Array(claseUnMatch.GetMatchUnOne());
+  audioData.channelData[1] = new Float32Array(claseUnMatch.GetMatchUnTwo());
+
+  
+
+  console.log("writing...");
+  WavEncoder.encode(audioData).then((buffer: any) => {
+    fs.writeFileSync("./Sound/Unmatch.wav", new Buffer(buffer));
+  });
+
+
+
+
+
+
 
 
 });

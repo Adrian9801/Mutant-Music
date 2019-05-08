@@ -18,7 +18,8 @@ export class MTC {
     private masterMTC: number
     private NumPrmSector: number
     private NumPrmArea: number
-    private saveDataMatch: number[][];
+    private saveDataUnMatchOne: number[][];
+    private saveDataUnMatchTwo: number[][];
     private dumppi: number[][];
     private reptit: number[];
     private lastSeconS2: number;
@@ -49,7 +50,8 @@ export class MTC {
 
 
     public constructor() {
-        this.saveDataMatch = [];
+        this.saveDataUnMatchOne = [];
+        this.saveDataUnMatchTwo = [];
         this.chanelOne = [];
         this.chanelTwo = [];
         this.masterMTC = 0;
@@ -131,17 +133,17 @@ export class MTC {
     }
 
 
-    public makeMT(pmasterArea: number,pChanel:number) {
+    public makeMT(pmasterArea: number, pChanel: number) {
 
         this.masterMTC = pmasterArea;
-       
-        this.masterMC(this.getZone(this.zonesPointsS2[0]), 
-        this.getZone(this.zonesPointsS2[this.zonesPointsS2.length - 1]),
-        pChanel);
+
+        this.masterMC(this.getZone(this.zonesPointsS2[0]),
+            this.getZone(this.zonesPointsS2[this.zonesPointsS2.length - 1]),
+            pChanel);
 
     }
 
-    public masterMC(pZoneA: number[][], pZoneB: number[][],pChanel:number) {
+    public masterMC(pZoneA: number[][], pZoneB: number[][], pChanel: number) {
         this.auxPZoneA = pZoneA;
         this.auxPZoneB = pZoneB;
 
@@ -195,7 +197,7 @@ export class MTC {
                     ((areaSong <= (this.masterMTC + (Math.round((this.masterMTC / 100) * 20)))))
                 ) {//si el area total cumple con 70% 
 
-                    
+
                     this.reptit.push(this.auxPZoneA[randomA][subRandomA]);
                     console.log(" ");
                     console.log(" ");
@@ -205,23 +207,24 @@ export class MTC {
                     console.log("Duracion " + this.lastSeconS2);
                     var segI = this.auxPZoneA[randomA][subRandomA];
                     var segF = this.auxPZoneB[randomB][subRandomB];
-    
+
+
                     //cannal audio inicio final 
-                    this.buildMatch(pChanel,this.audioData, (segI*44100),(segF*44100));
+                    this.buildMatch(pChanel, this.audioData, (segI * 44100), (segF * 44100));
                     console.log("segundos i y f " + segI + "---- " + segF);
                     console.log("Tiempo Inicial" + this.giveTime(segI));
                     console.log("Tiempo Final" + this.giveTime(segF));
                     console.log("posicion inicial en cancnion Original " + this.auxPZoneA[randomA][subRandomA] * 44100);
                     console.log("posicion final en cancnion Original " + this.auxPZoneB[randomB][subRandomB] * 44100);
                     console.log("///////////////////////////");
-                    
+
 
                 }
 
             }
         }
         //console.log(this.chanelOne.length);
-         
+
     }
 
     public getZone(zone: number): (number[][]) {
@@ -302,27 +305,51 @@ export class MTC {
 
     }
 
+    public GetMatchUnOne() {
+        return this.saveDataUnMatchOne;
+
+    }
+    public getAudioDataUnMatch(){
+        return this.audioData;
+    }
+
+    public GetMatchUnTwo() {
+        return this.saveDataUnMatchTwo;
+
+    }
+
     public GetMatchOne() {
-        return  this.chanelOne;
+        return this.chanelOne;
 
     }
 
     public GetMatchTwo() {
-        return  this.chanelTwo;
+        return this.chanelTwo;
     }
 
-    public buildMatch(pChanel: number, pAudioData: any, pStart: number, pFinal: number) { 
+    public buildMatch(pChanel: number, pAudioData: any, pStart: number, pFinal: number) {
         var point: number;
-        
+        var savePoint = [];
+        savePoint.push(pStart);
+        savePoint.push(pFinal);
+
+        if (pChanel == 0) {
+            this.saveDataUnMatchOne.push();
+        } else {
+            this.saveDataUnMatchTwo.push();
+        }
+
         for (var i = pStart; i < (pFinal); i++) {
             point = pAudioData.channelData[pChanel][i];//punto 
+           
             if (pChanel == 0) {
                 this.chanelOne.push(point);
             } else {
                 this.chanelTwo.push(point);
             }
+            pAudioData.channelData[pChanel][i] = -7;
         }
-
+        savePoint = []
     }
 
 }

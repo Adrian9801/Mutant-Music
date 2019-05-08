@@ -56,8 +56,8 @@ export class Djs{
         var num:number = 0;
         var cont: number = 0;
         result[0] = [0,0,0,0,0,0,0,0];
-        for(var i:number = 0; i < audioLength; i++){
-            num = (pAudioData[i+1]-pAudioData[i])*100;
+        for(var index :number = 0; index < audioLength; index++){
+            num = (pAudioData[index+1]-pAudioData[index])*100;
             if(num >= 15){
                 result[cont][1] += 1;
             }
@@ -83,7 +83,7 @@ export class Djs{
                 result[cont][8] += 1;
             }
             result[cont][0] = cont;
-            if((i+1)%44100 == 0){
+            if((index+1)%44100 == 0){
                 cont++;
                 result[cont] = [0,0,0,0,0,0,0,0,0];
             }    

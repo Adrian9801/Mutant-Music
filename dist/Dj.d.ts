@@ -6,6 +6,4 @@ export declare class Djs {
     private splitSong;
     private sortSolution;
     getShape(pAudioData: number[]): number[][];
-    getDominantS(): number[];
-    getShape2(): number[][];
 }

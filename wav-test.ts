@@ -62,7 +62,18 @@ readFile("./Sound/s22.wav").then((buffer) => {
   var clasesplitOne = new splits(audioData);
   clasesplitOne.splitSong(true, 0);
 
+
+  console.log(clasesplitOne.getZone(1).length);
+  console.log(clasesplitOne.getZone(2).length);
+  console.log(clasesplitOne.getZone(3).length);
+  console.log(clasesplitOne.getZone(4).length);
+  console.log(clasesplitOne.getZone(5).length);
+  console.log(clasesplitOne.getZone(6).length);
+  console.log(clasesplitOne.getZone(7).length);
+  console.log(clasesplitOne.getZone(8).length);
+
   //split a two
+  
   var clasesplitTwo = new splits(audioData);
   clasesplitTwo.splitSong(true, 1);
 
@@ -79,7 +90,7 @@ readFile("./Sound/s22.wav").then((buffer) => {
 
 });
 
-
+/*
 // for MTC ,matc and get data un match dj
 console.log('');
 readFile("./Sound/Dua.wav").then((buffer) => {
@@ -91,7 +102,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
  //------------------- for DJ----------------------------//
 
  var djs = new Djs(audioData.channelData[0], true);
- var mix = new Mix(djs.getDominantS(), audioData.channelData);
+ //var mix = new Mix(djs.getDominantS(), audioData.channelData);
  
   //------------------------------------------------------//
    
@@ -159,8 +170,8 @@ readFile("./Sound/Dua.wav").then((buffer) => {
 
 
 
-  audioData.channelData[0] = new Float32Array(mix.getDominantSection()[0]);
-  audioData.channelData[1] = new Float32Array(mix.getDominantSection()[1]);
+  // audioData.channelData[0] = new Float32Array(mix.getDominantSection()[0]);
+  // audioData.channelData[1] = new Float32Array(mix.getDominantSection()[1]);
   
 
   console.log("writing  Mix...");
@@ -175,7 +186,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   // console.log(claseGenetic.getPopulation() );
 
 });
-
+*/
 
 
 

@@ -12,6 +12,9 @@ var Djs = /** @class */ (function () {
             }
             this.coincidenceList = this.sortSolution(this.coincidenceList, 0);
         }
+        else {
+            // this.getShape(pAudioData);
+        }
     }
     Djs.prototype.splitSong = function (pPos) {
         this.shapeSecond = this.sortSolution(this.shapeSecond, 1);
@@ -50,41 +53,6 @@ var Djs = /** @class */ (function () {
             return 0;
         });
     };
-    /*
-        public fitness(){
-            var pos:number = 0;
-            var different:number = 0;
-            var cant: number = Math.trunc(this.dataSong.length/this.model.length);
-            for(var index: number = 0; index < cant; index++){
-                if(this.model[pos][1] != this.dataSong[index][1]){
-                    different++;
-                }
-                if(this.model[pos][2] != this.dataSong[index][2]){
-                    different++;
-                }
-                if(this.model[pos][3] != this.dataSong[index][3]){
-                    different++;
-                }
-                if(this.model[pos][4] != this.dataSong[index][4]){
-                    different++;
-                }
-                if(this.model[pos][5] != this.dataSong[index][5]){
-                    different++;
-                }
-                if(this.model[pos][6] != this.dataSong[index][6]){
-                    different++;
-                }
-                if((cant-1) == index && pos < 6){
-                    cant+=cant;
-                    pos++;
-                }
-                if(different <= 3){
-                    this.dataSong[index][0] = different;
-                    this.progenitors.push(this.dataSong[index][0]);
-                }
-            }
-        }
-    */
     Djs.prototype.getShape = function (pAudioData) {
         var result = [];
         var audioLength = pAudioData.length - 1;
@@ -157,16 +125,6 @@ var Djs = /** @class */ (function () {
             }
         }
         return result;
-    };
-    Djs.prototype.getDominantS = function () {
-        var dominantSection = [];
-        for (var index = 0; index < 10; index++) {
-            dominantSection.push(this.coincidenceList[index][1] * 44100);
-        }
-        return dominantSection;
-    };
-    Djs.prototype.getShape2 = function () {
-        return this.shapeSecond2;
     };
     return Djs;
 }());

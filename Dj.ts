@@ -8,18 +8,22 @@ export class Djs{
         this.coincidenceList = [];
         this.shapeSecond = [];
         if(isS1){
-            this.shapeSecond = this.getShape(pAudioData);
+             this.shapeSecond = this.getShape(pAudioData);
+           
             for(var index: number = 0; this.shapeSecond.length > 0; index++){
                 this.splitSong(index);
+               
             }
             this.coincidenceList = this.sortSolution(this.coincidenceList,0);
         }
         else{
-            this.getShape(pAudioData);
+           // this.getShape(pAudioData);
         }
     }
 
     private splitSong(pPos: number){
+
+       
         this.shapeSecond = this.sortSolution(this.shapeSecond,1);
         var split: number[][] = Object.assign([],this.shapeSecond);
         var num: number = 0;
@@ -132,15 +136,15 @@ export class Djs{
         return result;
     }
 
-    public getDominantS(): number[]{ 
-        var dominantSection: number[]= [];
-        for(var index: number = 0; index < 10; index++){
-            dominantSection.push(this.coincidenceList[index][1]*44100);
-        }
-        return dominantSection;
-    }
+    // public getDominantS(): number[]{ 
+    //     var dominantSection: number[]= [];
+    //     for(var index: number = 0; index < 10; index++){
+    //         dominantSection.push(this.coincidenceList[index][1]*44100);
+    //     }
+    //     return dominantSection;
+    // }
 
-    public getShape2(): number[][]{
-        return this.shapeSecond2;
-    }
+    // public getShape2(): number[][]{
+    //     return this.shapeSecond2;
+    // }
 }

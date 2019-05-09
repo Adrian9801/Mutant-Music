@@ -123,9 +123,9 @@ var MTC = /** @class */ (function () {
                 areaSong = clasSplitMaster.splitPeak(pChanel, this.audioData, ((this.auxPZoneA[randomA][subRandomA]) * 44100), ((this.auxPZoneB[randomB][subRandomB]) * 44100));
                 //97 5 promete
                 ////70 20
-                if ((areaSong >= (Math.round((this.masterMTC / 100) * 80)))
+                if ((areaSong >= (Math.round((this.masterMTC / 100) * 70)))
                     &&
-                        ((areaSong <= (this.masterMTC + (Math.round((this.masterMTC / 100) * 10)))))) { //si el area total cumple con 70% 
+                        ((areaSong <= (this.masterMTC + (Math.round((this.masterMTC / 100) * 20)))))) { //si el area total cumple con 70% 
                     this.reptit.push(this.auxPZoneA[randomA][subRandomA]);
                     // console.log(" ");
                     // console.log(" ");

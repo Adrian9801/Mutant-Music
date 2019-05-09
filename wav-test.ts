@@ -101,7 +101,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   
  //------------------- for DJ----------------------------//
 
- var djs = new Djs(audioData.channelData[0], true);
+ //var djs = new Djs(audioData.channelData[0], true);
  //var mix = new Mix(djs.getDominantS(), audioData.channelData);
  
   //------------------------------------------------------//
@@ -143,8 +143,8 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   claseMTCTwo.MakeUnMacht(1);//.un match
  //----------------------------------------------------------------//
 
-  audioData.channelData[0] = new Float32Array(claseMTCOne.GetMatchOne());
-  audioData.channelData[1] = new Float32Array(claseMTCTwo.GetMatchTwo());
+  audioData.channelData[0] = new Float32Array(claseMTCOne.getMatchOne());
+  audioData.channelData[1] = new Float32Array(claseMTCTwo.getMatchTwo());
 
 
   console.log("writing  Match...");

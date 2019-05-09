@@ -1,7 +1,4 @@
 "use strict";
-//int valorEntero = Math.floor(Math.random()*(N-M+1)+M);// Valor entre M y N, ambos incluidos.
-//Math.floor(Math.random() * 6) + 1  
-// Math.floor(Math.random() * (max - min + 1)) + min;
 Object.defineProperty(exports, "__esModule", { value: true });
 var area_1 = require("./area");
 var claseArea = new area_1.areas();
@@ -9,19 +6,19 @@ var splitMaster_1 = require("./splitMaster");
 var clasSplitMaster = new splitMaster_1.splitMaster();
 var MTC = /** @class */ (function () {
     function MTC() {
+        //---------Unmatch-----------//
         this.chanelOneUnMatch = [];
         this.chanelTwoUnMatch = [];
-        this.saveDataUnMatchOne = [];
-        this.saveDataUnMatchTwo = [];
+        //------------------------------//
+        //---------match-----------//
         this.chanelOne = [];
         this.chanelTwo = [];
+        //------------------------------//
         this.masterMTC = 0;
         this.audioData = 0;
         this.audioDataAux = 0;
         this.reptit = [];
-        this.NumPrmArea = 0;
-        this.NumPrmSector = 0;
-        ////////////////form S2////////////////////////// 
+        //------------form S2-----------------// 
         this.totalAreaOrg = [];
         this.pointsAndTimesS2 = [];
         this.pointPositionS2 = [];
@@ -29,11 +26,10 @@ var MTC = /** @class */ (function () {
         this.zonesAreaS2 = [];
         this.totalAreasS2 = [];
         this.lastSeconS2 = 0;
-        ////////////////////////////////////////////////// 
-        ////////////////form Song////////////////////////// 
+        //------------------------------------//
+        //-------------form Song---------------// 
         this.auxPZoneA = [];
         this.auxPZoneB = [];
-        this.zonesAreaSong = [];
         this.zone1 = [];
         this.zone2 = [];
         this.zone3 = [];
@@ -43,8 +39,9 @@ var MTC = /** @class */ (function () {
         this.zone7 = [];
         this.zone8 = [];
         this.dumppi = [];
-        ////////////////////////////////////////////////// 
+        //--------------------------------------//
     }
+    //----------------------------------------SET------------------------------------------------//
     MTC.prototype.setAudioData = function (pAudioData) {
         this.audioData = pAudioData;
         this.audioDataAux = pAudioData;
@@ -85,6 +82,7 @@ var MTC = /** @class */ (function () {
         // console.log("cantidad de secciones de la zona H 8" +  this.zone8.length);
         // console.log("///////////////////////////////////////////////////");
     };
+    //------------------------------------------------------------------------------------------------//
     MTC.prototype.makeMT = function (pmasterArea, pChanel) {
         this.masterMTC = pmasterArea;
         this.masterMC(this.getZone(this.zonesPointsS2[0]), this.getZone(this.zonesPointsS2[this.zonesPointsS2.length - 1]), pChanel);
@@ -149,6 +147,70 @@ var MTC = /** @class */ (function () {
         }
         //console.log(this.chanelOne.length);
     };
+    MTC.prototype.MakeUnMacht = function (pChanel) {
+        var point; //temp para guardar los datos de una zona 
+        for (var i = 0; i < this.audioData.channelData[pChanel].length - 1; i++) {
+            point = this.audioData.channelData[pChanel][i]; //punto 
+            if (point !== -7) {
+                if (pChanel == 0) {
+                    this.chanelOneUnMatch.push(point);
+                }
+                else {
+                    this.chanelTwoUnMatch.push(point);
+                }
+            }
+        }
+    };
+    MTC.prototype.buildMatch = function (pChanel, pAudioData, pStart, pFinal) {
+        var point;
+        var savePoint = [];
+        savePoint.push(pStart);
+        savePoint.push(pFinal);
+        for (var i = pStart; i < (pFinal); i++) {
+            point = pAudioData.channelData[pChanel][i]; //punto 
+            if (pChanel == 0) {
+                this.chanelOne.push(point);
+            }
+            else {
+                this.chanelTwo.push(point);
+            }
+            this.audioDataAux.channelData[pChanel][i] = -7;
+        }
+        savePoint = [];
+    };
+    MTC.prototype.giveTime = function (pSecond) {
+        var min = "";
+        var minA = 0;
+        var seg = 0;
+        if (pSecond < 60) {
+            console.log(minA + " : " + pSecond);
+        }
+        else {
+            min = (pSecond / 60).toFixed();
+            minA = +min;
+            seg = Math.round((((pSecond / 60) - minA) * 60));
+            console.log(minA + " : " + seg);
+        }
+    };
+    MTC.prototype.isRepit = function (point) {
+        var datarepit = false;
+        if (this.reptit.length == 0) {
+            return datarepit;
+        }
+        else {
+            for (var i = 0; i <= this.reptit.length - 1; i++) {
+                if (this.reptit[i] == point) {
+                    datarepit = true;
+                    break;
+                }
+                else {
+                    datarepit = false;
+                }
+            }
+            return datarepit;
+        }
+    };
+    //----------------------------------------GET------------------------------------------------//
     MTC.prototype.getZone = function (zone) {
         switch (zone) {
             case 1: {
@@ -178,123 +240,19 @@ var MTC = /** @class */ (function () {
         }
         return this.dumppi;
     };
-    MTC.prototype.gps = function (point) {
-        var nowZone;
-        if (point >= 0.75) {
-            nowZone = 1;
-        }
-        else if (point >= 0.5) {
-            nowZone = 2;
-        }
-        else if (point >= 0.25) {
-            nowZone = 3;
-        }
-        else if (point >= 0) {
-            nowZone = 4;
-        }
-        //-----------------------------------------------------------------LINEA CATESIANA X
-        else if (point >= -0.25) {
-            nowZone = 5;
-        }
-        else if (point >= -0.5) {
-            nowZone = 6;
-        }
-        else if (point >= -0.75) {
-            nowZone = 7;
-        }
-        else {
-            nowZone = 8;
-        }
-        return nowZone;
-    };
-    MTC.prototype.isRepit = function (point) {
-        var datarepit = false;
-        if (this.reptit.length == 0) {
-            return datarepit;
-        }
-        else {
-            for (var i = 0; i <= this.reptit.length - 1; i++) {
-                if (this.reptit[i] == point) {
-                    datarepit = true;
-                    break;
-                }
-                else {
-                    datarepit = false;
-                }
-            }
-            return datarepit;
-        }
-    };
-    MTC.prototype.giveTime = function (pSecond) {
-        var min = "";
-        var minA = 0;
-        var seg = 0;
-        if (pSecond < 60) {
-            console.log(minA + " : " + pSecond);
-        }
-        else {
-            min = (pSecond / 60).toFixed();
-            minA = +min;
-            seg = Math.round((((pSecond / 60) - minA) * 60));
-            console.log(minA + " : " + seg);
-        }
-    };
     MTC.prototype.getAudioDataUnMatch = function () {
         return this.audioDataAux;
     };
-    MTC.prototype.GetMatchUnOne = function () {
-        return this.saveDataUnMatchOne;
-    };
-    MTC.prototype.GetMatchUnTwo = function () {
-        return this.saveDataUnMatchTwo;
-    };
-    MTC.prototype.GetMatchOne = function () {
+    MTC.prototype.getMatchOne = function () {
         return this.chanelOne;
     };
-    MTC.prototype.GetMatchTwo = function () {
+    MTC.prototype.getMatchTwo = function () {
         return this.chanelTwo;
     };
-    MTC.prototype.buildMatch = function (pChanel, pAudioData, pStart, pFinal) {
-        var point;
-        var savePoint = [];
-        savePoint.push(pStart);
-        savePoint.push(pFinal);
-        if (pChanel == 0) {
-            this.saveDataUnMatchOne.push();
-        }
-        else {
-            this.saveDataUnMatchTwo.push();
-        }
-        for (var i = pStart; i < (pFinal); i++) {
-            point = pAudioData.channelData[pChanel][i]; //punto 
-            if (pChanel == 0) {
-                this.chanelOne.push(point);
-            }
-            else {
-                this.chanelTwo.push(point);
-            }
-            this.audioDataAux.channelData[pChanel][i] = -7;
-        }
-        savePoint = [];
-    };
-    MTC.prototype.MakeUnMacht = function (pChanel) {
-        var point; //temp para guardar los datos de una zona 
-        for (var i = 0; i < this.audioData.channelData[pChanel].length - 1; i++) {
-            point = this.audioData.channelData[pChanel][i]; //punto 
-            if (point !== -7) {
-                if (pChanel == 0) {
-                    this.chanelOneUnMatch.push(point);
-                }
-                else {
-                    this.chanelTwoUnMatch.push(point);
-                }
-            }
-        }
-    };
-    MTC.prototype.GetUnMatchOne = function () {
+    MTC.prototype.getUnMatchOne = function () {
         return this.chanelOneUnMatch;
     };
-    MTC.prototype.GetUnMatchTwo = function () {
+    MTC.prototype.getUnMatchTwo = function () {
         return this.chanelTwoUnMatch;
     };
     return MTC;

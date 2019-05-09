@@ -38,6 +38,11 @@ readFile("./Sound/DBase.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
 
+  var djs = new Djs(audioData.channelData[0], false);
+  djs.getShape(audioData.channelData[0]);
+  //djs.getShape2(); obtiene las formas de S2
+  console.log(djs.getShape2());
+
 
 
   // splitMaster a one
@@ -77,9 +82,10 @@ readFile("./Sound/DSong.wav").then((buffer) => {
 }).then(function (audioData) {
 
  //------------------- for DJ----------------------------//
-  var dj = new Djs(audioData.channelData[0]);
-  var mix = new Mix(dj.getDominantS(), audioData.channelData);
+  var dj = new Djs(audioData.channelData[0],true);
+  var mix = new Mix(dj.getDominantS(), audioData.channelData);//datos de la forma de la cancion
   var audioMix: number[][]= mix.getDominantSection();
+ // dj.getShape2(); obtiene las formas de s1
  
   //------------------------------------------------------//
    
@@ -156,7 +162,7 @@ readFile("./Sound/DSong.wav").then((buffer) => {
   WavEncoder.encode(audioData).then((buffer: any) => {
     fs.writeFileSync("./Sound/Mix.wav", new Buffer(buffer));
   });
-  
+
 });
 
 

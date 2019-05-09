@@ -1,14 +1,19 @@
 export class Djs{
     private shapeSecond: number[][];
+    private shapeSecond2: number[][];
     private coincidenceList: number[][];
 
-    public constructor(pAudioData: number[]){
-        this.shapeSecond = this.getShape(pAudioData);
+    public constructor(pAudioData: number[], isS1: boolean){
+        this.shapeSecond2 = [];
         this.coincidenceList = [];
-        for(var index: number = 0; this.shapeSecond.length > 0; index++){
-            this.splitSong(index);
+        this.shapeSecond = [];
+        if(isS1){
+            this.shapeSecond = this.getShape(pAudioData);
+            for(var index: number = 0; this.shapeSecond.length > 0; index++){
+                this.splitSong(index);
+            }
+            this.coincidenceList = this.sortSolution(this.coincidenceList,0);
         }
-        this.coincidenceList = this.sortSolution(this.coincidenceList,0);
     }
 
     private splitSong(pPos: number){
@@ -50,45 +55,77 @@ export class Djs{
         });
     }
 
-    private getShape(pAudioData: number[]): number[][]{
+    public getShape(pAudioData: number[]): number[][]{
         var result:number[][] = [];
         var audioLength:number = pAudioData.length - 1;
         var num:number = 0;
         var cont: number = 0;
-        result[0] = [0,0,0,0,0,0,0,0];
-        for(var index :number = 0; index < audioLength; index++){
+        var cambio: number = 1; 
+        var num1: number = 0;
+        var num2: number = 0;
+        var num3: number = 0;
+        var shape:number = 0;
+        result[0] = [0,0,0,0,0,0,0,0,0];
+        this.shapeSecond2[0] = [0,0,0,0,0,0,0];
+        for(var index:number = 0; index < audioLength; index++){
             num = (pAudioData[index+1]-pAudioData[index])*100;
             if(num >= 15){
                 result[cont][1] += 1;
+                num1++;
             }
             else if(num >= 10){
                 result[cont][2] += 1;
+                num1++;
             }
             else if(num >= 5){
                 result[cont][3] += 1;
+                num1++;
             }
-            else if(num >= 1){
+            else if(num >= 0.5){
                 result[cont][4] += 1;
+                num1++;
             }
-            else if(num > -1){
+            else if(num > -0.5){
                 result[cont][5] += 1;
+                num2++;
             }
             else if(num >= -5){
                 result[cont][6] += 1;
+                num3++
             }
             else if(num >= -10){
                 result[cont][7] += 1;
+                num3++;
             }
             else{
                 result[cont][8] += 1;
+                num3++;
             }
-            result[cont][0] = cont;
-            if((index+1)%44100 == 0){
-                cont++;
-                result[cont] = [0,0,0,0,0,0,0,0,0];
+            if((index+2)%3675 == 0 && pAudioData[index] < 0){
+                shape = 3;
+            }
+            if((index+1)%7350 == 0){
+                if(num1 > num2){
+                    shape = 1;
+                    num2 = num1;
+                }
+                if(num2 < num3){
+                    shape = 2
+                }
+                this.shapeSecond2[cont][cambio] = shape;
+                num1 = 0;
+                num2 = 0;
+                num3 = 0;
+                shape = 0;
+                cambio++;
+                if((index+1)%44100 == 0){
+                    cont++;
+                    this.shapeSecond2[cont] = [cont,0,0,0,0,0,0];
+                    cambio = 1;
+                    result[cont] = [cont,0,0,0,0,0,0,0,0];
+                }
             }    
         }
-        result[cont][0] = cont;
         return result;
     }
 
@@ -98,5 +135,9 @@ export class Djs{
             dominantSection.push(this.coincidenceList[index][1]*44100);
         }
         return dominantSection;
+    }
+
+    public getShape2(): number[][]{
+        return this.shapeSecond2;
     }
 }

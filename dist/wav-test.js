@@ -9,6 +9,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 ///////////////////////////////////////////////
 var fs = __importStar(require("fs"));
+// import { complex as fft } from 'fft';
+var WavEncoder = __importStar(require("wav-encoder"));
 // import { default as ft } from 'fourier-transform';
 var WavDecoder = __importStar(require("wav-decoder"));
 ////////////////////////////////////////////////
@@ -51,14 +53,6 @@ readFile("./Sound/s2.wav").then(function (buffer) {
     //split a one
     var clasesplitOne = new split_1.splits(audioData);
     clasesplitOne.splitSong(true, 0);
-    console.log(clasesplitOne.getZone(1).length);
-    console.log(clasesplitOne.getZone(2).length);
-    console.log(clasesplitOne.getZone(3)[0]);
-    console.log(clasesplitOne.getZone(4).length);
-    console.log(clasesplitOne.getZone(5).length);
-    console.log(clasesplitOne.getZone(6).length);
-    console.log(clasesplitOne.getZone(7).length);
-    console.log(clasesplitOne.getZone(8).length);
     //split a two
     var clasesplitTwo = new split_1.splits(audioData);
     clasesplitTwo.splitSong(true, 1);
@@ -67,105 +61,66 @@ readFile("./Sound/s2.wav").then(function (buffer) {
     //MTC a Two
     claseMTCTwo.setDataS2(clasesplitTwo.getDataS2(1), clasesplitTwo.getDataS2(2), clasesplitTwo.getDataS2(3), clasesplitTwo.getDataS2(4), clasesplitTwo.getDataS2(5), clasesplitTwo.getDataS2(6));
 });
-/*
-
 // for MTC ,matc and get data un match dj
 console.log('');
-readFile("./Sound/Dua.wav").then((buffer) => {
-  return WavDecoder.decode(buffer);
+readFile("./Sound/Dua.wav").then(function (buffer) {
+    return WavDecoder.decode(buffer);
 }).then(function (audioData) {
-
-
-  
- //------------------- for DJ----------------------------//
-
- //var djs = new Djs(audioData.channelData[0], true);
- //var mix = new Mix(djs.getDominantS(), audioData.channelData);
- 
-  //------------------------------------------------------//
-   
-
-  //------------------- for son in  One----------------------------//
-
-  var clasesplitOneSong = new splits(audioData);
-  //split song one
-  clasesplitOneSong.splitSong(false, 0);
-
-  //set data mtc one
-  claseMTCOne.setDataSong(clasesplitOneSong.getZone(1), clasesplitOneSong.getZone(2),
-    clasesplitOneSong.getZone(3), clasesplitOneSong.getZone(4),
-    clasesplitOneSong.getZone(5), clasesplitOneSong.getZone(6),
-    clasesplitOneSong.getZone(7), clasesplitOneSong.getZone(8));
-  claseMTCOne.setAudioData(audioData);
-  // make match insong for one
-  claseMTCOne.makeMT(masterAreaOne, 0);
-  claseMTCOne.MakeUnMacht(0);//un match
- // console.log(claseMTCOne.GetMatchOne().length + " este de aca");
-  //----------------------------------------------------------------//
-
-
-  //------------------- for son in  Two----------------------------//
-
-  var clasesplitTwoSong = new splits(audioData);
-  //split song one
-  clasesplitTwoSong.splitSong(false, 1);
-
-  //set data mtc one
-  claseMTCTwo.setDataSong(clasesplitTwoSong.getZone(1), clasesplitTwoSong.getZone(2),
-    clasesplitTwoSong.getZone(3), clasesplitTwoSong.getZone(4),
-    clasesplitTwoSong.getZone(5), clasesplitTwoSong.getZone(6),
-    clasesplitTwoSong.getZone(7), clasesplitTwoSong.getZone(8));
-  claseMTCTwo.setAudioData(audioData);
-  // make match insong for one
-  claseMTCTwo.makeMT(masterAreaTwo, 1);
-  claseMTCTwo.MakeUnMacht(1);//.un match
- //----------------------------------------------------------------//
-
-  audioData.channelData[0] = new Float32Array(claseMTCOne.getMatchOne());
-  audioData.channelData[1] = new Float32Array(claseMTCTwo.getMatchTwo());
-
-
-  console.log("writing  Match...");
-  WavEncoder.encode(audioData).then((buffer: any) => {
-    fs.writeFileSync("./Sound/Match.wav", new Buffer(buffer));
-  });
- 
-  audioDataUnMatch = claseMTCOne.getAudioDataUnMatch();
-  claseUnMatch.setAudio(audioDataUnMatch);
-  claseUnMatch.MakeUnMacht(0);
-  claseUnMatch.MakeUnMacht(1);
-
-
-  audioData.channelData[0] = new Float32Array(claseMTCOne.getUnMatchOne());
-  audioData.channelData[1] = new Float32Array(claseMTCTwo.getUnMatchTwo());
-
-
-
-  console.log("writing  UnMatch...");
-  WavEncoder.encode(audioData).then((buffer: any) => {
-    fs.writeFileSync("./Sound/Unmatch.wav", new Buffer(buffer));
-  });
-
-
-
-  // audioData.channelData[0] = new Float32Array(mix.getDominantSection()[0]);
-  // audioData.channelData[1] = new Float32Array(mix.getDominantSection()[1]);
-  
-
-  console.log("writing  Mix...");
-  WavEncoder.encode(audioData).then((buffer: any) => {
-    fs.writeFileSync("./Sound/Mix.wav", new Buffer(buffer));
-  });
-
-  // claseGenetic.fitness();
-  // claseGenetic.selectionPopulation();
-  // while( claseGenetic.selectionPopulation()){
-  // }
-  // console.log(claseGenetic.getPopulation() );
-
+    //------------------- for DJ----------------------------//
+    //var djs = new Djs(audioData.channelData[0], true);
+    //var mix = new Mix(djs.getDominantS(), audioData.channelData);
+    //------------------------------------------------------//
+    //------------------- for son in  One----------------------------//
+    var clasesplitOneSong = new split_1.splits(audioData);
+    //split song one 
+    clasesplitOneSong.splitSong(false, 0);
+    //set data mtc one
+    claseMTCOne.setDataSong(clasesplitOneSong.getZone(1), clasesplitOneSong.getZone(2), clasesplitOneSong.getZone(3), clasesplitOneSong.getZone(4), clasesplitOneSong.getZone(5), clasesplitOneSong.getZone(6), clasesplitOneSong.getZone(7), clasesplitOneSong.getZone(8));
+    claseMTCOne.setAudioData(audioData);
+    // make match insong for one 
+    claseMTCOne.makeMT(masterAreaOne, 0);
+    claseMTCOne.MakeUnMacht(0); //un match
+    // console.log(claseMTCOne.GetMatchOne().length + " este de aca");
+    //----------------------------------------------------------------//
+    //------------------- for son in  Two----------------------------//
+    var clasesplitTwoSong = new split_1.splits(audioData);
+    //split song one 
+    clasesplitTwoSong.splitSong(false, 1);
+    //set data mtc one
+    claseMTCTwo.setDataSong(clasesplitTwoSong.getZone(1), clasesplitTwoSong.getZone(2), clasesplitTwoSong.getZone(3), clasesplitTwoSong.getZone(4), clasesplitTwoSong.getZone(5), clasesplitTwoSong.getZone(6), clasesplitTwoSong.getZone(7), clasesplitTwoSong.getZone(8));
+    claseMTCTwo.setAudioData(audioData);
+    // make match insong for one 
+    claseMTCTwo.makeMT(masterAreaTwo, 1);
+    claseMTCTwo.MakeUnMacht(1); //.un match
+    //----------------------------------------------------------------//
+    audioData.channelData[0] = new Float32Array(claseMTCOne.getMatchOne());
+    audioData.channelData[1] = new Float32Array(claseMTCTwo.getMatchTwo());
+    console.log("writing  Match...");
+    WavEncoder.encode(audioData).then(function (buffer) {
+        fs.writeFileSync("./Sound/Match.wav", new Buffer(buffer));
+    });
+    audioDataUnMatch = claseMTCOne.getAudioDataUnMatch();
+    claseUnMatch.setAudio(audioDataUnMatch);
+    claseUnMatch.MakeUnMacht(0);
+    claseUnMatch.MakeUnMacht(1);
+    audioData.channelData[0] = new Float32Array(claseMTCOne.getUnMatchOne());
+    audioData.channelData[1] = new Float32Array(claseMTCTwo.getUnMatchTwo());
+    console.log(claseMTCOne.getSeg());
+    console.log(claseMTCTwo.getSeg());
+    console.log("writing  UnMatch...");
+    WavEncoder.encode(audioData).then(function (buffer) {
+        fs.writeFileSync("./Sound/Unmatch.wav", new Buffer(buffer));
+    });
+    // audioData.channelData[0] = new Float32Array(mix.getDominantSection()[0]);
+    // audioData.channelData[1] = new Float32Array(mix.getDominantSection()[1]);
+    console.log("writing  Mix...");
+    WavEncoder.encode(audioData).then(function (buffer) {
+        fs.writeFileSync("./Sound/Mix.wav", new Buffer(buffer));
+    });
+    // claseGenetic.fitness();
+    // claseGenetic.selectionPopulation();
+    // while( claseGenetic.selectionPopulation()){
+    // }
+    // console.log(claseGenetic.getPopulation() );
 });
-
-
-
-*/
 //# sourceMappingURL=wav-test.js.map

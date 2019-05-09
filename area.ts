@@ -50,6 +50,7 @@ export class areas {
             AreaTotal = (cateto1) * (lado1);
         }
         return AreaTotal*100;
+        
     }
 
 

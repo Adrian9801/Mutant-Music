@@ -1,6 +1,6 @@
 import { areas } from "./area";
 export class splits {
-
+   
 
     ////////////////form S2////////////////////////// 
     private pointAndTimeS2: number[];// pounto y tiempo de S2 se parados por segundo
@@ -64,6 +64,8 @@ export class splits {
 
         var btime: number = 0;//tiempo
         var bn: number = 1;//n para calculo de tiempo
+
+        
 
         for (var i = 0; i < audioLength; i++) {
 

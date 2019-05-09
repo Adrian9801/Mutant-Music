@@ -5,11 +5,9 @@ var genetic = /** @class */ (function () {
         this.model = [];
         this.lastprogenitors = 0;
         this.newPopulation = [];
+        this.newSong = [];
+        this.audioS2 = [];
         this.dataSong = [];
-        this.offspringLength = 0;
-        this.offspring = 0;
-        this.selectionCrosses = 0;
-        this.mutationData = 0;
     }
     genetic.prototype.setModel = function (pModel) {
         this.model = pModel;
@@ -33,7 +31,6 @@ var genetic = /** @class */ (function () {
         var different = 0;
         var cant = Math.trunc(this.dataSong.length / this.model.length);
         var populationD = cant;
-        console.log(cant);
         for (var index = 0; index < cant; index++) {
             if (this.model[pos][1] != this.dataSong[index][1]) {
                 different++;
@@ -57,15 +54,21 @@ var genetic = /** @class */ (function () {
                 this.dataSong[index][0] = different;
                 progenitors.push(this.dataSong[index]);
             }
-            if ((cant - 1) == index && pos < 6) {
-                //cant+=populationD;
+            if ((cant - 1) == index && pos < this.model.length - 1) {
+                cant += populationD;
                 pos++;
-                /*progenitors = this.sortSolution( progenitors,0);
-                this.reproduction(progenitors[0], progenitors[1],(populationD));
-
+                progenitors = this.sortSolution(progenitors, 0);
+                if (progenitors.length < 2) {
+                    if (progenitors.length < 1) {
+                        progenitors[0] = [0, (Math.floor(Math.random() * 4)), (Math.floor(Math.random() * 4)), (Math.floor(Math.random() * 4)), (Math.floor(Math.random() * 4)), (Math.floor(Math.random() * 4)), (Math.floor(Math.random() * 4))];
+                    }
+                    progenitors[1] = [0, (Math.floor(Math.random() * 4)), (Math.floor(Math.random() * 4)), (Math.floor(Math.random() * 4)), (Math.floor(Math.random() * 4)), (Math.floor(Math.random() * 4)), (Math.floor(Math.random() * 4))];
+                }
+                this.reproduction(progenitors[0], progenitors[1], (populationD));
                 this.lastprogenitors += progenitors.length;
-                progenitors =[];*/
+                progenitors = [];
             }
+            different = 0;
         }
     };
     genetic.prototype.sortSolution = function (pSolution, pPosShape) {
@@ -85,7 +88,7 @@ var genetic = /** @class */ (function () {
         for (var index = 0; index < pPopulation; index++) {
             var kid;
             random = (Math.floor(Math.random() * 6) + 1);
-            kid = pFathe.slice(1, random).concat(pMother.slice(random));
+            kid = pFathe.slice(0, random).concat(pMother.slice(random));
             if ((Math.floor(Math.random() * 100) < 7)) {
                 kid = this.mutation(kid);
             }
@@ -102,7 +105,7 @@ var genetic = /** @class */ (function () {
         if (lastProg > actualProg) {
             this.setDataSong(auxProgenitors);
         }
-        else if ((this.newPopulation.length - (this.newPopulation.length * 10) / 100) <= actualProg) {
+        else if ((this.newPopulation.length - (this.newPopulation.length * 56) / 100) <= actualProg) {
             return false;
         }
         return true;
@@ -112,10 +115,54 @@ var genetic = /** @class */ (function () {
     genetic.prototype.mutation = function (pKid) {
         var randomPost = 0;
         var randomMutatio = 0;
-        randomPost = (Math.floor(Math.random() * 5) + 1);
+        randomPost = (Math.floor(Math.random() * 6) + 1);
         randomMutatio = (Math.floor(Math.random() * 4));
         pKid[randomPost] = randomMutatio;
         return pKid;
+    };
+    genetic.prototype.getZonePoint = function (pPoint, pZonePoints) {
+        var zone = 0;
+        for (var index = 1; index < 7; index++) {
+            if (this.model[pZonePoints][index] == pPoint) {
+                zone = pZonePoints * 44100 + (index - 1) * 7350;
+                return this.audioS2[0].slice(zone, zone + 7350);
+            }
+        }
+        for (var index = 0; index < this.model.length; index++) {
+            for (var indexJ = 1; indexJ < 7; indexJ++) {
+                if (this.model[index][indexJ] == pPoint) {
+                    zone = index * 44100 + (indexJ - 1) * 7350;
+                    return this.audioS2[0].slice(zone, zone + 7350);
+                }
+            }
+        }
+        zone = pZonePoints * 44100 + (Math.floor(Math.random() * 6)) * 7350;
+        return this.audioS2[0].slice(zone, zone + 7350);
+    };
+    genetic.prototype.setAudioS2 = function (pAudioS2) {
+        this.audioS2 = pAudioS2;
+    };
+    genetic.prototype.generateSong = function () {
+        this.newSong[0] = [];
+        this.newSong[1] = [];
+        var lenghtPopulation = this.newPopulation.length;
+        var zonePoints = 0;
+        var length = Math.trunc(lenghtPopulation / this.model.length);
+        for (var index = 0; index < lenghtPopulation; index++) {
+            for (var indexJ = 1; indexJ < 7; indexJ++) {
+                this.newSong[0] = this.newSong[0].concat(this.getZonePoint(this.newPopulation[index][indexJ], zonePoints));
+                this.newSong[1] = this.newSong[1].concat(this.getZonePoint(this.newPopulation[index][indexJ], zonePoints));
+            }
+            if ((index + 1) % length == 0) {
+                zonePoints++;
+                if (zonePoints >= this.model.length) {
+                    return;
+                }
+            }
+        }
+    };
+    genetic.prototype.getNewSong = function () {
+        return this.newSong;
     };
     return genetic;
 }());

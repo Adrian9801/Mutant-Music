@@ -2,11 +2,9 @@ export declare class genetic {
     private model;
     private lastprogenitors;
     private newPopulation;
+    private newSong;
+    private audioS2;
     private dataSong;
-    private offspringLength;
-    private offspring;
-    private selectionCrosses;
-    private mutationData;
     constructor();
     setModel(pModel: number[][]): void;
     setDataSong(pDataSong: number[][]): void;
@@ -16,4 +14,8 @@ export declare class genetic {
     reproduction(pFathe: number[], pMother: number[], pPopulation: number): void;
     selectionPopulation(): boolean;
     mutation(pKid: number[]): number[];
+    private getZonePoint;
+    setAudioS2(pAudioS2: number[][]): void;
+    generateSong(): void;
+    getNewSong(): number[][];
 }

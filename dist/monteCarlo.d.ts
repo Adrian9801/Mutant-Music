@@ -1,6 +1,7 @@
 export declare class MTC {
     private chanelOne;
     private chanelTwo;
+    private timesSeg;
     private chanelOneUnMatch;
     private chanelTwoUnMatch;
     private masterMTC;
@@ -33,7 +34,6 @@ export declare class MTC {
     private masterMC;
     MakeUnMacht(pChanel: number): void;
     private buildMatch;
-    private giveTime;
     private isRepit;
     private getZone;
     getAudioDataUnMatch(): any;
@@ -41,4 +41,5 @@ export declare class MTC {
     getMatchTwo(): number[];
     getUnMatchOne(): number[];
     getUnMatchTwo(): number[];
+    getSeg(): number[];
 }

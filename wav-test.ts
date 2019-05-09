@@ -46,7 +46,7 @@ readFile("./Sound/s2.wav").then((buffer) => {
   //-------------------DJ--------------------------//
 
   //-----------------------------------------------//
-  
+
 
 
 
@@ -62,15 +62,6 @@ readFile("./Sound/s2.wav").then((buffer) => {
   var clasesplitOne = new splits(audioData);
   clasesplitOne.splitSong(true, 0);
 
-
-  console.log(clasesplitOne.getZone(1).length);
-  console.log(clasesplitOne.getZone(2).length);
-  console.log(clasesplitOne.getZone(3)[0]);
-  console.log(clasesplitOne.getZone(4).length);
-  console.log(clasesplitOne.getZone(5).length);
-  console.log(clasesplitOne.getZone(6).length);
-  console.log(clasesplitOne.getZone(7).length);
-  console.log(clasesplitOne.getZone(8).length);
 
   //split a two
 
@@ -89,7 +80,7 @@ readFile("./Sound/s2.wav").then((buffer) => {
 
 
 });
-/*
+
 
 // for MTC ,matc and get data un match dj
 console.log('');
@@ -98,14 +89,14 @@ readFile("./Sound/Dua.wav").then((buffer) => {
 }).then(function (audioData) {
 
 
-  
- //------------------- for DJ----------------------------//
 
- //var djs = new Djs(audioData.channelData[0], true);
- //var mix = new Mix(djs.getDominantS(), audioData.channelData);
- 
+  //------------------- for DJ----------------------------//
+
+  //var djs = new Djs(audioData.channelData[0], true);
+  //var mix = new Mix(djs.getDominantS(), audioData.channelData);
+
   //------------------------------------------------------//
-   
+
 
   //------------------- for son in  One----------------------------//
 
@@ -122,7 +113,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   // make match insong for one 
   claseMTCOne.makeMT(masterAreaOne, 0);
   claseMTCOne.MakeUnMacht(0);//un match
- // console.log(claseMTCOne.GetMatchOne().length + " este de aca");
+  // console.log(claseMTCOne.GetMatchOne().length + " este de aca");
   //----------------------------------------------------------------//
 
 
@@ -141,7 +132,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   // make match insong for one 
   claseMTCTwo.makeMT(masterAreaTwo, 1);
   claseMTCTwo.MakeUnMacht(1);//.un match
- //----------------------------------------------------------------//
+  //----------------------------------------------------------------//
 
   audioData.channelData[0] = new Float32Array(claseMTCOne.getMatchOne());
   audioData.channelData[1] = new Float32Array(claseMTCTwo.getMatchTwo());
@@ -151,7 +142,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   WavEncoder.encode(audioData).then((buffer: any) => {
     fs.writeFileSync("./Sound/Match.wav", new Buffer(buffer));
   });
- 
+
   audioDataUnMatch = claseMTCOne.getAudioDataUnMatch();
   claseUnMatch.setAudio(audioDataUnMatch);
   claseUnMatch.MakeUnMacht(0);
@@ -161,8 +152,8 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   audioData.channelData[0] = new Float32Array(claseMTCOne.getUnMatchOne());
   audioData.channelData[1] = new Float32Array(claseMTCTwo.getUnMatchTwo());
 
-
-
+  console.log(claseMTCOne.getSeg());
+  console.log(claseMTCTwo.getSeg());
   console.log("writing  UnMatch...");
   WavEncoder.encode(audioData).then((buffer: any) => {
     fs.writeFileSync("./Sound/Unmatch.wav", new Buffer(buffer));
@@ -172,7 +163,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
 
   // audioData.channelData[0] = new Float32Array(mix.getDominantSection()[0]);
   // audioData.channelData[1] = new Float32Array(mix.getDominantSection()[1]);
-  
+
 
   console.log("writing  Mix...");
   WavEncoder.encode(audioData).then((buffer: any) => {
@@ -189,7 +180,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
 
 
 
-*/
+
 
 
 

@@ -5,11 +5,9 @@ export class splitMaster {
 
 
     private audioData: any;
-
     private peak: number[];
     private peakArea: number[];
     public constructor() {
-
         this.peak = [];
         this.peakArea = [];
     }
@@ -78,7 +76,7 @@ export class splitMaster {
        
         // console.log(this.peak.length);
         // console.log(this.peakArea.length);
-        console.log(musicalFootprint + "area total");
+        //console.log(musicalFootprint + "area total");
         // console.log("AAAAAAAAAAAAAAAAAAAAA");
          //console.log(auxData);
         // console.log("AAAAAAAAAAAAAAAAAAAAA");

@@ -13,6 +13,7 @@ var MTC = /** @class */ (function () {
         //---------match-----------//
         this.chanelOne = [];
         this.chanelTwo = [];
+        this.timesSeg = [];
         //------------------------------//
         this.masterMTC = 0;
         this.audioData = 0;
@@ -80,7 +81,7 @@ var MTC = /** @class */ (function () {
         // console.log("cantidad de secciones de la zona F 6" +  this.zone6.length);
         // console.log("cantidad de secciones de la zona G 7" +  this.zone7.length);
         // console.log("cantidad de secciones de la zona H 8" +  this.zone8.length);
-        // console.log("///////////////////////////////////////////////////");
+        //console.log("///////////////////////////////////////////////////");
     };
     //------------------------------------------------------------------------------------------------//
     MTC.prototype.makeMT = function (pmasterArea, pChanel) {
@@ -126,22 +127,23 @@ var MTC = /** @class */ (function () {
                     &&
                         ((areaSong <= (this.masterMTC + (Math.round((this.masterMTC / 100) * 20)))))) { //si el area total cumple con 70% 
                     this.reptit.push(this.auxPZoneA[randomA][subRandomA]);
-                    console.log(" ");
-                    console.log(" ");
-                    console.log("///////////////////////////");
-                    console.log("Area Original:  " + this.masterMTC);
-                    console.log("Area Calculada:  " + (areaSong));
-                    console.log("Duracion " + this.lastSeconS2);
+                    // console.log(" ");
+                    // console.log(" ");
+                    // console.log("///////////////////////////");
+                    // console.log("Area Original:  " + this.masterMTC);
+                    // console.log("Area Calculada:  " + (areaSong))
+                    // console.log("Duracion " + this.lastSeconS2);
                     var segI = this.auxPZoneA[randomA][subRandomA];
                     var segF = this.auxPZoneB[randomB][subRandomB];
                     //cannal audio inicio final 
                     this.buildMatch(pChanel, this.audioData, (segI * 44100), (segF * 44100));
-                    console.log("segundos i y f " + segI + "---- " + segF);
-                    console.log("Tiempo Inicial" + this.giveTime(segI));
-                    console.log("Tiempo Final" + this.giveTime(segF));
-                    console.log("posicion inicial en cancnion Original " + this.auxPZoneA[randomA][subRandomA] * 44100);
-                    console.log("posicion final en cancnion Original " + this.auxPZoneB[randomB][subRandomB] * 44100);
-                    console.log("///////////////////////////");
+                    // console.log("segundos i y f " + segI + "---- " + segF);
+                    // console.log("Tiempo Inicial" + this.giveTime(segI));
+                    // console.log("Tiempo Final" + this.giveTime(segF));
+                    // console.log("posicion inicial en cancnion Original " + this.auxPZoneA[randomA][subRandomA] * 44100);
+                    // console.log("posicion final en cancnion Original " + this.auxPZoneB[randomB][subRandomB] * 44100);
+                    // console.log("///////////////////////////");
+                    this.timesSeg.push(segI);
                 }
             }
         }
@@ -178,20 +180,19 @@ var MTC = /** @class */ (function () {
         }
         savePoint = [];
     };
-    MTC.prototype.giveTime = function (pSecond) {
-        var min = "";
-        var minA = 0;
-        var seg = 0;
-        if (pSecond < 60) {
-            console.log(minA + " : " + pSecond);
-        }
-        else {
-            min = (pSecond / 60).toFixed();
-            minA = +min;
-            seg = Math.round((((pSecond / 60) - minA) * 60));
-            console.log(minA + " : " + seg);
-        }
-    };
+    // private giveTime(pSecond: number) {
+    //     var min: string = "";
+    //     var minA: number = 0;
+    //     var seg: number = 0;
+    //     if (pSecond < 60) {
+    //         console.log(minA + " : " + pSecond);
+    //     } else {
+    //         min = (pSecond / 60).toFixed();
+    //         minA = +min;
+    //         seg = Math.round((((pSecond / 60) - minA) * 60));
+    //         console.log(minA + " : " + seg);
+    //     }
+    // }
     MTC.prototype.isRepit = function (point) {
         var datarepit = false;
         if (this.reptit.length == 0) {
@@ -254,6 +255,9 @@ var MTC = /** @class */ (function () {
     };
     MTC.prototype.getUnMatchTwo = function () {
         return this.chanelTwoUnMatch;
+    };
+    MTC.prototype.getSeg = function () {
+        return this.timesSeg;
     };
     return MTC;
 }());

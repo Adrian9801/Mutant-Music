@@ -24,6 +24,27 @@ var unMatchOne;
 var unMatchTwo;
 var audioDataUnMatch: any;
 
+//var request = require('request');
+
+import { HttpRequest } from './httpRequest';
+
+const request = new HttpRequest('https://www.google.com');
+request.addArg('num', '1');
+request.addArg('min', '1');
+request.addArg('max', '50');
+request.addArg('col', '1');
+request.addArg('base', '10');
+request.addArg('format', 'plain');
+request.addArg('rnd', 'new');
+request.test();
+request.get((res: string): void => {
+    console.log('Response received: ' + res);
+});
+
+
+
+/*
+
 const readFile = (filepath: string) => {
   return new Promise((resolve, reject) => {
     fs.readFile(filepath, (err, buffer) => {
@@ -198,7 +219,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
 //====================================================================================================//
 
 
-
+*/
 
 
 

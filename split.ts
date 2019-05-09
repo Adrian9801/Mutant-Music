@@ -1,18 +1,17 @@
 import { areas } from "./area";
 export class splits {
-   
 
-    ////////////////form S2////////////////////////// 
+
+    //-----------------------form S2-------------------// 
     private pointAndTimeS2: number[];// pounto y tiempo de S2 se parados por segundo
     private positionIS2: number[];//pisiciones de esos datos 
     private zoneS2: number[];//pisiciones de esos datos 
     private areaWaveS2: number[];//aea de cada una de las sub-areas
     private totalAreaWaveS2: number[];//area total
     private totalAreaOrg: number[];//area total
-    ////////////////////////////////////////////////// 
+    //---------------------------------------------------// 
 
-
-    ////////////////form Song////////////////////////// 
+    //-----------------------form Song-------------------// 
     private zoneA: number[][];
     private zoneB: number[][];
     private zoneC: number[][];
@@ -21,16 +20,15 @@ export class splits {
     private zoneF: number[][];
     private zoneG: number[][];
     private zoneH: number[][];
-    ////////////////////////////////////////////////// 
-
-
+    //--------------------------------------------------// 
     private dumppi: number[][];
     private audioData: any;
+    //--------------------------------------------------// 
 
 
     public constructor(pAudioData: any) {
-         this.audioData = pAudioData;
-        ////////////////form Song////////////////////////// 
+        this.audioData = pAudioData;
+        //---------------------form Song-------------------// 
         this.zoneA = [];
         this.zoneB = [];
         this.zoneC = [];
@@ -40,32 +38,31 @@ export class splits {
         this.zoneG = [];
         this.zoneH = [];
         this.dumppi = [];
-        ////////////////////////////////////////////////// 
+        //--------------------------------------------------// 
 
-        ////////////////form S2////////////////////////// 
-        this.totalAreaOrg =[];
+
+        //---------------------form S2-------------------// 
+        this.totalAreaOrg = [];
         this.pointAndTimeS2 = [];
         this.positionIS2 = [];
         this.zoneS2 = [];
         this.areaWaveS2 = [];
         this.totalAreaWaveS2 = [];
-        ////////////////////////////////////////////////// 
+        //--------------------------------------------------// 
     }
 
     // true para estudiar S2 false para la cancion 
-    public splitSong(dataSong: boolean, pChanel:number) {
+    public splitSong(dataSong: boolean, pChanel: number) {
+
         var audioLength = this.audioData.channelData[pChanel].length - 1;// largo del audio
         var firstTime: boolean = true;
         var lastZone: number = 0;//ultima zona
         var nowZone: number = 0;//zona actual
-
         var point: number;//temp para guardar los datos de una zona 
         var zone: number[] = [];//temp para guardar los datos de una zona 
-
         var btime: number = 0;//tiempo
         var bn: number = 1;//n para calculo de tiempo
 
-        
 
         for (var i = 0; i < audioLength; i++) {
 
@@ -95,8 +92,6 @@ export class splits {
                             this.pointAndTimeS2.push(btime);
                             this.positionIS2.push(i);
                         }
-                        // console.log(point); por segundo 
-                        // console.log(btime);
                     } else {
                         zone.push(point);
                         zone.push(btime);
@@ -126,9 +121,6 @@ export class splits {
                 zone.push(point);
                 zone.push(btime);
 
-                // console.log(point);
-                // console.log(btime);
-
                 // para S2
                 this.pointAndTimeS2.push(point);
                 this.pointAndTimeS2.push(btime);
@@ -157,7 +149,7 @@ export class splits {
 
 
     //determina en que zona se encantra cada punto guardado de S2(se guarda un punto cada segundo )
-    private loadZoneS2(pChanel:number) {
+    private loadZoneS2(pChanel: number) {
         var nowZone: number = 0;//zona actual
         var point: number;//punto 
 
@@ -177,31 +169,6 @@ export class splits {
             this.zoneS2.push(nowZone);//pisiciones de esos datos 
 
         }
-        this.areaS2();
-    }
-
-
-    //calcula el area de cada sub-zona de S2
-    private areaS2() {
-
-        var clasesarea = new areas();//area de S2 segun datos
-        var auxArea: number = 0;
-        var auxTotalArea: number = 0;
-        for (var i = 0; i <= this.pointAndTimeS2.length - 3; i++) {
-            //tiempo de inicio , tiempo final , punto de inicio punto final
-            auxArea = clasesarea.waveArea(this.pointAndTimeS2[i + 1], this.pointAndTimeS2[i + 3],
-                this.pointAndTimeS2[i], this.pointAndTimeS2[i + 2]);
-            this.areaWaveS2.push(auxArea);
-            auxTotalArea = auxTotalArea + auxArea;
-            i++;
-        }
-        this.totalAreaWaveS2[0] = auxTotalArea;
-        this.totalAreaOrg[0]= clasesarea.waveArea(this.pointAndTimeS2[1], this.pointAndTimeS2[this.pointAndTimeS2.length-1],
-            this.pointAndTimeS2[0], this.pointAndTimeS2[this.pointAndTimeS2.length- 2]);
-        // console.log(
-        // clasesarea.waveArea(this.pointAndTimeS2[1], this.pointAndTimeS2[this.pointAndTimeS2.length-1],
-        //     this.pointAndTimeS2[0], this.pointAndTimeS2[this.pointAndTimeS2.length- 2])
-        // +"iss");
 
     }
 
@@ -244,6 +211,8 @@ export class splits {
     }
 
 
+
+    //---------------------------------------------Get------------------------------------------------// 
 
     public getZone(zone: number): (number[][]) {
         switch (zone) {
@@ -298,5 +267,5 @@ export class splits {
         }
         return [];
     }
-
+    //------------------------------------------------------------------------------------------------// 
 }

@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var area_1 = require("./area");
 var splits = /** @class */ (function () {
+    //--------------------------------------------------// 
     function splits(pAudioData) {
         this.audioData = pAudioData;
-        ////////////////form Song////////////////////////// 
+        //---------------------form Song-------------------// 
         this.zoneA = [];
         this.zoneB = [];
         this.zoneC = [];
@@ -14,15 +14,15 @@ var splits = /** @class */ (function () {
         this.zoneG = [];
         this.zoneH = [];
         this.dumppi = [];
-        ////////////////////////////////////////////////// 
-        ////////////////form S2////////////////////////// 
+        //--------------------------------------------------// 
+        //---------------------form S2-------------------// 
         this.totalAreaOrg = [];
         this.pointAndTimeS2 = [];
         this.positionIS2 = [];
         this.zoneS2 = [];
         this.areaWaveS2 = [];
         this.totalAreaWaveS2 = [];
-        ////////////////////////////////////////////////// 
+        //--------------------------------------------------// 
     }
     // true para estudiar S2 false para la cancion 
     splits.prototype.splitSong = function (dataSong, pChanel) {
@@ -74,8 +74,6 @@ var splits = /** @class */ (function () {
                             this.pointAndTimeS2.push(btime);
                             this.positionIS2.push(i);
                         }
-                        // console.log(point); por segundo 
-                        // console.log(btime);
                     }
                     else {
                         zone.push(point);
@@ -106,8 +104,6 @@ var splits = /** @class */ (function () {
             else { // solo para el primer caso
                 zone.push(point);
                 zone.push(btime);
-                // console.log(point);
-                // console.log(btime);
                 // para S2
                 this.pointAndTimeS2.push(point);
                 this.pointAndTimeS2.push(btime);
@@ -182,26 +178,6 @@ var splits = /** @class */ (function () {
             i++;
             this.zoneS2.push(nowZone); //pisiciones de esos datos 
         }
-        this.areaS2();
-    };
-    //calcula el area de cada sub-zona de S2
-    splits.prototype.areaS2 = function () {
-        var clasesarea = new area_1.areas(); //area de S2 segun datos
-        var auxArea = 0;
-        var auxTotalArea = 0;
-        for (var i = 0; i <= this.pointAndTimeS2.length - 3; i++) {
-            //tiempo de inicio , tiempo final , punto de inicio punto final
-            auxArea = clasesarea.waveArea(this.pointAndTimeS2[i + 1], this.pointAndTimeS2[i + 3], this.pointAndTimeS2[i], this.pointAndTimeS2[i + 2]);
-            this.areaWaveS2.push(auxArea);
-            auxTotalArea = auxTotalArea + auxArea;
-            i++;
-        }
-        this.totalAreaWaveS2[0] = auxTotalArea;
-        this.totalAreaOrg[0] = clasesarea.waveArea(this.pointAndTimeS2[1], this.pointAndTimeS2[this.pointAndTimeS2.length - 1], this.pointAndTimeS2[0], this.pointAndTimeS2[this.pointAndTimeS2.length - 2]);
-        // console.log(
-        // clasesarea.waveArea(this.pointAndTimeS2[1], this.pointAndTimeS2[this.pointAndTimeS2.length-1],
-        //     this.pointAndTimeS2[0], this.pointAndTimeS2[this.pointAndTimeS2.length- 2])
-        // +"iss");
     };
     splits.prototype.insertZone = function (pZoneNumber, pZone) {
         switch (pZoneNumber) {
@@ -239,6 +215,7 @@ var splits = /** @class */ (function () {
             }
         }
     };
+    //---------------------------------------------Get------------------------------------------------// 
     splits.prototype.getZone = function (zone) {
         switch (zone) {
             case 1: {

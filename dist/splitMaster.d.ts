@@ -1,5 +1,4 @@
 export declare class splitMaster {
-    private audioData;
     private peak;
     private peakArea;
     constructor();

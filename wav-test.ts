@@ -8,7 +8,6 @@ import * as WavDecoder from 'wav-decoder';
 import { splits } from "./split";
 import { MTC } from "./monteCarlo";
 import { splitMaster } from "./splitMaster";
-import { unmatchs } from "./unMatch";
 import { Djs } from "./Dj";
 import { Mix } from "./Mix";
 import { genetic } from "./genetic";
@@ -19,7 +18,7 @@ var claseMTCOne = new MTC();
 var claseMTCTwo = new MTC();
 var masterAreaOne: number;
 var masterAreaTwo: number;
-var claseUnMatch = new unmatchs();
+
 
 var unMatchOne;
 var unMatchTwo;
@@ -140,13 +139,13 @@ readFile("./Sound/Dua.wav").then((buffer) => {
 
   console.log("writing  Match...");
   WavEncoder.encode(audioData).then((buffer: any) => {
-    fs.writeFileSync("./Sound/Match.wav", new Buffer(buffer));
+    fs.writeFileSync("./Sound/Match1.wav", new Buffer(buffer));
   });
 
   audioDataUnMatch = claseMTCOne.getAudioDataUnMatch();
-  claseUnMatch.setAudio(audioDataUnMatch);
-  claseUnMatch.MakeUnMacht(0);
-  claseUnMatch.MakeUnMacht(1);
+  // claseUnMatch.setAudio(audioDataUnMatch);
+  // claseUnMatch.MakeUnMacht(0);
+  // claseUnMatch.MakeUnMacht(1);
 
 
   audioData.channelData[0] = new Float32Array(claseMTCOne.getUnMatchOne());
@@ -156,7 +155,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   console.log(claseMTCTwo.getSeg());
   console.log("writing  UnMatch...");
   WavEncoder.encode(audioData).then((buffer: any) => {
-    fs.writeFileSync("./Sound/Unmatch.wav", new Buffer(buffer));
+    fs.writeFileSync("./Sound/Unmatch1.wav", new Buffer(buffer));
   });
 
 

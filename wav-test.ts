@@ -25,6 +25,10 @@ readFile("C:\\Users\\adri-\\OneDrive\\Escritorio\\SW.wav").then((buffer) => {
 }).then(function(audioData) {
 
   var dj = new Djs(audioData.channelData[0], true);
+  var djs = new Djs(audioData.channelData[1], false);
+  djs.getShape(audioData.channelData[1].slice(44100,88200));
+  console.log(dj.getShape2());
+
   var mix = new Mix(dj.getDominantS(), audioData.channelData);
 
   var audioMix: number[][]= mix.getDominantSection();

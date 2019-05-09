@@ -136,4 +136,8 @@ export class Djs{
         }
         return dominantSection;
     }
+
+    public getShape2(): number[][]{
+        return this.shapeSecond2;
+    }
 }

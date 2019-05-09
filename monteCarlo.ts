@@ -5,6 +5,7 @@ var clasSplitMaster = new splitMaster();
 
 export class MTC {
 
+    //
     //---------match-----------//
     private chanelOne: number[];
     private chanelTwo: number[];

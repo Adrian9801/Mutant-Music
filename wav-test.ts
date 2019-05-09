@@ -89,6 +89,7 @@ readFile("./Sound/DSong.wav").then((buffer) => {
   var dj = new Djs(audioData.channelData[0],true);
   var mix = new Mix(dj.getDominantS(), audioData.channelData);//datos de la forma de la cancion
   var audioMix: number[][]= mix.getDominantSection();
+  claseGenetic.setDataSong(dj.getShape2());
  // dj.getShape2(); obtiene las formas de s1
  
   //------------------------------------------------------//
@@ -166,6 +167,11 @@ readFile("./Sound/DSong.wav").then((buffer) => {
   WavEncoder.encode(audioData).then((buffer: any) => {
     fs.writeFileSync("./Sound/Mix.wav", new Buffer(buffer));
   });
+
+  claseGenetic.fitness();
+  while( claseGenetic.selectionPopulation()){
+  }
+  console.log(claseGenetic.getPopulation() );
 
 });
 

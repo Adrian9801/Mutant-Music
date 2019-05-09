@@ -11,7 +11,10 @@ import { splitMaster } from "./splitMaster";
 import { unmatchs } from "./unMatch";
 import { Djs } from "./Dj";
 import { Mix } from "./Mix";
+import { genetic } from "./genetic";
 
+
+var claseGenetic = new genetic();
 var claseMTCOne = new MTC();
 var claseMTCTwo = new MTC();
 var masterAreaOne: number;
@@ -41,7 +44,8 @@ readFile("./Sound/DBase.wav").then((buffer) => {
   var djs = new Djs(audioData.channelData[0], false);
   djs.getShape(audioData.channelData[0]);
   //djs.getShape2(); obtiene las formas de S2
-  console.log(djs.getShape2());
+  claseGenetic.setModel(djs.getShape2());// set de model en genetico
+  //console.log(djs.getShape2());
 
 
 

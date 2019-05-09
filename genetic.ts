@@ -1,7 +1,8 @@
 export class genetic {
 
    
-    private model:number //Objetivo a alcanzar
+    private model:number[][] //Objetivo a alcanzar
+    private dataSong:number[][] //Objetivo a alcanzar
     private offspringLength :number //La longitud del material genetico de cada individuo
     private offspring:number  //10 #La cantidad de individuos que habra en la poblacion
     private selectionCrosses:number // = 3 #Cuantos individuos se seleccionan para reproduccion.Necesariamente mayor que 2
@@ -9,13 +10,24 @@ export class genetic {
 
 
     public constructor() {
-        this.model=0;
+        this.model=[];
+        this.dataSong =[];
         this.offspringLength =0;
         this.offspring=0;
         this.selectionCrosses=0;
         this.mutationData=0;
 
     }
+
+    public setModel(pModel:number[][]){
+        this.model = pModel;
+    }
+
+    public setDataSong(pDataSong:number[][]){
+        this.dataSong = pDataSong;
+
+    }
+
 
     
 

@@ -1,13 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Djs = /** @class */ (function () {
-    function Djs(pAudioData) {
-        this.shapeSecond = this.getShape(pAudioData);
+    function Djs(pAudioData, isS1) {
+        this.shapeSecond2 = [];
         this.coincidenceList = [];
-        for (var index = 0; this.shapeSecond.length > 0; index++) {
-            this.splitSong(index);
+        this.shapeSecond = [];
+        if (isS1) {
+            this.shapeSecond = this.getShape(pAudioData);
+            for (var index = 0; this.shapeSecond.length > 0; index++) {
+                this.splitSong(index);
+            }
+            this.coincidenceList = this.sortSolution(this.coincidenceList, 0);
         }
-        this.coincidenceList = this.sortSolution(this.coincidenceList, 0);
     }
     Djs.prototype.splitSong = function (pPos) {
         this.shapeSecond = this.sortSolution(this.shapeSecond, 1);
@@ -51,40 +55,72 @@ var Djs = /** @class */ (function () {
         var audioLength = pAudioData.length - 1;
         var num = 0;
         var cont = 0;
-        result[0] = [0, 0, 0, 0, 0, 0, 0, 0];
+        var cambio = 1;
+        var num1 = 0;
+        var num2 = 0;
+        var num3 = 0;
+        var shape = 0;
+        result[0] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+        this.shapeSecond2[0] = [0, 0, 0, 0, 0, 0, 0];
         for (var index = 0; index < audioLength; index++) {
             num = (pAudioData[index + 1] - pAudioData[index]) * 100;
             if (num >= 15) {
                 result[cont][1] += 1;
+                num1++;
             }
             else if (num >= 10) {
                 result[cont][2] += 1;
+                num1++;
             }
             else if (num >= 5) {
                 result[cont][3] += 1;
+                num1++;
             }
-            else if (num >= 1) {
+            else if (num >= 0.5) {
                 result[cont][4] += 1;
+                num1++;
             }
-            else if (num > -1) {
+            else if (num > -0.5) {
                 result[cont][5] += 1;
+                num2++;
             }
             else if (num >= -5) {
                 result[cont][6] += 1;
+                num3++;
             }
             else if (num >= -10) {
                 result[cont][7] += 1;
+                num3++;
             }
             else {
                 result[cont][8] += 1;
+                num3++;
             }
-            result[cont][0] = cont;
-            if ((index + 1) % 44100 == 0) {
-                cont++;
-                result[cont] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+            if ((index + 2) % 3675 == 0 && pAudioData[index] < 0) {
+                shape = 3;
+            }
+            if ((index + 1) % 7350 == 0) {
+                if (num1 > num2) {
+                    shape = 1;
+                    num2 = num1;
+                }
+                if (num2 < num3) {
+                    shape = 2;
+                }
+                this.shapeSecond2[cont][cambio] = shape;
+                num1 = 0;
+                num2 = 0;
+                num3 = 0;
+                shape = 0;
+                cambio++;
+                if ((index + 1) % 44100 == 0) {
+                    cont++;
+                    this.shapeSecond2[cont] = [cont, 0, 0, 0, 0, 0, 0];
+                    cambio = 1;
+                    result[cont] = [cont, 0, 0, 0, 0, 0, 0, 0, 0];
+                }
             }
         }
-        result[cont][0] = cont;
         return result;
     };
     Djs.prototype.getDominantS = function () {
@@ -93,6 +129,9 @@ var Djs = /** @class */ (function () {
             dominantSection.push(this.coincidenceList[index][1] * 44100);
         }
         return dominantSection;
+    };
+    Djs.prototype.getShape2 = function () {
+        return this.shapeSecond2;
     };
     return Djs;
 }());

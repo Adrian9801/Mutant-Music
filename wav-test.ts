@@ -11,7 +11,7 @@ import { splitMaster } from "./splitMaster";
 import { Djs } from "./Dj";
 import { Mix } from "./Mix";
 import { genetic } from "./genetic";
-
+////////////////////////////////////////////////
 
 var claseGenetic = new genetic();
 var claseMTCOne = new MTC();
@@ -171,7 +171,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   console.log(claseMTCOne.getSeg());
   console.log(claseMTCTwo.getSeg());
   //-------------------------------------//
-  
+
   console.log("writing  UnMatch...");
   WavEncoder.encode(audioData).then((buffer: any) => {
     fs.writeFileSync("./Sound/Unmatch1.wav", new Buffer(buffer));

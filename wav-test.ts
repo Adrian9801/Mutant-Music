@@ -36,16 +36,17 @@ const readFile = (filepath: string) => {
   });
 };
 
+
 //for s2
-readFile("./Sound/DBase.wav").then((buffer) => {
+
+readFile("./Sound/s22.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
 
-  var djs = new Djs(audioData.channelData[0], false);
-  djs.getShape(audioData.channelData[0]);
-  //djs.getShape2(); obtiene las formas de S2
-  claseGenetic.setModel(djs.getShape2());// set de model en genetico
-  //console.log(djs.getShape2());
+  //-------------------DJ--------------------------//
+
+  //-----------------------------------------------//
+  
 
 
 
@@ -81,16 +82,16 @@ readFile("./Sound/DBase.wav").then((buffer) => {
 
 // for MTC ,matc and get data un match dj
 console.log('');
-readFile("./Sound/DSong.wav").then((buffer) => {
+readFile("./Sound/Dua.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
 
+
+  
  //------------------- for DJ----------------------------//
-  var dj = new Djs(audioData.channelData[0],true);
-  var mix = new Mix(dj.getDominantS(), audioData.channelData);//datos de la forma de la cancion
-  var audioMix: number[][]= mix.getDominantSection();
-  claseGenetic.setDataSong(dj.getShape2());
- // dj.getShape2(); obtiene las formas de s1
+
+ var djs = new Djs(audioData.channelData[0], true);
+ var mix = new Mix(djs.getDominantS(), audioData.channelData);
  
   //------------------------------------------------------//
    
@@ -140,10 +141,10 @@ readFile("./Sound/DSong.wav").then((buffer) => {
     fs.writeFileSync("./Sound/Match.wav", new Buffer(buffer));
   });
  
-  //audioDataUnMatch = claseMTCOne.getAudioDataUnMatch();
-  // claseUnMatch.setAudio(audioDataUnMatch);
-  // claseUnMatch.MakeUnMacht(0);
-  // claseUnMatch.MakeUnMacht(1);
+  audioDataUnMatch = claseMTCOne.getAudioDataUnMatch();
+  claseUnMatch.setAudio(audioDataUnMatch);
+  claseUnMatch.MakeUnMacht(0);
+  claseUnMatch.MakeUnMacht(1);
 
 
   audioData.channelData[0] = new Float32Array(claseMTCOne.GetUnMatchOne());
@@ -158,9 +159,8 @@ readFile("./Sound/DSong.wav").then((buffer) => {
 
 
 
-  audioData.channelData[0] = new Float32Array(audioMix[0]);
-  
-  audioData.channelData[1] = new Float32Array(audioMix[1]);
+  audioData.channelData[0] = new Float32Array(mix.getDominantSection()[0]);
+  audioData.channelData[1] = new Float32Array(mix.getDominantSection()[1]);
   
 
   console.log("writing  Mix...");
@@ -168,37 +168,13 @@ readFile("./Sound/DSong.wav").then((buffer) => {
     fs.writeFileSync("./Sound/Mix.wav", new Buffer(buffer));
   });
 
-  claseGenetic.fitness();
-  while( claseGenetic.selectionPopulation()){
-  }
-  console.log(claseGenetic.getPopulation() );
+  // claseGenetic.fitness();
+  // claseGenetic.selectionPopulation();
+  // while( claseGenetic.selectionPopulation()){
+  // }
+  // console.log(claseGenetic.getPopulation() );
 
 });
-
-
-
-// // for  Unmatch
-// console.log('');
-// readFile("./Sound/Dua.wav").then((buffer) => {
-//   return WavDecoder.decode(buffer);
-// }).then(function (audioData) {
-
-//   claseUnMatch.setAudio(audioDataUnMatch);
-//   claseUnMatch.MakeUnMacht(0);
-//   claseUnMatch.MakeUnMacht(1);
-
-
-//   audioDataUnMatch.channelData[0] = new Float32Array(claseUnMatch.GetMatchUnOne());
-//   audioDataUnMatch.channelData[1] = new Float32Array(claseUnMatch.GetMatchUnTwo());
-
-
-// //
-//   console.log("writing...");
-//   WavEncoder.encode(audioDataUnMatch).then((buffer: any) => {
-//     fs.writeFileSync("./Sound/Unmatch.wav", new Buffer(buffer));
-//   });
-// });
-
 
 
 

@@ -1,6 +1,7 @@
 export declare class genetic {
     private model;
-    private progenitors;
+    private lastprogenitors;
+    private newPopulation;
     private dataSong;
     private offspringLength;
     private offspring;
@@ -9,9 +10,10 @@ export declare class genetic {
     constructor();
     setModel(pModel: number[][]): void;
     setDataSong(pDataSong: number[][]): void;
+    getPopulation(): number[][];
     fitness(): void;
     private sortSolution;
-    reproduction(): void;
-    cross0ver(): void;
-    mutation(): void;
+    reproduction(pFathe: number[], pMother: number[], pPopulation: number): void;
+    selectionPopulation(): boolean;
+    mutation(pKid: number[]): number[];
 }

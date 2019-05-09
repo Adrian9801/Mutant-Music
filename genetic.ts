@@ -54,6 +54,7 @@ export class genetic {
         var different:number = 0;
         var cant: number = Math.trunc(this.dataSong.length/this.model.length);
         var populationD = cant;
+        console.log(cant);
         for(var index: number = 0; index < cant; index++){
             if(this.model[pos][1] != this.dataSong[index][1]){
                 different++;
@@ -80,14 +81,14 @@ export class genetic {
             }
 
             if((cant-1) == index && pos < 6){
-                cant+=cant;
+                //cant+=populationD;
                 pos++;
 
-                progenitors = this.sortSolution( progenitors,0);
+                /*progenitors = this.sortSolution( progenitors,0);
                 this.reproduction(progenitors[0], progenitors[1],(populationD));
 
                 this.lastprogenitors += progenitors.length;
-                progenitors =[];
+                progenitors =[];*/
                 
             }
 

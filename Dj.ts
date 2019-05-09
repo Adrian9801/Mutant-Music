@@ -14,6 +14,9 @@ export class Djs{
             }
             this.coincidenceList = this.sortSolution(this.coincidenceList,0);
         }
+        else{
+            this.getShape(pAudioData);
+        }
     }
 
     private splitSong(pPos: number){

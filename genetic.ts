@@ -5,22 +5,18 @@ export class genetic {
     
     private lastprogenitors:number;
     private newPopulation:number[][];
+    private newSong: number[][];
+    private audioS2: number[][];
     private dataSong:number[][] //Objetivo a alcanzar
-    private offspringLength :number //La longitud del material genetico de cada individuo
-    private offspring:number  //10 #La cantidad de individuos que habra en la poblacion
-    private selectionCrosses:number // = 3 #Cuantos individuos se seleccionan para reproduccion.Necesariamente mayor que 2
-    private mutationData:number// = 0.2 #La probabilidad de que un individuo mute
 
 
     public constructor() {
         this.model=[];
         this.lastprogenitors =0;
         this.newPopulation =[];
+        this.newSong = [];
+        this.audioS2 = [];
         this.dataSong =[];
-        this.offspringLength =0;
-        this.offspring=0;
-        this.selectionCrosses=0;
-        this.mutationData=0;
 
     }
 
@@ -54,7 +50,6 @@ export class genetic {
         var different:number = 0;
         var cant: number = Math.trunc(this.dataSong.length/this.model.length);
         var populationD = cant;
-        console.log(cant);
         for(var index: number = 0; index < cant; index++){
             if(this.model[pos][1] != this.dataSong[index][1]){
                 different++;
@@ -79,19 +74,25 @@ export class genetic {
                 this.dataSong[index][0] = different;
                 progenitors.push(this.dataSong[index]);
             }
+            
 
-            if((cant-1) == index && pos < 6){
-                //cant+=populationD;
+            if((cant-1) == index && pos < this.model.length-1){
+                cant+=populationD;
                 pos++;
 
-                /*progenitors = this.sortSolution( progenitors,0);
+                progenitors = this.sortSolution( progenitors,0);
+                if(progenitors.length < 2){
+                    if(progenitors.length < 1){
+                        progenitors[0] = [0,(Math.floor(Math.random() * 4)),(Math.floor(Math.random() * 4)),(Math.floor(Math.random() * 4)),(Math.floor(Math.random() * 4)),(Math.floor(Math.random() * 4)),(Math.floor(Math.random() * 4))];
+                    }
+                    progenitors[1] = [0,(Math.floor(Math.random() * 4)),(Math.floor(Math.random() * 4)),(Math.floor(Math.random() * 4)),(Math.floor(Math.random() * 4)),(Math.floor(Math.random() * 4)),(Math.floor(Math.random() * 4))];
+                }
                 this.reproduction(progenitors[0], progenitors[1],(populationD));
-
                 this.lastprogenitors += progenitors.length;
-                progenitors =[];*/
+                progenitors =[];
                 
             }
-
+            different = 0;
            
         }
        
@@ -114,11 +115,10 @@ export class genetic {
 
     public reproduction(pFathe:number[],pMother:number[],pPopulation:number) {
         var random:number =0;
-        
         for(var index = 0;index<pPopulation;index++){
             var kid:number[];
             random = (Math.floor(Math.random() * 6) + 1) ;
-            kid = pFathe.slice(1,random).concat(pMother.slice(random));
+            kid = pFathe.slice(0,random).concat(pMother.slice(random));
             if((Math.floor(Math.random() * 100)<7)){
                 kid = this.mutation(kid);
 
@@ -140,7 +140,7 @@ export class genetic {
        if(lastProg > actualProg){
         this.setDataSong(auxProgenitors);
        }
-       else if ((this.newPopulation.length - (this.newPopulation.length*10)/100) <= actualProg ){
+       else if ((this.newPopulation.length - (this.newPopulation.length*56)/100) <= actualProg ){
            return false;
        }
        return true ;
@@ -150,10 +150,57 @@ export class genetic {
     public mutation(pKid:number[]):number[] {
         var randomPost:number =0;
         var randomMutatio:number =0;
-        randomPost = (Math.floor(Math.random() * 5) + 1) ;
+        randomPost = (Math.floor(Math.random() * 6)+1) ;
         randomMutatio = (Math.floor(Math.random() * 4)) ;
         pKid[randomPost] = randomMutatio;
         return  pKid;
+    }
+
+    private getZonePoint(pPoint: number, pZonePoints: number): number[]{
+        var zone: number = 0;
+        for(var index: number = 1; index < 7; index++){
+            if(this.model[pZonePoints][index] == pPoint){
+                zone = pZonePoints*44100+(index-1)*7350
+                return this.audioS2[0].slice(zone, zone+7350);
+            }
+        }
+        for(var index = 0; index < this.model.length; index++){
+            for(var indexJ = 1; indexJ < 7; indexJ++){
+                if(this.model[index][indexJ] == pPoint){
+                    zone = index*44100+(indexJ-1)*7350
+                    return this.audioS2[0].slice(zone, zone+7350);
+                }
+            }
+        }
+        zone = pZonePoints*44100 + (Math.floor(Math.random() * 6)) *7350;
+        return this.audioS2[0].slice(zone, zone+7350);
+    }
+    public setAudioS2(pAudioS2: number[][]){
+        this.audioS2 = pAudioS2;
+    }
+
+    public generateSong(){
+        this.newSong[0] = [];
+        this.newSong[1] = [];
+        var lenghtPopulation: number = this.newPopulation.length;
+        var zonePoints: number = 0;
+        var length: number = Math.trunc(lenghtPopulation/this.model.length);
+        for(var index = 0; index < lenghtPopulation; index++){
+            for(var indexJ = 1; indexJ < 7; indexJ++){
+                this.newSong[0] = this.newSong[0].concat(this.getZonePoint(this.newPopulation[index][indexJ],zonePoints));
+                this.newSong[1] = this.newSong[1].concat(this.getZonePoint(this.newPopulation[index][indexJ],zonePoints));
+            }
+            if((index+1)%length == 0){
+                zonePoints++;
+                if(zonePoints >= this.model.length){
+                    return;
+                }
+            }
+        }
+    }
+
+    public getNewSong(): number[][]{
+        return this.newSong;
     }
 
 

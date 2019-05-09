@@ -39,7 +39,7 @@ const readFile = (filepath: string) => {
 
 //for s2
 
-readFile("./Sound/s22.wav").then((buffer) => {
+readFile("./Sound/s2.wav").then((buffer) => {
   return WavDecoder.decode(buffer);
 }).then(function (audioData) {
 
@@ -65,7 +65,7 @@ readFile("./Sound/s22.wav").then((buffer) => {
 
   console.log(clasesplitOne.getZone(1).length);
   console.log(clasesplitOne.getZone(2).length);
-  console.log(clasesplitOne.getZone(3).length);
+  console.log(clasesplitOne.getZone(3)[0]);
   console.log(clasesplitOne.getZone(4).length);
   console.log(clasesplitOne.getZone(5).length);
   console.log(clasesplitOne.getZone(6).length);
@@ -89,7 +89,7 @@ readFile("./Sound/s22.wav").then((buffer) => {
 
 
 });
-
+/*
 
 // for MTC ,matc and get data un match dj
 console.log('');
@@ -189,7 +189,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
 
 
 
-
+*/
 
 
 

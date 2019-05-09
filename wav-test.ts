@@ -73,7 +73,7 @@ readFile("./Sound/s22.wav").then((buffer) => {
   console.log(clasesplitOne.getZone(8).length);
 
   //split a two
-  
+
   var clasesplitTwo = new splits(audioData);
   clasesplitTwo.splitSong(true, 1);
 
@@ -90,7 +90,7 @@ readFile("./Sound/s22.wav").then((buffer) => {
 
 });
 
-/*
+
 // for MTC ,matc and get data un match dj
 console.log('');
 readFile("./Sound/Dua.wav").then((buffer) => {
@@ -158,8 +158,8 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   claseUnMatch.MakeUnMacht(1);
 
 
-  audioData.channelData[0] = new Float32Array(claseMTCOne.GetUnMatchOne());
-  audioData.channelData[1] = new Float32Array(claseMTCTwo.GetUnMatchTwo());
+  audioData.channelData[0] = new Float32Array(claseMTCOne.getUnMatchOne());
+  audioData.channelData[1] = new Float32Array(claseMTCTwo.getUnMatchTwo());
 
 
 
@@ -186,7 +186,7 @@ readFile("./Sound/Dua.wav").then((buffer) => {
   // console.log(claseGenetic.getPopulation() );
 
 });
-*/
+
 
 
 

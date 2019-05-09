@@ -1,44 +1,40 @@
-//int valorEntero = Math.floor(Math.random()*(N-M+1)+M);// Valor entre M y N, ambos incluidos.
-//Math.floor(Math.random() * 6) + 1  
-// Math.floor(Math.random() * (max - min + 1)) + min;
-
 import { areas } from "./area";
 var claseArea = new areas();
-
 import { splitMaster } from "./splitMaster";
 var clasSplitMaster = new splitMaster();
 
 export class MTC {
 
-
-
+    //---------match-----------//
     private chanelOne: number[];
     private chanelTwo: number[];
+    //--------------------------//
 
-    private chanelOneUnMatch:number[];
-    private chanelTwoUnMatch:number[];
-
-    private masterMTC: number
-    private NumPrmSector: number
-    private NumPrmArea: number
+    //---------Unmatch-----------//
+    private chanelOneUnMatch: number[];
+    private chanelTwoUnMatch: number[];
     private saveDataUnMatchOne: number[][];
     private saveDataUnMatchTwo: number[][];
+    //--------------------------//
+
+
+    private masterMTC: number
     private dumppi: number[][];
     private reptit: number[];
-    private lastSeconS2: number;
-    private auxPZoneA: number[][];
-    private auxPZoneB: number[][];
-    ////////////////form S2////////////////////////// 
+   
+    //----------form S2---------------// 
     private pointsAndTimesS2: number[];
     private pointPositionS2: number[];
     private zonesPointsS2: number[];
     private zonesAreaS2: number[];
     private totalAreasS2: number[];
     private totalAreaOrg: number[];
-    ////////////////////////////////////////////////// 
+    private lastSeconS2: number;
+    private auxPZoneA: number[][];
+    private auxPZoneB: number[][];
+    //------------------------------//
 
-    ////////////////form Song////////////////////////// 
-    private zonesAreaSong: number[];
+    //-----------form Song-----------// 
     private zone1: number[][];
     private zone2: number[][];
     private zone3: number[][];
@@ -47,26 +43,30 @@ export class MTC {
     private zone6: number[][];
     private zone7: number[][];
     private zone8: number[][];
-    ////////////////////////////////////////////////// 
+    //------------------------------//
 
     private audioData: any;
     private audioDataAux: any;
 
 
     public constructor() {
-        this.chanelOneUnMatch =[];
-        this.chanelTwoUnMatch =[];
+        //---------Unmatch-----------//
+        this.chanelOneUnMatch = [];
+        this.chanelTwoUnMatch = [];
         this.saveDataUnMatchOne = [];
         this.saveDataUnMatchTwo = [];
+        //------------------------------//
+
+        //---------match-----------//
         this.chanelOne = [];
         this.chanelTwo = [];
+        //------------------------------//
+
         this.masterMTC = 0;
         this.audioData = 0;
-        this.audioDataAux =0;
+        this.audioDataAux = 0;
         this.reptit = [];
-        this.NumPrmArea = 0;
-        this.NumPrmSector = 0;
-        ////////////////form S2////////////////////////// 
+        //------------form S2-----------------// 
         this.totalAreaOrg = [];
         this.pointsAndTimesS2 = [];
         this.pointPositionS2 = [];
@@ -74,11 +74,10 @@ export class MTC {
         this.zonesAreaS2 = [];
         this.totalAreasS2 = [];
         this.lastSeconS2 = 0;
-        ////////////////////////////////////////////////// 
-        ////////////////form Song////////////////////////// 
+        //------------------------------------//
+        //-------------form Song---------------// 
         this.auxPZoneA = [];
         this.auxPZoneB = [];
-        this.zonesAreaSong = [];
         this.zone1 = [];
         this.zone2 = [];
         this.zone3 = [];
@@ -88,10 +87,11 @@ export class MTC {
         this.zone7 = [];
         this.zone8 = [];
         this.dumppi = [];
-        ////////////////////////////////////////////////// 
+        //--------------------------------------//
 
     }
 
+    //----------------------------------------SET------------------------------------------------//
     public setAudioData(pAudioData: any) {
         this.audioData = pAudioData;
         this.audioDataAux = pAudioData;
@@ -140,6 +140,7 @@ export class MTC {
         // console.log("///////////////////////////////////////////////////");
     }
 
+    //------------------------------------------------------------------------------------------------//
 
     public makeMT(pmasterArea: number, pChanel: number) {
 
@@ -151,7 +152,7 @@ export class MTC {
 
     }
 
-    public masterMC(pZoneA: number[][], pZoneB: number[][], pChanel: number) {
+    private masterMC(pZoneA: number[][], pZoneB: number[][], pChanel: number) {
         this.auxPZoneA = pZoneA;
         this.auxPZoneB = pZoneB;
 
@@ -235,7 +236,7 @@ export class MTC {
 
     }
 
-    public getZone(zone: number): (number[][]) {
+    private getZone(zone: number): (number[][]) {
         switch (zone) {
             case 1: {
                 return this.zone1;
@@ -265,21 +266,21 @@ export class MTC {
         return this.dumppi;
     }
 
-    public gps(point: number): number {
-        var nowZone: number;
-        if (point >= 0.75) { nowZone = 1 }
-        else if (point >= 0.5) { nowZone = 2 }
-        else if (point >= 0.25) { nowZone = 3 }
-        else if (point >= 0) { nowZone = 4 }
-        //-----------------------------------------------------------------LINEA CATESIANA X
-        else if (point >= -0.25) { nowZone = 5 }
-        else if (point >= -0.5) { nowZone = 6 }
-        else if (point >= -0.75) { nowZone = 7 }
-        else { nowZone = 8 }
-        return nowZone;
-    }
+    // private gps(point: number): number {
+    //     var nowZone: number;
+    //     if (point >= 0.75) { nowZone = 1 }
+    //     else if (point >= 0.5) { nowZone = 2 }
+    //     else if (point >= 0.25) { nowZone = 3 }
+    //     else if (point >= 0) { nowZone = 4 }
+    //     //-----------------------------------------------------------------LINEA CATESIANA X
+    //     else if (point >= -0.25) { nowZone = 5 }
+    //     else if (point >= -0.5) { nowZone = 6 }
+    //     else if (point >= -0.75) { nowZone = 7 }
+    //     else { nowZone = 8 }
+    //     return nowZone;
+    // }
 
-    public isRepit(point: number): boolean {
+    private isRepit(point: number): boolean {
         var datarepit: boolean = false;
         if (this.reptit.length == 0) {
             return datarepit;
@@ -298,7 +299,7 @@ export class MTC {
     }
 
 
-    public giveTime(pSecond: number) {
+    private giveTime(pSecond: number) {
         var min: string = "";
         var minA: number = 0;
         var seg: number = 0;
@@ -315,17 +316,17 @@ export class MTC {
 
 
 
-    public getAudioDataUnMatch(){
+    public getAudioDataUnMatch() {
         return this.audioDataAux;
     }
 
-    public GetMatchUnOne() {
+    public getMatchUnOne() {
         return this.saveDataUnMatchOne;
 
     }
-   
 
-    public GetMatchUnTwo() {
+
+    public getMatchUnTwo() {
         return this.saveDataUnMatchTwo;
 
     }
@@ -339,7 +340,7 @@ export class MTC {
         return this.chanelTwo;
     }
 
-    public buildMatch(pChanel: number, pAudioData: any, pStart: number, pFinal: number) {
+    private buildMatch(pChanel: number, pAudioData: any, pStart: number, pFinal: number) {
         var point: number;
         var savePoint = [];
         savePoint.push(pStart);
@@ -353,7 +354,7 @@ export class MTC {
 
         for (var i = pStart; i < (pFinal); i++) {
             point = pAudioData.channelData[pChanel][i];//punto 
-           
+
             if (pChanel == 0) {
                 this.chanelOne.push(point);
             } else {
@@ -365,30 +366,26 @@ export class MTC {
     }
 
 
-    public MakeUnMacht(pChanel:number){
+    public MakeUnMacht(pChanel: number) {
         var point: number;//temp para guardar los datos de una zona 
-         
-
         for (var i = 0; i < this.audioData.channelData[pChanel].length - 1; i++) {
             point = this.audioData.channelData[pChanel][i];//punto 
-            if(point!==-7){
+            if (point !== -7) {
                 if (pChanel == 0) {
                     this.chanelOneUnMatch.push(point);
                 } else {
                     this.chanelTwoUnMatch.push(point);
                 }
             }
-           
-       }
-
+        }
     }
 
-    public GetUnMatchOne() {
+    public getUnMatchOne() {
         return this.chanelOneUnMatch;
 
     }
 
-    public GetUnMatchTwo() {
+    public getUnMatchTwo() {
         return this.chanelTwoUnMatch;
     }
 

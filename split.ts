@@ -29,9 +29,7 @@ export class splits {
 
 
     public constructor(pAudioData: any) {
-
-        this.audioData = pAudioData;
-
+         this.audioData = pAudioData;
         ////////////////form Song////////////////////////// 
         this.zoneA = [];
         this.zoneB = [];
@@ -157,7 +155,7 @@ export class splits {
 
 
     //determina en que zona se encantra cada punto guardado de S2(se guarda un punto cada segundo )
-    public loadZoneS2(pChanel:number) {
+    private loadZoneS2(pChanel:number) {
         var nowZone: number = 0;//zona actual
         var point: number;//punto 
 
@@ -182,7 +180,7 @@ export class splits {
 
 
     //calcula el area de cada sub-zona de S2
-    public areaS2() {
+    private areaS2() {
 
         var clasesarea = new areas();//area de S2 segun datos
         var auxArea: number = 0;
